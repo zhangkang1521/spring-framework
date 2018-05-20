@@ -386,8 +386,10 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throws BeanDefinitionStoreException {
 		try {
 			int validationMode = getValidationModeForResource(resource);
+			// 读取xml到Document
 			Document doc = this.documentLoader.loadDocument(
 					inputSource, getEntityResolver(), this.errorHandler, validationMode, isNamespaceAware());
+			// 将dom转换成spring内部的数据接口BeanDefinition
 			return registerBeanDefinitions(doc, resource);
 		}
 		catch (BeanDefinitionStoreException ex) {
@@ -493,7 +495,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		documentReader.setEnvironment(getEnvironment());
 		int countBefore = getRegistry().getBeanDefinitionCount();
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
-		return getRegistry().getBeanDefinitionCount() - countBefore;
+		return getRegistry().getBeanDefinitionCount() - countBefore; // 统计注册了多少个BeanDefinition
 	}
 
 	/**

@@ -137,7 +137,7 @@ public class FileSystemXmlApplicationContext extends AbstractXmlApplicationConte
 		super(parent);
 		setConfigLocations(configLocations);
 		if (refresh) {
-			refresh();
+			refresh(); // 启动spring容器
 		}
 	}
 

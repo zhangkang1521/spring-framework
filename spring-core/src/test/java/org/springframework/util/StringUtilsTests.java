@@ -448,6 +448,12 @@ public class StringUtilsTests {
 	}
 
 	@Test
+	public void testTokenizeToStringArray2() {
+		String[] sa = StringUtils.tokenizeToStringArray("a,b，c d	d", ",，");
+
+	}
+
+	@Test
 	public void testTokenizeToStringArrayWithNotIgnoreEmptyTokens() {
 		String[] sa = StringUtils.tokenizeToStringArray("a,b , ,c", ",", true, false);
 		assertEquals(4, sa.length);

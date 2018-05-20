@@ -202,6 +202,7 @@ public abstract class CollectionUtils {
 	 * @param source the source Collection
 	 * @param candidates the candidates to search for
 	 * @return the first present object, or {@code null} if not found
+	 * 检查容器bean名称是否重复用到
 	 */
 	public static Object findFirstMatch(Collection source, Collection candidates) {
 		if (isEmpty(source) || isEmpty(candidates)) {
