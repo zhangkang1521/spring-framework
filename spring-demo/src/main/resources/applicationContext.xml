@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean class="org.zk.domain.User"></bean>
+
+  <!--  <bean id="user" class="org.zk.domain.User">
+        &lt;!&ndash;<constructor-arg name="id" value="100"/>
+        <constructor-arg name="username" value="zk"/>&ndash;&gt;
+        &lt;!&ndash;<property name="username" value="zk"/>&ndash;&gt;
+    </bean>-->
+
+    <!--<bean id="userService" class="org.zk.service.UserService">-->
+        <!--<lookup-method name="getNewUser" bean="user"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="payService" class="org.zk.service.PayService" autowire="byType">
+    </bean>
+
+    <bean id="ccbService" class="org.zk.service.bank.CcbService">
+
+    </bean>
+
+    <bean id="cgbService" class="org.zk.service.bank.CgbService">
+
+    </bean>-->
+
+    <!--<bean id="sayHelloService" class="org.zk.service.SayHelloService">
+        <replaced-method name="sayHello" replacer="sayHelloReplace"></replaced-method>
+    </bean>
+
+    <bean id="sayHelloReplace" class="org.zk.service.SayHelloReplace"></bean>-->
+
+</beans>
+
+
+

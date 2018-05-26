@@ -472,7 +472,7 @@ public class BeanDefinitionParserDelegate {
 
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
-			if (!StringUtils.hasText(beanName)) {
+			if (!StringUtils.hasText(beanName)) { // 没有设置id,alias,则自动生成一个名字
 				try {
 					if (containingBean != null) {
 						beanName = BeanDefinitionReaderUtils.generateBeanName(
@@ -549,15 +549,15 @@ public class BeanDefinitionParserDelegate {
 			}
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
-			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
+			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd); // 获取属性, lazy-init scope 等
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
-			parseMetaElements(ele, bd);
-			parseLookupOverrideSubElements(ele, bd.getMethodOverrides());
-			parseReplacedMethodSubElements(ele, bd.getMethodOverrides());
+			parseMetaElements(ele, bd); // 不知道有什么用
+			parseLookupOverrideSubElements(ele, bd.getMethodOverrides()); // lookup-method
+			parseReplacedMethodSubElements(ele, bd.getMethodOverrides()); // replaced-method
 
-			parseConstructorArgElements(ele, bd);
-			parsePropertyElements(ele, bd);
+			parseConstructorArgElements(ele, bd); // 构造函数
+			parsePropertyElements(ele, bd); // eg: <property name="username" value="zk"/>
 			parseQualifierElements(ele, bd);
 
 			bd.setResource(this.readerContext.getResource());
@@ -616,10 +616,10 @@ public class BeanDefinitionParserDelegate {
 		if (DEFAULT_VALUE.equals(lazyInit)) {
 			lazyInit = this.defaults.getLazyInit();
 		}
-		bd.setLazyInit(TRUE_VALUE.equals(lazyInit));
+		bd.setLazyInit(TRUE_VALUE.equals(lazyInit)); // 延迟初始化
 
 		String autowire = ele.getAttribute(AUTOWIRE_ATTRIBUTE);
-		bd.setAutowireMode(getAutowireMode(autowire));
+		bd.setAutowireMode(getAutowireMode(autowire)); // autowired: byType byName no
 
 		String dependencyCheck = ele.getAttribute(DEPENDENCY_CHECK_ATTRIBUTE);
 		bd.setDependencyCheck(getDependencyCheck(dependencyCheck));
@@ -901,7 +901,7 @@ public class BeanDefinitionParserDelegate {
 	 * Parse a property element.
 	 */
 	public void parsePropertyElement(Element ele, BeanDefinition bd) {
-		String propertyName = ele.getAttribute(NAME_ATTRIBUTE);
+		String propertyName = ele.getAttribute(NAME_ATTRIBUTE); // eg: <property name="username" value="zk"/>
 		if (!StringUtils.hasLength(propertyName)) {
 			error("Tag 'property' must have a 'name' attribute", ele);
 			return;
@@ -1008,7 +1008,7 @@ public class BeanDefinitionParserDelegate {
 			ref.setSource(extractSource(ele));
 			return ref;
 		}
-		else if (hasValueAttribute) {
+		else if (hasValueAttribute) { // 值属性
 			TypedStringValue valueHolder = new TypedStringValue(ele.getAttribute(VALUE_ATTRIBUTE));
 			valueHolder.setSource(extractSource(ele));
 			return valueHolder;

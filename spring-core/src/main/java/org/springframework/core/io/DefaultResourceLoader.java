@@ -114,6 +114,7 @@ public class DefaultResourceLoader implements ResourceLoader {
 	 * @see org.springframework.web.context.support.XmlWebApplicationContext#getResourceByPath
 	 */
 	protected Resource getResourceByPath(String path) {
+		// 默认使用ClassPathResource,被FileSystemXmlApplicationContext覆盖为FileSystemResource
 		return new ClassPathContextResource(path, getClassLoader());
 	}
 

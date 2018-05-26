@@ -1,5 +1,7 @@
 package org.zk;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zk.domain.User;
 
@@ -8,8 +10,6 @@ import org.zk.domain.User;
  */
 public class SpringDemo {
     public static void main(String[] args) {
-        FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext("E:/applicationContext.xml");
-        User user = ctx.getBean("user", User.class);
-        System.out.println(user);
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
     }
 }

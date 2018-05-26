@@ -109,6 +109,7 @@ public abstract class DomUtils {
 	 * @param ele the DOM element to analyze
 	 * @param childEleName the child element name to look for
 	 * @return the extracted text value, or {@code null} if no child element found
+	 * 1.bean获取description信息
 	 */
 	public static String getChildElementValueByTagName(Element ele, String childEleName) {
 		Element child = getChildElementByTagName(ele, childEleName);

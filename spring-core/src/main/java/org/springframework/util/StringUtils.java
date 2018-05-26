@@ -813,6 +813,7 @@ public abstract class StringUtils {
 	 * @param collection the Collection to copy
 	 * @return the String array ({@code null} if the passed-in
 	 * Collection was {@code null})
+	 * 集合到数组
 	 */
 	public static String[] toStringArray(Collection<String> collection) {
 		if (collection == null) {
@@ -956,6 +957,7 @@ public abstract class StringUtils {
 	 * @see java.util.StringTokenizer
 	 * @see String#trim()
 	 * @see #delimitedListToStringArray
+	 * spring容器读取alias中可以用,; 分隔名称
 	 */
 	public static String[] tokenizeToStringArray(String str, String delimiters) {
 		return tokenizeToStringArray(str, delimiters, true, true);
