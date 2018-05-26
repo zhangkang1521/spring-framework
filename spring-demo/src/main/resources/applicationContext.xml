@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="org.zk.domain.User"></bean>
+    <bean id="user" class="org.zk.domain.User"></bean>
 
   <!--  <bean id="user" class="org.zk.domain.User">
         &lt;!&ndash;<constructor-arg name="id" value="100"/>
