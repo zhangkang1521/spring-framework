@@ -21,10 +21,11 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = ctx.getBean("user", User.class);
-        User user2 = ctx.getBean("user", User.class);
-//        PayService payService = ctx.getBean("payService", PayService.class);
-//        BankService b = ctx.getBean("ccbService", CcbService.class);
+        Object user = ctx.getBean("user");
+//        User user2 = ctx.getBean("user", User.class);
+//        System.out.println(user);
+//        System.out.println(user2);
+//        User user2 = ctx.getBean("user", User.class);
     }
 
     @Test

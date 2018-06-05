@@ -84,7 +84,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 					}
 				}
 			}
-			return BeanUtils.instantiateClass(constructorToUse);
+			return BeanUtils.instantiateClass(constructorToUse); // 使用构造函数初始化
 		}
 		else {
 			// Must generate CGLIB subclass.
@@ -157,7 +157,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 			Method priorInvokedFactoryMethod = currentlyInvokedFactoryMethod.get();
 			try {
 				currentlyInvokedFactoryMethod.set(factoryMethod);
-				return factoryMethod.invoke(factoryBean, args);
+				return factoryMethod.invoke(factoryBean, args); // 调用工厂方法
 			}
 			finally {
 				if (priorInvokedFactoryMethod != null) {

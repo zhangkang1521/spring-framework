@@ -1,4 +1,4 @@
-package org.zk.dom;
+package org.zk.tech;
 
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;

@@ -145,7 +145,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	private boolean abstractFlag = false;
 
-	private boolean lazyInit = false;
+	private boolean lazyInit = false; // 默认值
 
 	private int autowireMode = AUTOWIRE_NO;
 

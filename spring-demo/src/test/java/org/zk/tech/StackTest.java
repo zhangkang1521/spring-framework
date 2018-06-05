@@ -1,4 +1,4 @@
-package org.zk.other;
+package org.zk.tech;
 
 import org.junit.Test;
 
@@ -19,4 +19,6 @@ public class StackTest {
         stack.add(2, "b");
         System.out.println(stack);
     }
+
+
 }

@@ -109,7 +109,7 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 			Enhancer enhancer = new Enhancer();
 			enhancer.setSuperclass(this.beanDefinition.getBeanClass());
 			enhancer.setNamingPolicy(SpringNamingPolicy.INSTANCE);
-			enhancer.setCallbackFilter(new CallbackFilterImpl());
+			enhancer.setCallbackFilter(new CallbackFilterImpl()); // 这里决定进入哪一个callback
 			enhancer.setCallbacks(new Callback[] {
 					NoOp.INSTANCE,
 					new LookupOverrideMethodInterceptor(),
@@ -155,6 +155,7 @@ public class CglibSubclassingInstantiationStrategy extends SimpleInstantiationSt
 
 			public Object intercept(Object obj, Method method, Object[] args, MethodProxy mp) throws Throwable {
 				// Cast is safe, as CallbackFilter filters are used selectively.
+				// look-up method 会执行这里
 				LookupOverride lo = (LookupOverride) beanDefinition.getMethodOverrides().getOverride(method);
 				return owner.getBean(lo.getBeanName());
 			}
