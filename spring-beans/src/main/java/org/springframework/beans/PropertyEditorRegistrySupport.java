@@ -91,11 +91,11 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 
 	private boolean configValueEditorsActive = false;
 
-	private Map<Class<?>, PropertyEditor> defaultEditors;
+	private Map<Class<?>, PropertyEditor> defaultEditors; // 所有默认的PropertyEditor
 
 	private Map<Class<?>, PropertyEditor> overriddenDefaultEditors;
 
-	private Map<Class<?>, PropertyEditor> customEditors;
+	private Map<Class<?>, PropertyEditor> customEditors; // 自定义的PropertyEditor
 
 	private Map<String, CustomEditorHolder> customEditorsForPath;
 
@@ -186,6 +186,8 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 	 * Actually register the default editors for this registry instance.
 	 */
 	private void createDefaultEditors() {
+		// 默认的PropertyEditor
+
 		this.defaultEditors = new HashMap<Class<?>, PropertyEditor>(64);
 
 		// Simple editors, without parameterization capabilities.
@@ -407,7 +409,7 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 			return null;
 		}
 		// Check directly registered editor for type.
-		PropertyEditor editor = this.customEditors.get(requiredType);
+		PropertyEditor editor = this.customEditors.get(requiredType); // 获取自定义的PropertyEditor
 		if (editor == null) {
 			// Check cached editor for type, registered for superclass or interface.
 			if (this.customEditorCache != null) {

@@ -1,9 +1,5 @@
 package org.zk.domain;
 
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
-
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,7 +23,6 @@ public class User {
         this.username = username;
     }
 
-    @Async
     public void sayHello() {
         System.out.println(Thread.currentThread());
     }

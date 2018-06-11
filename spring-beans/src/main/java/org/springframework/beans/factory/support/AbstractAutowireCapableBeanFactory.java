@@ -1386,7 +1386,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		if (pvs instanceof MutablePropertyValues) { // 恩，走这里
 			mpvs = (MutablePropertyValues) pvs;
-			if (mpvs.isConverted()) {
+			if (mpvs.isConverted()) { // false
 				// Shortcut: use the pre-converted values as-is.
 				try {
 					bw.setPropertyValues(mpvs);
@@ -1403,7 +1403,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			original = Arrays.asList(pvs.getPropertyValues());
 		}
 
-		TypeConverter converter = getCustomTypeConverter();
+		TypeConverter converter = getCustomTypeConverter(); //
 		if (converter == null) {
 			converter = bw;
 		}
@@ -1412,19 +1412,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Create a deep copy, resolving any references for values.
 		List<PropertyValue> deepCopy = new ArrayList<PropertyValue>(original.size());
 		boolean resolveNecessary = false;
-		for (PropertyValue pv : original) {
+		for (PropertyValue pv : original) { // 循环处理每个属性
 			if (pv.isConverted()) {
 				deepCopy.add(pv);
 			}
 			else {
 				String propertyName = pv.getName();
 				Object originalValue = pv.getValue();
-				Object resolvedValue = valueResolver.resolveValueIfNecessary(pv, originalValue); // 创建依赖的数据，对应不同的数据类型
+				Object resolvedValue = valueResolver.resolveValueIfNecessary(pv, originalValue); // 创建依赖的数据
 				Object convertedValue = resolvedValue;
 				boolean convertible = bw.isWritableProperty(propertyName) &&
 						!PropertyAccessorUtils.isNestedOrIndexedProperty(propertyName);
 				if (convertible) {
-					convertedValue = convertForProperty(resolvedValue, propertyName, bw, converter);
+					convertedValue = convertForProperty(resolvedValue, propertyName, bw, converter); // 转换到正确的类型
 				}
 				// Possibly store converted value in merged bean definition,
 				// in order to avoid re-conversion for every created bean instance.

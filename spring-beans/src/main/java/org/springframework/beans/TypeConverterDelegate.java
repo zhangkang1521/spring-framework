@@ -147,7 +147,8 @@ class TypeConverterDelegate {
 		Object convertedValue = newValue;
 
 		// Custom editor for this type?
-		PropertyEditor editor = this.propertyEditorRegistry.findCustomEditor(requiredType, propertyName);
+		// 这里的propertyEditorRegistry就是BeanWrapper
+		PropertyEditor editor = this.propertyEditorRegistry.findCustomEditor(requiredType, propertyName); // 自定义的PropertyEditor
 
 		ConversionFailedException firstAttemptEx = null;
 
@@ -176,9 +177,9 @@ class TypeConverterDelegate {
 				}
 			}
 			if (editor == null) {
-				editor = findDefaultEditor(requiredType);
+				editor = findDefaultEditor(requiredType); // 查询默认初始化的PropertyEditor
 			}
-			convertedValue = doConvertValue(oldValue, convertedValue, requiredType, editor);
+			convertedValue = doConvertValue(oldValue, convertedValue, requiredType, editor); // 调用PropertyEditor转换成对的类型
 		}
 
 		boolean standardConversion = false;
@@ -452,7 +453,7 @@ class TypeConverterDelegate {
 			}
 			// Swallow and proceed.
 		}
-		editor.setAsText(newTextValue);
+		editor.setAsText(newTextValue); // 调用PropertyEditor接口的setAsText方法
 		return editor.getValue();
 	}
 

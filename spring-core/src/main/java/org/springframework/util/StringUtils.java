@@ -205,6 +205,7 @@ public abstract class StringUtils {
 	}
 
 	/**
+	 * 把所有的空格都去掉，包括字符中间的
 	 * Trim <i>all</i> whitespace from the given String:
 	 * leading, trailing, and in between characters.
 	 * @param str the String to check
