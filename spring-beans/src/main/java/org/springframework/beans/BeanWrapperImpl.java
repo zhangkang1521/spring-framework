@@ -93,7 +93,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 
 
 	/** The wrapped object */
-	private Object object;
+	private Object object; // 被包装的的对象
 
 	private String nestedPath = "";
 
@@ -1132,7 +1132,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 					}
 				}
 				else {
-					writeMethod.invoke(this.object, value);
+					writeMethod.invoke(this.object, value); // 调用set方法
 				}
 			}
 			catch (TypeMismatchException ex) {

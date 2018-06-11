@@ -23,6 +23,7 @@ package org.springframework.beans.factory;
  * <p>The corresponding {@code setParentBeanFactory} method for bean
  * factories that allow setting the parent in a configurable
  * fashion can be found in the ConfigurableBeanFactory interface.
+ * 层级的，支持父容器
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

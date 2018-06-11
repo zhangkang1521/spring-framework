@@ -15,5 +15,7 @@ configurations.all {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile("org.slf4j:jcl-over-slf4j:1.7.6",
-            "ch.qos.logback:logback-classic:1.1.8")
+            "ch.qos.logback:logback-classic:1.1.8",
+            "org.hibernate:hibernate-validator:4.3.1.Final")
+
 }

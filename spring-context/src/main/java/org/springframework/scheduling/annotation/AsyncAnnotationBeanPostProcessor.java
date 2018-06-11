@@ -40,6 +40,7 @@ import org.springframework.util.Assert;
  *
  * <p>Note: The underlying async advisor applies before existing advisors by default,
  * in order to switch to async execution as early as possible in the invocation chain.
+ * 异步
  *
  * @author Mark Fisher
  * @author Juergen Hoeller

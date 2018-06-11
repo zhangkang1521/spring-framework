@@ -152,7 +152,7 @@ class BeanDefinitionValueResolver {
 			}
 			return resolveManagedArray(argName, (List<?>) value, elementType);
 		}
-		else if (value instanceof ManagedList) {
+		else if (value instanceof ManagedList) { // property是list
 			// May need to resolve contained runtime references.
 			return resolveManagedList(argName, (List<?>) value);
 		}
@@ -325,7 +325,7 @@ class BeanDefinitionValueResolver {
 				return this.beanFactory.getParentBeanFactory().getBean(refName);
 			}
 			else {
-				Object bean = this.beanFactory.getBean(refName);
+				Object bean = this.beanFactory.getBean(refName); // 获取依赖的bean
 				this.beanFactory.registerDependentBean(refName, this.beanName);
 				return bean;
 			}

@@ -1,19 +1,39 @@
 package org.zk.domain;
 
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
+
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by Administrator on 5/20/2018.
  */
 public class User {
     private int id;
+
     private String username;
+    private List<String> interests;
+
+
+    private Car car;
 
     public User() {
-
+        System.out.println("User()");
     }
 
     public User(int id, String username) {
         this.id = id;
         this.username = username;
+    }
+
+    @Async
+    public void sayHello() {
+        System.out.println(Thread.currentThread());
+    }
+
+    public void sayHello2() {
+        System.out.println(Thread.currentThread());
     }
 
     public int getId() {
@@ -32,5 +52,20 @@ public class User {
         this.username = username;
     }
 
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public List<String> getInterests() {
+        return interests;
+    }
+
+    public void setInterests(List<String> interests) {
+        this.interests = interests;
+    }
 
 }

@@ -128,6 +128,7 @@ import org.springframework.util.StringUtils;
  * <p><b>NOTE:</b> Annotation injection will be performed <i>before</i> XML injection; thus
  * the latter configuration will override the former for properties wired through
  * both approaches.
+ * 使用<context:annotation-config />会将这个bean注册
  *
  * @author Juergen Hoeller
  * @since 2.5
@@ -190,7 +191,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 	 */
 	public CommonAnnotationBeanPostProcessor() {
 		setOrder(Ordered.LOWEST_PRECEDENCE - 3);
-		setInitAnnotationType(PostConstruct.class);
+		setInitAnnotationType(PostConstruct.class); // 调用有这2个注解的方法
 		setDestroyAnnotationType(PreDestroy.class);
 		ignoreResourceType("javax.xml.ws.WebServiceContext");
 	}

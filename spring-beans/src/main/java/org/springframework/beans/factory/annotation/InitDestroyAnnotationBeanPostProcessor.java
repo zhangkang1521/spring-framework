@@ -145,7 +145,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 	public void postProcessBeforeDestruction(Object bean, String beanName) throws BeansException {
 		LifecycleMetadata metadata = findLifecycleMetadata(bean.getClass());
 		try {
-			metadata.invokeDestroyMethods(bean, beanName);
+			metadata.invokeDestroyMethods(bean, beanName); // 调用@PreDestroy修饰的方法
 		}
 		catch (InvocationTargetException ex) {
 			String msg = "Invocation of destroy method failed on bean with name '" + beanName + "'";
@@ -163,7 +163,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 
 
 	private LifecycleMetadata findLifecycleMetadata(Class<?> clazz) {
-		if (this.lifecycleMetadataCache == null) {
+		if (this.lifecycleMetadataCache == null) { // 在初始化每个bean的时候放进去的
 			// Happens after deserialization, during destruction...
 			return buildLifecycleMetadata(clazz);
 		}
@@ -193,7 +193,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 			LinkedList<LifecycleElement> currDestroyMethods = new LinkedList<LifecycleElement>();
 			for (Method method : targetClass.getDeclaredMethods()) {
 				if (this.initAnnotationType != null) {
-					if (method.getAnnotation(this.initAnnotationType) != null) {
+					if (method.getAnnotation(this.initAnnotationType) != null) { // 初始化方法
 						LifecycleElement element = new LifecycleElement(method);
 						currInitMethods.add(element);
 						if (debug) {
@@ -292,7 +292,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 					if (debug) {
 						logger.debug("Invoking init method on bean '" + beanName + "': " + element.getMethod());
 					}
-					element.invoke(target);
+					element.invoke(target); // 调用@PostConstruct修饰的方法
 				}
 			}
 		}

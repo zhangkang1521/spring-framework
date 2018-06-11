@@ -217,7 +217,7 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 
 	public void destroy() {
 		if (this.beanPostProcessors != null && !this.beanPostProcessors.isEmpty()) {
-			for (DestructionAwareBeanPostProcessor processor : this.beanPostProcessors) {
+			for (DestructionAwareBeanPostProcessor processor : this.beanPostProcessors) { // @PreDestroy的方法
 				processor.postProcessBeforeDestruction(this.bean, this.beanName);
 			}
 		}
@@ -236,7 +236,7 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 					}, acc);
 				}
 				else {
-					((DisposableBean) bean).destroy();
+					((DisposableBean) bean).destroy(); // 回调destroy
 				}
 			}
 			catch (Throwable ex) {
@@ -251,7 +251,7 @@ class DisposableBeanAdapter implements DisposableBean, Runnable, Serializable {
 		}
 
 		if (this.destroyMethod != null) {
-			invokeCustomDestroyMethod(this.destroyMethod);
+			invokeCustomDestroyMethod(this.destroyMethod); // xml配的destroy-method
 		}
 		else if (this.destroyMethodName != null) {
 			Method methodToCall = determineDestroyMethod();

@@ -100,6 +100,7 @@ public class BeanValidationPostProcessor implements BeanPostProcessor, Initializ
 	 * @see javax.validation.Validator#validate
 	 */
 	protected void doValidate(Object bean) {
+		// 校验
 		Set<ConstraintViolation<Object>> result = this.validator.validate(bean);
 		if (!result.isEmpty()) {
 			StringBuilder sb = new StringBuilder("Bean state is invalid: ");

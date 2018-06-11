@@ -52,6 +52,7 @@ import org.springframework.validation.annotation.Validated;
  * In Spring 4.0, this class will autodetect a Bean Validation 1.1 compliant provider
  * (such as Hibernate Validator 5.0) and automatically use the standard method
  * validation support when available.
+ * 方法验证，使用代理实现
  *
  * @author Juergen Hoeller
  * @since 3.1

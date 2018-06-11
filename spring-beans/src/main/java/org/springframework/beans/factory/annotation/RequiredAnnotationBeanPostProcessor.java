@@ -143,6 +143,7 @@ public class RequiredAnnotationBeanPostProcessor extends InstantiationAwareBeanP
 			if (!shouldSkip(this.beanFactory, beanName)) {
 				List<String> invalidProperties = new ArrayList<String>();
 				for (PropertyDescriptor pd : pds) {
+					// 检查是否有@Required注解
 					if (isRequiredProperty(pd) && !pvs.contains(pd.getName())) {
 						invalidProperties.add(pd.getName());
 					}

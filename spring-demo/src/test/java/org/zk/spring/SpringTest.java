@@ -21,12 +21,23 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        Object user = ctx.getBean("user");
-//        User user2 = ctx.getBean("user", User.class);
+        User user = ctx.getBean("user", User.class);
+//        user.sayHello(null);
 //        System.out.println(user);
-//        System.out.println(user2);
-//        User user2 = ctx.getBean("user", User.class);
     }
+
+
+
+    public static void main(String[] args) throws Exception{
+        final ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        User user = ctx.getBean("user", User.class);
+        for (int i = 0; i < 1; i++) {
+            user.sayHello();
+            user.sayHello2();
+        }
+
+    }
+
 
     @Test
     public void testLookUpMethod() {
