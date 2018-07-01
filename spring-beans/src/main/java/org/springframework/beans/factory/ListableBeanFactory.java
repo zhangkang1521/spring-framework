@@ -46,6 +46,7 @@ import org.springframework.beans.BeansException;
  * <p><b>NOTE:</b> With the exception of {@code getBeanDefinitionCount}
  * and {@code containsBeanDefinition}, the methods in this interface
  * are not designed for frequent invocation. Implementations may be slow.
+ * 根据各种条件获取Bean
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

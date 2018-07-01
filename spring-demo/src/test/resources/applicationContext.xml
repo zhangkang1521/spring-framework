@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <bean id="user" class="org.zk.domain.User" lazy-init="true">
-        <property name="id" value="100"/>
-        <!--<property name="username" value="zk"/>-->
-        <!--<property name="interests">-->
-        <!--<list>-->
-        <!--<value>book</value>-->
-        <!--<value>music</value>-->
-        <!--</list>-->
-        <!--</property>-->
-        <property name="car" value="BMW,1000"/>
-    </bean>
 
-    <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-        <property name="customEditors">
-            <map>
-                <entry key="org.zk.domain.Car">
-                    <bean class="org.zk.domain.CustomCarEditor"/>
-                </entry>
-            </map>
-        </property>
+    <bean id="car" class="org.zk.domain.Car">
     </bean>
 
 
-    <!--<context:annotation-config />-->
+    <bean id="user1" class="org.zk.domain.User">
+        <property name="car" ref="car"/>
+    </bean>
+
+
+    <import resource="classpath:spring-jdbc.xml"/>
+
+
+
+
+    <!--<bean id="car1" class="org.zk.domain.Car" lazy-init="true">-->
+        <!--<property name="brand" value="car1"></property>-->
+    <!--</bean>-->
+
+
+
+    <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+    <!--<property name="customEditors">-->
+    <!--<map>-->
+    <!--<entry key="org.zk.domain.Car">-->
+    <!--<bean class="org.zk.domain.CustomCarEditor"/>-->
+    <!--</entry>-->
+    <!--</map>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+
     <!--<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
     <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
     <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>-->

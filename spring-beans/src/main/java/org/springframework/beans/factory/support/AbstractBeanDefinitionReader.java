@@ -50,7 +50,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 
 	private final BeanDefinitionRegistry registry;
 
-	private ResourceLoader resourceLoader;
+	private ResourceLoader resourceLoader; // 将资源文件路径转换为Resource
 
 	private ClassLoader beanClassLoader;
 
@@ -204,7 +204,7 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 
 		if (resourceLoader instanceof ResourcePatternResolver) {
 			// Resource pattern matching available.
-			try {
+				try {
 				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location);
 				int loadCount = loadBeanDefinitions(resources);
 				if (actualResources != null) {

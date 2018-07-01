@@ -1,16 +1,24 @@
 package org.zk.spring;
 
 import org.junit.Test;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.zk.domain.Car;
 import org.zk.domain.User;
-import org.zk.service.PayService;
 import org.zk.service.SayHelloService;
 import org.zk.service.UserService;
-import org.zk.service.bank.BankService;
-import org.zk.service.bank.CcbService;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Map;
 
 
 /**
@@ -21,21 +29,16 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = ctx.getBean("user", User.class);
-//        user.sayHello(null);
-//        System.out.println(user);
+        Object user1 = ctx.getBean("user1");
+        Object user2 = ctx.getBean("user2");
     }
 
-
-
-    public static void main(String[] args) throws Exception{
-        final ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = ctx.getBean("user", User.class);
-        for (int i = 0; i < 1; i++) {
-            user.sayHello();
-            user.sayHello2();
-        }
-
+    @Test
+    public void testXmlBeanFactory() throws Exception {
+        Resource resource = new ClassPathResource("applicationContext.xml");
+        BeanFactory beanFactory = new XmlBeanFactory(resource);
+        User user = (User)beanFactory.getBean("user");
+        System.out.println(user);
     }
 
 

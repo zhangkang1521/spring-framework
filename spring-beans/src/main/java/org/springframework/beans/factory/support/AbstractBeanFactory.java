@@ -278,7 +278,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				checkMergedBeanDefinition(mbd, beanName, args);
 
 				// Guarantee initialization of beans that the current bean depends on.
-				String[] dependsOn = mbd.getDependsOn(); // todo
+				// 检查依赖的bean
+				String[] dependsOn = mbd.getDependsOn();
 				if (dependsOn != null) {
 					for (String dependsOnBean : dependsOn) {
 						getBean(dependsOnBean);
@@ -1021,6 +1022,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * @return the transformed bean name
 	 */
 	protected String transformedBeanName(String name) {
+		// 如果是别名，返回真正的名字
 		return canonicalName(BeanFactoryUtils.transformedBeanName(name));
 	}
 

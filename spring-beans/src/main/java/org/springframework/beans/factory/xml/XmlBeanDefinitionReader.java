@@ -114,6 +114,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	private NamespaceHandlerResolver namespaceHandlerResolver;
 
+	// 将Resource转换为Document
 	private DocumentLoader documentLoader = new DefaultDocumentLoader();
 
 	private EntityResolver entityResolver;
@@ -328,6 +329,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 		try {
 			InputStream inputStream = encodedResource.getResource().getInputStream();
 			try {
+				// 这里的InputSource来自org.xml.sax
 				InputSource inputSource = new InputSource(inputStream);
 				if (encodedResource.getEncoding() != null) {
 					inputSource.setEncoding(encodedResource.getEncoding());
@@ -385,6 +387,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	protected int doLoadBeanDefinitions(InputSource inputSource, Resource resource)
 			throws BeanDefinitionStoreException {
 		try {
+			// 获取验证模式 DTD XSD
 			int validationMode = getValidationModeForResource(resource);
 			// 读取xml到Document
 			Document doc = this.documentLoader.loadDocument(

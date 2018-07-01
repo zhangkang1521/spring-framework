@@ -55,6 +55,7 @@ public class SimpleAliasRegistry implements AliasRegistry {
 							name + "': It is already registered for name '" + registeredName + "'.");
 				}
 			}
+			// 检查循环依赖 如果存在 b -> a , a -> c 再注册 c -> b 就会报错
 			checkForAliasCircle(name, alias);
 			this.aliasMap.put(alias, name);
 		}

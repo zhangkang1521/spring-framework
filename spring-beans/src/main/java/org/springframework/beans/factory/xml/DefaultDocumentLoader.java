@@ -71,6 +71,7 @@ public class DefaultDocumentLoader implements DocumentLoader {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Using JAXP provider [" + factory.getClass().getName() + "]");
 		}
+		// entityResolver用于本地查找xsd，不用去网络下载
 		DocumentBuilder builder = createDocumentBuilder(factory, entityResolver, errorHandler);
 		return builder.parse(inputSource);
 	}

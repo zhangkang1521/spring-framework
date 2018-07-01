@@ -79,6 +79,7 @@ public class XmlValidationModeDetector {
 
 
 	/**
+	 * xml验证模式 DTD XSD
 	 * Detect the validation mode for the XML document in the supplied {@link InputStream}.
 	 * Note that the supplied {@link InputStream} is closed by this method before returning.
 	 * @param inputStream the InputStream to parse
@@ -97,6 +98,7 @@ public class XmlValidationModeDetector {
 				if (this.inComment || !StringUtils.hasText(content)) {
 					continue;
 				}
+				// 如果含有DOCTYPE字样则表示是DTD验证模式
 				if (hasDoctype(content)) {
 					isDtdValidated = true;
 					break;

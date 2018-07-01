@@ -110,7 +110,7 @@ public class FileSystemResource extends AbstractResource implements WritableReso
 	 * @see java.io.FileInputStream
 	 */
 	public InputStream getInputStream() throws IOException {
-		return new FileInputStream(this.file);
+		return new FileInputStream(this.file); // 这里很简单
 	}
 
 	/**

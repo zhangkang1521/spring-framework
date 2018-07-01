@@ -604,6 +604,7 @@ public abstract class StringUtils {
 	 * inner simple dots.
 	 * <p>The result is convenient for path comparison. For other uses,
 	 * notice that Windows separators ("\") are replaced by simple slashes.
+	 * ClassPathResource构造函数中用到
 	 * @param path the original path
 	 * @return the normalized path
 	 */

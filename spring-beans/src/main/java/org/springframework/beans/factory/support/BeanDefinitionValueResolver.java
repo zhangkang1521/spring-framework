@@ -103,7 +103,7 @@ class BeanDefinitionValueResolver {
 	public Object resolveValueIfNecessary(Object argName, Object value) {
 		// We must check each value to see whether it requires a runtime reference
 		// to another bean to be resolved.
-		if (value instanceof RuntimeBeanReference) {
+		if (value instanceof RuntimeBeanReference) { // 依赖一个bean
 			RuntimeBeanReference ref = (RuntimeBeanReference) value;
 			return resolveReference(argName, ref);
 		}
@@ -128,7 +128,7 @@ class BeanDefinitionValueResolver {
 					ObjectUtils.getIdentityHexString(bd);
 			return resolveInnerBean(argName, innerBeanName, bd);
 		}
-		else if (value instanceof ManagedArray) {
+		else if (value instanceof ManagedArray) { // 数组
 			// May need to resolve contained runtime references.
 			ManagedArray array = (ManagedArray) value;
 			Class<?> elementType = array.resolvedElementType;
@@ -356,7 +356,7 @@ class BeanDefinitionValueResolver {
 		List<Object> resolved = new ArrayList<Object>(ml.size());
 		for (int i = 0; i < ml.size(); i++) {
 			resolved.add(
-					resolveValueIfNecessary(new KeyedArgName(argName, i), ml.get(i)));
+					resolveValueIfNecessary(new KeyedArgName(argName, i), ml.get(i))); // 递归
 		}
 		return resolved;
 	}
