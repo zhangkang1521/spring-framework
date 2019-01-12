@@ -107,6 +107,7 @@ public class LocalVariableTableParameterNameDiscoverer implements ParameterNameD
 			return NO_DEBUG_INFO_MAP;
 		}
 		try {
+			// asm 读取参数名称
 			ClassReader classReader = new ClassReader(is);
 			Map<Member, String[]> map = new ConcurrentHashMap<Member, String[]>(32);
 			classReader.accept(new ParameterNameDiscoveringVisitor(clazz, map), 0);

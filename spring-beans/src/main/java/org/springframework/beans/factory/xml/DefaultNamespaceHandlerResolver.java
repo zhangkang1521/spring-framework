@@ -64,6 +64,7 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 	private final String handlerMappingsLocation;
 
 	/** Stores the mappings from namespace URI to NamespaceHandler class name / instance */
+	// 自定义命名空间到Handler的映射，如http://www.springframework.org/shcema/context -> ContextNamespaceHandler
 	private volatile Map<String, Object> handlerMappings;
 
 
@@ -116,9 +117,11 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 			return null;
 		}
 		else if (handlerOrClassName instanceof NamespaceHandler) {
+			// 第二次及以后走这里
 			return (NamespaceHandler) handlerOrClassName;
 		}
 		else {
+			// 第一次进这里
 			String className = (String) handlerOrClassName;
 			try {
 				Class<?> handlerClass = ClassUtils.forName(className, this.classLoader);

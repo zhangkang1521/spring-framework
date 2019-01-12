@@ -7,18 +7,19 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.zk.domain.Car;
+import org.zk.aop.MyTarget;
+import org.zk.convert.String2DateConverter;
 import org.zk.domain.User;
+import org.zk.event.TestEvent;
 import org.zk.service.SayHelloService;
 import org.zk.service.UserService;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Map;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 
 
 /**
@@ -29,8 +30,9 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        Object user1 = ctx.getBean("user1");
-        Object user2 = ctx.getBean("user2");
+        MyTarget myTarget = ctx.getBean("myTarget", MyTarget.class);
+        myTarget.sayHello();
+//        myTarget.sayWorld();
     }
 
     @Test
@@ -70,6 +72,27 @@ public class SpringTest {
     @Test
     public void testAnnotationCtx() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+    }
+
+    @Test
+    public void testMessage() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        Object[] params = {"Mary", new GregorianCalendar().getTime()};
+        System.out.println(ctx.getMessage("test", params, Locale.US));
+        System.out.println(ctx.getMessage("test", params, Locale.CHINA));
+    }
+
+    @Test
+    public void testEvent() {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ctx.publishEvent(new TestEvent("hello", "hello,world"));
+    }
+
+    @Test
+    public void testConvert() {
+        DefaultConversionService conversionService = new DefaultConversionService();
+        conversionService.addConverter(new String2DateConverter());
+        Date date = conversionService.convert("2018-08-19 20:54:00", Date.class);
     }
 
 

@@ -284,6 +284,7 @@ project("spring-demo") {
 		compile(project(":spring-context"))
 		compile(project(":spring-expression"))
 		compile(project(":spring-aop"))
+		compile("org.aspectj:aspectjweaver:${aspectjVersion}")
 		compile(project(":spring-instrument"))
 	}
 }

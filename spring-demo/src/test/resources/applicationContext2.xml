@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        ">
+
+
+
+    <bean id="user" class="org.zk.domain.User" lazy-init="true">
+        <property name="id" value="2"></property>
+    </bean>
+
+
+
+
+    <!--<bean class="org.zk.domain.MyInstantiationAwareBeanPostProcessors"></bean>-->
+
+<!--
+    <bean class="org.zk.domain.MyBeanPostProcessor"></bean>-->
+
+
+
+    <!--<bean id="car" class="org.zk.domain.Car">-->
+        <!--<property name="user" ref="user"></property>-->
+    <!--</bean>-->
+
+
+
+    <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+    <!--<property name="customEditors">-->
+    <!--<map>-->
+    <!--<entry key="org.zk.domain.Car">-->
+    <!--<bean class="org.zk.domain.CustomCarEditor"/>-->
+    <!--</entry>-->
+    <!--</map>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+
+    <!--<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>-->
+
+    <!--<bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor"/>-->
+    <!--<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>-->
+    <!--<bean class="org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor"/>-->
+    <!--<bean class="org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>-->
+
+    <!--<bean class="org.zk.domain.MyBeanPostProcessor"></bean>-->
+
+    <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+         <property name="locations">
+             <array>
+                 <value>classpath:jdbc.properties</value>
+             </array>
+         </property>
+     </bean>-->
+
+
+    <!--<bean id="userService" class="org.zk.service.UserService" lazy-init="true">-->
+    <!--<lookup-method bean="user" name="getNewUser"></lookup-method>-->
+    <!--</bean>-->
+
+    <!--<bean class="org.zk.domain.LifeCycle" scope="singleton" init-method="xmlInit" destroy-method="xmlDestroy"/>-->
+
+</beans>
+
+
+

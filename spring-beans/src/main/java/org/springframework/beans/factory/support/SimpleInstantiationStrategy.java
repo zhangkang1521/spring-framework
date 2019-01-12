@@ -75,8 +75,10 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 							});
 						}
 						else {
+							// 获取参数个数为0的构造函数
 							constructorToUse =	clazz.getDeclaredConstructor((Class[]) null);
 						}
+						// 缓存下来
 						beanDefinition.resolvedConstructorOrFactoryMethod = constructorToUse;
 					}
 					catch (Exception ex) {

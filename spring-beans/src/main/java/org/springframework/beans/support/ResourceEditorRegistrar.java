@@ -110,6 +110,7 @@ public class ResourceEditorRegistrar implements PropertyEditorRegistrar {
 	 * @see org.springframework.core.io.support.ResourceArrayPropertyEditor
 	 */
 	public void registerCustomEditors(PropertyEditorRegistry registry) {
+		// 在initBeanWrapper时调用，这里的registry就是BeanWrapper
 		ResourceEditor baseEditor = new ResourceEditor(this.resourceLoader, this.propertyResolver);
 		doRegisterEditor(registry, Resource.class, baseEditor);
 		doRegisterEditor(registry, ContextResource.class, baseEditor);

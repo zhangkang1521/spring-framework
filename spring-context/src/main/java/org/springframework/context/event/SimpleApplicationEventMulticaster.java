@@ -83,6 +83,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 
 	@SuppressWarnings("unchecked")
 	public void multicastEvent(final ApplicationEvent event) {
+		// publishEvent()时调用，依次调用每个Listener进行处理
 		for (final ApplicationListener listener : getApplicationListeners(event)) {
 			Executor executor = getTaskExecutor();
 			if (executor != null) {

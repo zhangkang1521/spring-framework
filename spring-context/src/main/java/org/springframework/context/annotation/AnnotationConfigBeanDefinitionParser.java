@@ -50,6 +50,7 @@ public class AnnotationConfigBeanDefinitionParser implements BeanDefinitionParse
 		parserContext.pushContainingComponent(compDefinition);
 
 		// Nest the concrete beans in the surrounding component.
+		// 4个后置处理器
 		for (BeanDefinitionHolder processorDefinition : processorDefinitions) {
 			parserContext.registerComponent(new BeanComponentDefinition(processorDefinition));
 		}

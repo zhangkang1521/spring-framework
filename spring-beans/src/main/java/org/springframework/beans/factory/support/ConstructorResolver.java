@@ -105,12 +105,12 @@ class ConstructorResolver {
 		BeanWrapperImpl bw = new BeanWrapperImpl();
 		this.beanFactory.initBeanWrapper(bw);
 
-		Constructor<?> constructorToUse = null;
-		ArgumentsHolder argsHolderToUse = null;
-		Object[] argsToUse = null;
+		Constructor<?> constructorToUse = null; // 确定使用的构造函数
+		ArgumentsHolder argsHolderToUse = null; //
+		Object[] argsToUse = null; // 确定使用的构造函数参数
 
 		if (explicitArgs != null) {
-			argsToUse = explicitArgs;
+			argsToUse = explicitArgs; // getBean(String name, Object... args) 指定参数
 		}
 		else {
 			Object[] argsToResolve = null;
@@ -159,7 +159,7 @@ class ConstructorResolver {
 							"] from ClassLoader [" + beanClass.getClassLoader() + "] failed", ex);
 				}
 			}
-			AutowireUtils.sortConstructors(candidates);
+			AutowireUtils.sortConstructors(candidates); // 降序
 			int minTypeDiffWeight = Integer.MAX_VALUE;
 			Set<Constructor<?>> ambiguousConstructors = null;
 			List<Exception> causes = null;
@@ -182,9 +182,11 @@ class ConstructorResolver {
 					try {
 						String[] paramNames = null;
 						if (constructorPropertiesAnnotationAvailable) {
+							// @ConstructorProperties
 							paramNames = ConstructorPropertiesChecker.evaluate(candidate, paramTypes.length);
 						}
 						if (paramNames == null) {
+							// ASM
 							ParameterNameDiscoverer pnd = this.beanFactory.getParameterNameDiscoverer();
 							if (pnd != null) {
 								paramNames = pnd.getParameterNames(candidate);
@@ -258,7 +260,7 @@ class ConstructorResolver {
 			if (explicitArgs == null) {
 				argsHolderToUse.storeCache(mbd, constructorToUse);
 			}
-		}
+		} // end of constructorToUse == null
 
 		try {
 			Object beanInstance;

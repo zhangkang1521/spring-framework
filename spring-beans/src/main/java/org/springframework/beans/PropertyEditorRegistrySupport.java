@@ -93,7 +93,7 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 
 	private Map<Class<?>, PropertyEditor> defaultEditors; // 所有默认的PropertyEditor
 
-	private Map<Class<?>, PropertyEditor> overriddenDefaultEditors;
+	private Map<Class<?>, PropertyEditor> overriddenDefaultEditors; // ResourceEditorRegistrar中加入的，先找这个，再找defaultEditors
 
 	private Map<Class<?>, PropertyEditor> customEditors; // 自定义的PropertyEditor
 
@@ -170,6 +170,7 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 		if (!this.defaultEditorsActive) {
 			return null;
 		}
+		// 优先使用这个，这里是ResourceEditorRegistrar中加入的
 		if (this.overriddenDefaultEditors != null) {
 			PropertyEditor editor = this.overriddenDefaultEditors.get(requiredType);
 			if (editor != null) {

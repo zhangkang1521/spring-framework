@@ -1,43 +1,50 @@
 package org.zk.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
 
-import java.util.List;
-import java.util.Properties;
+import java.util.Date;
 
 /**
  * Created by Administrator on 5/20/2018.
  */
 public class User {
-    private int id;
+    private Integer id;
 
     private String username;
     private int age;
-    private List<String> interests;
+//    private List<String> interests;
     private Integer[] arr;
+    private Date birthday;
 
     private Car car;
+    Class clzz;
+
+    private ApplicationContext ctx;
+
+    public ApplicationContext getCtx() {
+        return ctx;
+    }
+
+    public void setCtx(ApplicationContext ctx) {
+        this.ctx = ctx;
+    }
 
     public User() {
         System.out.println("User()");
     }
 
-    public User(int age, Car car, List<String> interests) {
-        this.age = age;
-        this.car = car;
-        this.interests = interests;
-    }
 
-    public User(int id, String username) {
+//    @ConstructorProperties({"id", "username"})
+    public User(Integer id, String username) {
         this.id = id;
         this.username = username;
     }
 
-    public User(int id, int age, String username) {
+//    @ConstructorProperties({"id", "username", "age"})
+    public User(Integer id, String username, int age) {
         this.id = id;
-        this.age = age;
         this.username = username;
+        this.age = age;
     }
 
 
@@ -49,11 +56,11 @@ public class User {
         System.out.println(Thread.currentThread());
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -73,13 +80,13 @@ public class User {
         this.car = car;
     }
 
-    public List<String> getInterests() {
-        return interests;
-    }
-
-    public void setInterests(List<String> interests) {
-        this.interests = interests;
-    }
+//    public List<String> getInterests() {
+//        return interests;
+//    }
+//
+//    public void setInterests(List<String> interests) {
+//        this.interests = interests;
+//    }
 
     public Integer[] getArr() {
         return arr;
@@ -89,11 +96,25 @@ public class User {
         this.arr = arr;
     }
 
-    public Integer getAge() {
-        return age;
+
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setAge(Integer age) {
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Class getClzz() {
+        return clzz;
+    }
+
+    public void setClzz(Class clzz) {
+        this.clzz = clzz;
+    }
+
+    public void setAge(int age) {
         this.age = age;
     }
+
 }

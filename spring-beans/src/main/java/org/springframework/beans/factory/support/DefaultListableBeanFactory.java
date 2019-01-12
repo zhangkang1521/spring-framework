@@ -667,6 +667,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		synchronized (this.beanDefinitionMap) {
 			oldBeanDefinition = this.beanDefinitionMap.get(beanName);
 			if (oldBeanDefinition != null) {
+				// 不同xml的beanName相同，是否覆盖，默认覆盖
 				if (!this.allowBeanDefinitionOverriding) {
 					throw new BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,
 							"Cannot register bean definition [" + beanDefinition + "] for bean '" + beanName +
@@ -784,7 +785,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	protected Object doResolveDependency(DependencyDescriptor descriptor, Class<?> type, String beanName,
 			Set<String> autowiredBeanNames, TypeConverter typeConverter) throws BeansException {
-
+		// 这一行代码有什么用，没找到
 		Object value = getAutowireCandidateResolver().getSuggestedValue(descriptor);
 		if (value != null) {
 			if (value instanceof String) {
@@ -863,6 +864,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			return matchingBeans;
 		}
 		else {
+			// 一般属性走这里
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, type, descriptor);
 			if (matchingBeans.isEmpty()) {
 				if (descriptor.isRequired()) {

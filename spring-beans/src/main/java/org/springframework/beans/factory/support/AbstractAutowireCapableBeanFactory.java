@@ -434,6 +434,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Prepare method overrides.
 		try {
+			// 检测方法是否存在，是否有多个方法重载
 			mbd.prepareMethodOverrides();
 		}
 		catch (BeanDefinitionValidationException ex) {
@@ -517,7 +518,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		try {
 			populateBean(beanName, mbd, instanceWrapper); // 依赖注入
 			if (exposedObject != null) {
-				exposedObject = initializeBean(beanName, exposedObject, mbd); // 调用bean的初始化方法,后置处理器方法等
+				// 调用bean的初始化方法,后置处理器方法等
+				exposedObject = initializeBean(beanName, exposedObject, mbd);
 			}
 		}
 		catch (Throwable ex) {
@@ -1123,7 +1125,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		if (mbd.getResolvedAutowireMode() == RootBeanDefinition.AUTOWIRE_BY_NAME ||
 				mbd.getResolvedAutowireMode() == RootBeanDefinition.AUTOWIRE_BY_TYPE) {
-			MutablePropertyValues newPvs = new MutablePropertyValues(pvs);
+			MutablePropertyValues newPvs = new MutablePropertyValues(pvs); //
 
 			// Add property values based on autowire by name if applicable.
 			if (mbd.getResolvedAutowireMode() == RootBeanDefinition.AUTOWIRE_BY_NAME) {
@@ -1135,7 +1137,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				autowireByType(beanName, mbd, bw, newPvs);
 			}
 
-			pvs = newPvs;
+			pvs = newPvs; //
 		}
 
 		boolean hasInstAwareBpps = hasInstantiationAwareBeanPostProcessors();
