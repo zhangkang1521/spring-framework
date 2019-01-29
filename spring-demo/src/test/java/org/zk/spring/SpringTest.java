@@ -11,6 +11,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.zk.aop.MyTarget;
+import org.zk.aop.MyTargetImpl;
 import org.zk.convert.String2DateConverter;
 import org.zk.domain.User;
 import org.zk.event.TestEvent;
@@ -30,8 +31,8 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        MyTarget myTarget = ctx.getBean("myTarget", MyTarget.class);
-        myTarget.sayHello();
+        MyTarget myTarget = ctx.getBean(MyTarget.class);
+        myTarget.sayWorld();
 //        myTarget.sayWorld();
     }
 

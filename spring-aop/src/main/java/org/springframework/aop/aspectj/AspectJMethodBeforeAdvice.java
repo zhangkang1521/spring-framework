@@ -22,7 +22,7 @@ import org.springframework.aop.MethodBeforeAdvice;
 
 /**
  * Spring AOP advice that wraps an AspectJ before method.
- *
+ * Before增强器
  * @author Rod Johnson
  * @author Adrian Colyer
  * @since 2.0

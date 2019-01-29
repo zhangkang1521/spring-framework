@@ -318,7 +318,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 	 * @see #getAdvicesAndAdvisorsForBean
 	 */
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-		// 创建代理入口
+		// 创建代理入口，这里很重要
 		if (bean != null) {
 			Object cacheKey = getCacheKey(bean.getClass(), beanName);
 			if (!this.earlyProxyReferences.containsKey(cacheKey)) {
@@ -350,6 +350,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 		if (beanName != null && this.targetSourcedBeans.containsKey(beanName)) {
 			return bean;
 		}
+		// 本身是拦截器
 		if (Boolean.FALSE.equals(this.advisedBeans.get(cacheKey))) {
 			return bean;
 		}
@@ -359,7 +360,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 		}
 
 		// Create proxy if we have advice.
-		// 获取增强的拦截器
+		// 获取增强的拦截器 InstantiationModelAwarePointcutAdvisorImpl 包含Advice属性（BeforeAdvice, AfterAdvice）
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);

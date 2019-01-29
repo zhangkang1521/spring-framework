@@ -47,7 +47,9 @@ public class MethodBeforeAdviceInterceptor implements MethodInterceptor, Seriali
 	}
 
 	public Object invoke(MethodInvocation mi) throws Throwable {
+		// 被代理的proceed方法调用
 		this.advice.before(mi.getMethod(), mi.getArguments(), mi.getThis() );
+		// 该方法会获取下一个拦截器继续执行
 		return mi.proceed();
 	}
 

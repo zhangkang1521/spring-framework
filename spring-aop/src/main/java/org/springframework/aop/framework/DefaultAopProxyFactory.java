@@ -50,6 +50,7 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 
 
 	public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException {
+		// 创建aop代理 optimize: 使用优化策略，一般不用；proxy-target-class = true; 是否实现了接口
 		if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) {
 			Class targetClass = config.getTargetClass();
 			if (targetClass == null) {

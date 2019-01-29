@@ -27,6 +27,8 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.util.Assert;
 
 /**
+ * spring-aop很重要的一个类，会自动将该类的BeanDefination注册到容器;
+ * 这个类实现了BeanPostProcessor
  * {@link AspectJAwareAdvisorAutoProxyCreator} subclass that processes all AspectJ
  * annotation aspects in the current application context, as well as Spring Advisors.
  *
