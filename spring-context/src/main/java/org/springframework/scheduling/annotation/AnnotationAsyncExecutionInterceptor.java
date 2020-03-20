@@ -60,6 +60,7 @@ public class AnnotationAsyncExecutionInterceptor extends AsyncExecutionIntercept
 	protected String getExecutorQualifier(Method method) {
 		// maintainer's note: changes made here should also be made in
 		// AnnotationAsyncExecutionAspect#getExecutorQualifier
+		// @Async("xxExecutor") 指定使用哪个线程池
 		Async async = AnnotationUtils.findAnnotation(method, Async.class);
 		if (async == null) {
 			async = AnnotationUtils.findAnnotation(method.getDeclaringClass(), Async.class);

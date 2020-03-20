@@ -68,7 +68,7 @@ public abstract class AdviceModeImportSelector<A extends Annotation> implements 
 				annoType.getSimpleName(), importingClassMetadata.getClassName()));
 
 		AdviceMode adviceMode = attributes.getEnum(this.getAdviceModeAttributeName());
-		String[] imports = selectImports(adviceMode);
+		String[] imports = selectImports(adviceMode); // 具体import哪个类子类实现
 		Assert.notNull(imports, String.format("Unknown AdviceMode: '%s'", adviceMode));
 		return imports;
 	}

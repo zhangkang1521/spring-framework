@@ -11,10 +11,9 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.zk.aop.MyTarget;
-import org.zk.aop.MyTargetImpl;
 import org.zk.convert.String2DateConverter;
 import org.zk.domain.User;
-import org.zk.event.TestEvent;
+import org.zk.event.UserRegisterEvent;
 import org.zk.service.SayHelloService;
 import org.zk.service.UserService;
 
@@ -31,8 +30,9 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        MyTarget myTarget = ctx.getBean(MyTarget.class);
-        myTarget.sayWorld();
+        MyTarget target = ctx.getBean(MyTarget.class);
+        target.sayHello();
+//        myTarget.sayWorld();
 //        myTarget.sayWorld();
     }
 
@@ -41,7 +41,7 @@ public class SpringTest {
         Resource resource = new ClassPathResource("applicationContext.xml");
         BeanFactory beanFactory = new XmlBeanFactory(resource);
         User user = (User)beanFactory.getBean("user");
-        System.out.println(user);
+        System.out.println(user.getUsername());
     }
 
 
@@ -73,6 +73,8 @@ public class SpringTest {
     @Test
     public void testAnnotationCtx() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        User user = ctx.getBean(User.class);
+        System.out.println(user);
     }
 
     @Test
@@ -84,9 +86,11 @@ public class SpringTest {
     }
 
     @Test
-    public void testEvent() {
+    public void testEvent() throws Exception {
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        ctx.publishEvent(new TestEvent("hello", "hello,world"));
+        org.zk.event.UserService userService = (org.zk.event.UserService) ctx.getBean(org.zk.event.UserService.class);
+        userService.register("zk");
+        System.in.read(); // junit多线程有问题
     }
 
     @Test

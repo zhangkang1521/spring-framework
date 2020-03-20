@@ -14,7 +14,7 @@ public class MyAspect {
 
     }
 
-    @Before("execution(public * org.zk.aop.MyTargetImpl.say*())")
+    @Before("pointCut1()")
 //    @Before("pointCut1()")
     public void before() {
         System.out.println("=== before ===");

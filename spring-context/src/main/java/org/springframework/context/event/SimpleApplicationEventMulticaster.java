@@ -86,6 +86,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 		// publishEvent()时调用，依次调用每个Listener进行处理
 		for (final ApplicationListener listener : getApplicationListeners(event)) {
 			Executor executor = getTaskExecutor();
+			// 有线程池，丢给线程池异步处理
 			if (executor != null) {
 				executor.execute(new Runnable() {
 					public void run() {

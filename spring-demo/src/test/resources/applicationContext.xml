@@ -7,12 +7,17 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <bean id="user" class="org.zk.domain.User">
+        <property name="username" value="ss"/>
+    </bean>
 
-    <bean id="myTarget" class="org.zk.aop.MyTargetImpl" lazy-init="true"></bean>
-    <bean id="myAspect" class="org.zk.aop.MyAspect"></bean>
+    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
+
+    <!--<bean id="myTarget" class="org.zk.aop.MyTargetImpl"></bean>-->
+    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
     <!--<bean id="myAspect2" class="org.zk.aop.MyAspect2"></bean>-->
 
-    <aop:aspectj-autoproxy/>
+    <!--<aop:aspectj-autoproxy/>-->
 
 
 
@@ -26,19 +31,33 @@
         </property>
     </bean>-->
 
-    <!--<bean class="org.zk.event.TestListener"></bean>-->
+<!--    <bean class="org.zk.event.UserService"></bean>
+    <bean class="org.zk.event.ScoreService"></bean>
+    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+    </bean>
+    <bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">
+        <property name="taskExecutor" ref="taskExecutor"></property>
+    </bean>-->
 
 
     <!--<bean class="org.zk.domain.MyBeanDefinitionRegistryPostProcessor"></bean>-->
 
-   <!-- <bean class="org.zk.domain.ObscenityRemovingBeanFactoryPostProcessor">
-        <property name="obscenties">
-            <set>
-                <value>fuck</value>
-                <value>shit</value>
-            </set>
-        </property>
-    </bean>-->
+   <!-- -->
+    <!--<bean class="org.zk.domain.ObscenityRemovingBeanFactoryPostProcessor">-->
+        <!--<property name="obscenties">-->
+            <!--<set>-->
+                <!--<value>fuck</value>-->
+                <!--<value>shit</value>-->
+            <!--</set>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>bean.properties</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 
    <!-- <bean id="car" class="org.zk.domain.Car" lazy-init="true">
@@ -48,8 +67,8 @@
 
     <!--<bean class="org.zk.domain.MyInstantiationAwareBeanPostProcessors"></bean>-->
 
-    <!--
-        <bean class="org.zk.domain.MyBeanPostProcessor"></bean>-->
+    <!-- -->
+        <!--<bean class="org.zk.domain.MyBeanPostProcessor"></bean>-->
 
 
     <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
