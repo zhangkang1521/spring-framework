@@ -6,7 +6,7 @@ import org.aspectj.lang.annotation.Before;
 /**
  * Created by Administrator on 8/23/2018.
  */
-//@Aspect
+@Aspect
 public class MyAspect2 {
 
     @Before("execution(public * xx())")

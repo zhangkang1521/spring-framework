@@ -1,3 +1,8 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
 group 'org.springframework'
 version '3.2.19.BUILD-SNAPSHOT'
 
