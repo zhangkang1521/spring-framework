@@ -114,12 +114,14 @@ public abstract class HttpServletBean extends HttpServlet
 	 */
 	@Override
 	public final void init() throws ServletException {
+		// servlet初始化入口方法
 		if (logger.isDebugEnabled()) {
 			logger.debug("Initializing servlet '" + getServletName() + "'");
 		}
 
 		// Set bean properties from init parameters.
 		try {
+			// 加载init-param的配置
 			PropertyValues pvs = new ServletConfigPropertyValues(getServletConfig(), this.requiredProperties);
 			BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(this);
 			ResourceLoader resourceLoader = new ServletContextResourceLoader(getServletContext());
@@ -133,7 +135,7 @@ public abstract class HttpServletBean extends HttpServlet
 		}
 
 		// Let subclasses do whatever initialization they like.
-		initServletBean();
+		initServletBean(); // FrameworkServlet中覆盖
 
 		if (logger.isDebugEnabled()) {
 			logger.debug("Servlet '" + getServletName() + "' configured successfully");
@@ -232,7 +234,7 @@ public abstract class HttpServletBean extends HttpServlet
 			Set<String> missingProps = (requiredProperties != null && !requiredProperties.isEmpty()) ?
 					new HashSet<String>(requiredProperties) : null;
 
-			Enumeration en = config.getInitParameterNames();
+			Enumeration en = config.getInitParameterNames(); // 获取所有参数
 			while (en.hasMoreElements()) {
 				String property = (String) en.nextElement();
 				Object value = config.getInitParameter(property);

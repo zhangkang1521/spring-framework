@@ -4,6 +4,6 @@
     <title>Title</title>
 </head>
 <body>
-hello,springMVC, I am ${username}, ${msg}
+hello,springMVC, I am ${username}
 </body>
 </html>

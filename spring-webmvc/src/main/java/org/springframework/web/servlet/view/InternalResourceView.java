@@ -205,6 +205,7 @@ public class InternalResourceView extends AbstractUrlBasedView {
 		HttpServletRequest requestToExpose = getRequestToExpose(request);
 
 		// Expose the model object as request attributes.
+		// 设置页面显示的属性值
 		exposeModelAsRequestAttributes(model, requestToExpose);
 
 		// Expose helpers as request attributes, if any.
@@ -235,7 +236,7 @@ public class InternalResourceView extends AbstractUrlBasedView {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Forwarding to resource [" + getUrl() + "] in InternalResourceView '" + getBeanName() + "'");
 			}
-			rd.forward(requestToExpose, response);
+			rd.forward(requestToExpose, response); // jsp页面跳转
 		}
 	}
 

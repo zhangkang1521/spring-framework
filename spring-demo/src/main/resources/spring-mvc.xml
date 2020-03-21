@@ -7,12 +7,22 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!--<context:component-scan base-package="org.zk.controller"/>-->
-    <bean class="org.zk.controller.UserController">
+    <bean id="userController" class="org.zk.controller.UserController">
+    </bean>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/hello">userController</prop>
+            </props>
+        </property>
     </bean>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/view/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+
 
 </beans>

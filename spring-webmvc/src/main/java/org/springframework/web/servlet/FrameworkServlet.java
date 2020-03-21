@@ -488,11 +488,12 @@ public abstract class FrameworkServlet extends HttpServletBean {
 	 * @see #setContextConfigLocation
 	 */
 	protected WebApplicationContext initWebApplicationContext() {
+		// ContextListener中创建的
 		WebApplicationContext rootContext =
 				WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		WebApplicationContext wac = null;
 
-		if (this.webApplicationContext != null) {
+		if (this.webApplicationContext != null) { // false
 			// A context instance was injected at construction time -> use it
 			wac = this.webApplicationContext;
 			if (wac instanceof ConfigurableWebApplicationContext) {
@@ -518,6 +519,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
 		}
 		if (wac == null) {
 			// No context instance is defined for this servlet -> create a local one
+			// 创建容器并将rootContext设为父容器
 			wac = createWebApplicationContext(rootContext);
 		}
 
@@ -596,9 +598,11 @@ public abstract class FrameworkServlet extends HttpServletBean {
 				(ConfigurableWebApplicationContext) BeanUtils.instantiateClass(contextClass);
 
 		wac.setEnvironment(getEnvironment());
+		// 将ContextListener中创建的容器设为父容器
 		wac.setParent(parent);
 		wac.setConfigLocation(getContextConfigLocation());
 
+		// refresh容器
 		configureAndRefreshWebApplicationContext(wac);
 
 		return wac;
@@ -636,6 +640,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
 		wac.setServletContext(getServletContext());
 		wac.setServletConfig(getServletConfig());
 		wac.setNamespace(getNamespace());
+		// 添加容器刷新事件监听器，容器刷新后会初始化HandlerMappings,HandlerAdapter,ViewResolver等
 		wac.addApplicationListener(new SourceFilteringListener(wac, new ContextRefreshListener()));
 
 		// The wac environment's #initPropertySources will be called in any case when the context
@@ -932,7 +937,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
 	 */
 	protected final void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// 请求入口，doGet,doPost等方法都调用本方法
 		long startTime = System.currentTimeMillis();
 		Throwable failureCause = null;
 
@@ -1095,6 +1100,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
 	private class ContextRefreshListener implements ApplicationListener<ContextRefreshedEvent> {
 
 		public void onApplicationEvent(ContextRefreshedEvent event) {
+			// 容器刷新事件
 			FrameworkServlet.this.onApplicationEvent(event);
 		}
 	}

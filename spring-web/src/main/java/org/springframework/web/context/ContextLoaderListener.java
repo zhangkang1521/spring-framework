@@ -105,6 +105,7 @@ public class ContextLoaderListener extends ContextLoader implements ServletConte
 	 * Initialize the root web application context.
 	 */
 	public void contextInitialized(ServletContextEvent event) {
+		// 启动入口
 		this.contextLoader = createContextLoader();
 		if (this.contextLoader == null) {
 			this.contextLoader = this;
