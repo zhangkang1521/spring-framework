@@ -101,6 +101,7 @@ public class SimpleUrlHandlerMapping extends AbstractUrlHandlerMapping {
 	@Override
 	public void initApplicationContext() throws BeansException {
 		super.initApplicationContext();
+		// 继承自ApplicationObjectSupport，设置ApplicationContext时会调用
 		registerHandlers(this.urlMap);
 	}
 

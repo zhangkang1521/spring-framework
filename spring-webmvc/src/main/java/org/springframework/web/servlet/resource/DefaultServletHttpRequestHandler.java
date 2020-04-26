@@ -111,7 +111,7 @@ public class DefaultServletHttpRequestHandler implements HttpRequestHandler, Ser
 
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// defaultServlet，用于静态资源访问
 		RequestDispatcher rd = this.servletContext.getNamedDispatcher(this.defaultServletName);
 		if (rd == null) {
 			throw new IllegalStateException("A RequestDispatcher could not be located for the default servlet '" +

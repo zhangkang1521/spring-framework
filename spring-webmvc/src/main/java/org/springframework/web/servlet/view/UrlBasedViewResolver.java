@@ -443,6 +443,7 @@ public class UrlBasedViewResolver extends AbstractCachingViewResolver implements
 	@Override
 	protected View loadView(String viewName, Locale locale) throws Exception {
 		AbstractUrlBasedView view = buildView(viewName);
+		// 执行bean的生命周期周期方法
 		View result = applyLifecycleMethods(viewName, view);
 		return (view.checkResource(locale) ? result : null);
 	}

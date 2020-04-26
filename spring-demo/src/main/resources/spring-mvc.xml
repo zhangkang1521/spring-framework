@@ -2,27 +2,78 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!--<context:component-scan base-package="org.zk.controller"/>-->
-    <bean id="userController" class="org.zk.controller.UserController">
+    <!-- 1.最简单的情况，url到controller的映射自己配置 -->
+    <!--<bean id="userController" class="org.zk.controller.UserSimpleController"/>-->
+    <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+        <!--<property name="mappings">-->
+            <!--<props>-->
+                <!--<prop key="/user/hello">userController</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!-- 2,使用BeanName做url到Controller的映射 -->
+    <!--<bean name="/user/hello" class="org.zk.controller.BeanNameController"/>-->
+
+    <!-- 3.使用注解，向容器中注入RequestMappingHandlerMapping，RequestMappingHandlerAdapter等bean -->
+    <mvc:annotation-driven/>
+    <bean id="userAnnotationController" class="org.zk.controller.UserAnnotationController"/>
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
     </bean>
 
-    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
-        <property name="mappings">
-            <props>
-                <prop key="/hello">userController</prop>
-            </props>
+    <!-- jsp视图解析器，视图名称(String)到视图(View)的转换 -->
+    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+        <!--<property name="order" value="1"/>-->
+        <!--<property name="prefix" value="/WEB-INF/view/jsp/"/>-->
+        <!--<property name="suffix" value=".jsp"/>-->
+        <!--<property name="contentType" value="text/html;charset=UTF-8"/>-->
+    <!--</bean>-->
+
+    <!-- freemarker配置 -->
+    <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <property name="order" value="2"/>
+        <property name="suffix" value=".ftl"/>
+        <property name="cache" value="false"/>
+        <property name="contentType" value="text/html;charset=UTF-8"/>
+    </bean>
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath">
+            <value>/WEB-INF/view/freemarker/</value>
         </property>
     </bean>
 
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/view/"/>
-        <property name="suffix" value=".jsp"/>
+    <!-- jxls视图解析 -->
+    <bean id="jxlsExcelViewResolver" class="org.zk.web.JxlsExcelViewResolver">
+        <property name="order" value="3"/>
+        <property name="cache" value="false"/>
+        <property name="contentType" value="application/vnd.ms-excel"/>
+        <property name="prefix" value="/WEB-INF/view/excel/"/>
+        <property name="suffix" value=".xls"/>
     </bean>
 
+    <!-- 拦截器，自定义标签解析查看spring-mvc包下spring.handlers-->
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/login/**"/>-->
+            <!--<bean class="org.zk.controller.LoginInterceptor" />-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 
+    <!-- 静态资源访问，注入SimpleUrlHandlerMapping，将mapping映射到ResourceHttpRequestHandler-->
+    <!--<mvc:resources mapping="/static/**" location="/static/"/>-->
+
+    <!-- 注入SimpleUrlHandlerMapping，将/**映射到DefaultServletHttpRequestHandler，其中使用defaultServlet进行静态资源访问 -->
+    <!--<mvc:default-servlet-handler/>-->
+
+    <!-- 对于不需要后台处理的简单页面，针对固定path返回固定view，ParameterizableViewController -->
+    <!--<mvc:view-controller path="/hi" view-name="hello"/>-->
 </beans>

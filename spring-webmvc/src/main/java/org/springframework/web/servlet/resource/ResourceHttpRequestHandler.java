@@ -385,6 +385,7 @@ public class ResourceHttpRequestHandler extends WebContentGenerator implements H
 	protected void writeContent(HttpServletResponse response, Resource resource) throws IOException {
 		InputStream in = resource.getInputStream();
 		try {
+			// 静态资源写入
 			StreamUtils.copy(in, response.getOutputStream());
 		}
 		finally {

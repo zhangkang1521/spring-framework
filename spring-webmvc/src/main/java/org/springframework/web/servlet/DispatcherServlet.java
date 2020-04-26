@@ -459,6 +459,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// 默认初始化3个HandlerAdapter
 		initHandlerAdapters(context);
 		initHandlerExceptionResolvers(context);
+		// 如果方法返回void，设置一个viewName
 		initRequestToViewNameTranslator(context);
 		// 初始化ViewResolver
 		initViewResolvers(context);
@@ -563,7 +564,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
-		if (this.handlerMappings == null) {
+		if (this.handlerMappings == null) { // 默认2个
 			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
 			if (logger.isDebugEnabled()) {
 				logger.debug("No HandlerMappings found in servlet '" + getServletName() + "': using default");
@@ -581,6 +582,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		if (this.detectAllHandlerAdapters) {
 			// Find all HandlerAdapters in the ApplicationContext, including ancestor contexts.
+			// 这里的HandlerAdapter可以是配置文件中配置的，也可能是<mvc-annotation-driver/>中加入的
 			Map<String, HandlerAdapter> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerAdapter.class, true, false);
 			if (!matchingBeans.isEmpty()) {
@@ -602,7 +604,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// Ensure we have at least some HandlerAdapters, by registering
 		// default HandlerAdapters if no other adapters are found.
 		if (this.handlerAdapters == null) {
-			// 初始化3个HandlerAdapter
+			// 初始化DispatcherServlet.properties配置的3个HandlerAdapter
 			this.handlerAdapters = getDefaultStrategies(context, HandlerAdapter.class);
 			if (logger.isDebugEnabled()) {
 				logger.debug("No HandlerAdapters found in servlet '" + getServletName() + "': using default");
@@ -946,6 +948,7 @@ public class DispatcherServlet extends FrameworkServlet {
 					return;
 				}
 
+				// 方法返回null，使用DefaultRequestToViewNameTranslator设置一个viewName
 				applyDefaultViewName(request, mv);
 
 				// 执行拦截器postHandle方法
@@ -1010,7 +1013,8 @@ public class DispatcherServlet extends FrameworkServlet {
 		}
 
 		// Did the handler return a view to render?
-		if (mv != null && !mv.wasCleared()) {
+		if (mv != null && !mv.wasCleared()) { // 如果@ResponseBody，mv是空的
+			// 视图渲染
 			render(mv, request, response);
 			if (errorView) {
 				WebUtils.clearErrorRequestAttributes(request);
@@ -1207,6 +1211,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		View view;
 		if (mv.isReference()) { // view是字符串，下面转换成对象
 			// We need to resolve the view name.
+			// 解析视图，将字符串转换成具体的视图，jsp视图，freemarker视图等
 			view = resolveViewName(mv.getViewName(), mv.getModelInternal(), locale, request);
 			if (view == null) {
 				throw new ServletException("Could not resolve view with name '" + mv.getViewName() +

@@ -201,9 +201,9 @@ public class MediaType implements Comparable<MediaType> {
 	private static final String PARAM_CHARSET = "charset";
 
 
-	private final String type;
+	private final String type; // 类型
 
-	private final String subtype;
+	private final String subtype; // 子类型
 
 	private final Map<String, String> parameters;
 

@@ -360,9 +360,10 @@ public class AntPathMatcher implements PathMatcher {
 			}
 		}
 		else {
+
 			int dotPos1 = pattern1.indexOf('.');
 			if (dotPos1 == -1 || pattern1ContainsUriVar) {
-				// simply concatenate the two patterns
+				// simply concatenate the two patterns 一般都是这种组合 /user + /list => /user/list
 				if (pattern1.endsWith("/") || pattern2.startsWith("/")) {
 					return pattern1 + pattern2;
 				}
@@ -370,6 +371,8 @@ public class AntPathMatcher implements PathMatcher {
 					return pattern1 + "/" + pattern2;
 				}
 			}
+			//  /*.do  /list => list.do
+			//  /user.* /*.do => user.do
 			String fileName1 = pattern1.substring(0, dotPos1);
 			String extension1 = pattern1.substring(dotPos1);
 			String fileName2;

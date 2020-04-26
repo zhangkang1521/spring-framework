@@ -58,7 +58,7 @@ public class MappingJackson2HttpMessageConverter extends AbstractHttpMessageConv
 
 	public static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
-
+	// 使用jackson进行转换
 	private ObjectMapper objectMapper = new ObjectMapper();
 
 	private String jsonPrefix;
@@ -188,6 +188,7 @@ public class MappingJackson2HttpMessageConverter extends AbstractHttpMessageConv
 			throws IOException, HttpMessageNotWritableException {
 
 		JsonEncoding encoding = getJsonEncoding(outputMessage.getHeaders().getContentType());
+		// 写入Response
 		JsonGenerator jsonGenerator =
 				this.objectMapper.getJsonFactory().createJsonGenerator(outputMessage.getBody(), encoding);
 
@@ -201,6 +202,7 @@ public class MappingJackson2HttpMessageConverter extends AbstractHttpMessageConv
 			if (this.jsonPrefix != null) {
 				jsonGenerator.writeRaw(this.jsonPrefix);
 			}
+			// 写入
 			this.objectMapper.writeValue(jsonGenerator, object);
 		}
 		catch (JsonProcessingException ex) {

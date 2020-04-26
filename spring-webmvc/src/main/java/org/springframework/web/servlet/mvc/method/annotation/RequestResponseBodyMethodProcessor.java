@@ -77,6 +77,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 	}
 
 	public boolean supportsReturnType(MethodParameter returnType) {
+		// 方法上有@ResponseBody
 		return (returnType.getMethodAnnotation(ResponseBody.class) != null);
 	}
 

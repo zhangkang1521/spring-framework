@@ -63,9 +63,10 @@ public class HandlerMethodReturnValueHandlerComposite implements HandlerMethodRe
 			Object returnValue, MethodParameter returnType,
 			ModelAndViewContainer mavContainer, NativeWebRequest webRequest)
 			throws Exception {
-
+		// responseBody viewName 等
 		HandlerMethodReturnValueHandler handler = getReturnValueHandler(returnType);
 		Assert.notNull(handler, "Unknown return value type [" + returnType.getParameterType().getName() + "]");
+		// 处理结果
 		handler.handleReturnValue(returnValue, returnType, mavContainer, webRequest);
 	}
 

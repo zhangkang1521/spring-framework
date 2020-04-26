@@ -391,12 +391,13 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator
 
 
 	public boolean supports(Object handler) {
+		// 有@RequestMapping注解的方法
 		return getMethodResolver(handler).hasHandlerMethods();
 	}
 
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-
+		// 执行注解的方法
 		Class<?> clazz = ClassUtils.getUserClass(handler);
 		Boolean annotatedWithSessionAttributes = this.sessionAnnotatedClassesCache.get(clazz);
 		if (annotatedWithSessionAttributes == null) {
@@ -962,7 +963,7 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator
 			else if (returnValue instanceof Map) {
 				return new ModelAndView().addAllObjects(implicitModel).addAllObjects((Map) returnValue);
 			}
-			else if (returnValue instanceof String) {
+			else if (returnValue instanceof String) { // 把String转换成ModelAndView
 				return new ModelAndView((String) returnValue).addAllObjects(implicitModel);
 			}
 			else if (returnValue == null) {

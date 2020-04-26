@@ -41,6 +41,7 @@ import org.springframework.web.servlet.RequestToViewNameTranslator;
 public class ViewNameMethodReturnValueHandler implements HandlerMethodReturnValueHandler {
 
 	public boolean supportsReturnType(MethodParameter returnType) {
+		// 方法返回值是String
 		Class<?> paramType = returnType.getParameterType();
 		return (void.class.equals(paramType) || String.class.equals(paramType));
 	}

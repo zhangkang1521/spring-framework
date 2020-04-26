@@ -345,6 +345,7 @@ public class FreeMarkerView extends AbstractTemplateView {
 	 * @throws IOException if the template file could not be retrieved
 	 */
 	protected Template getTemplate(String name, Locale locale) throws IOException {
+		// 获取freemarker模板
 		return (getEncoding() != null ?
 				getConfiguration().getTemplate(name, locale, getEncoding()) :
 				getConfiguration().getTemplate(name, locale));
@@ -362,7 +363,7 @@ public class FreeMarkerView extends AbstractTemplateView {
 	 */
 	protected void processTemplate(Template template, SimpleHash model, HttpServletResponse response)
 			throws IOException, TemplateException {
-
+		// 将model and view写入response
 		template.process(model, response.getWriter());
 	}
 

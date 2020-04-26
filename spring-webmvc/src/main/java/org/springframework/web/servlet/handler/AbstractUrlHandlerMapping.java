@@ -152,7 +152,7 @@ public abstract class AbstractUrlHandlerMapping extends AbstractHandlerMapping {
 				handler = getApplicationContext().getBean(handlerName);
 			}
 			validateHandler(handler, request);
-			// 加入了一个拦截器，组装成HandlerExecutionChain
+			// 加入了一个默认的拦截器，组装成HandlerExecutionChain
 			return buildPathExposingHandler(handler, urlPath, urlPath, null);
 		}
 		// Pattern match? 通配符匹配
@@ -360,6 +360,7 @@ public abstract class AbstractUrlHandlerMapping extends AbstractHandlerMapping {
 
 		@Override
 		public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+			// 暴露一些属性到request中
 			exposePathWithinMapping(this.bestMatchingPattern, this.pathWithinMapping, request);
 			request.setAttribute(HandlerMapping.INTROSPECT_TYPE_LEVEL_MAPPING, supportsTypeLevelMappings());
 			return true;

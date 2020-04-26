@@ -100,7 +100,7 @@ public class ServletInvocableHandlerMethod extends InvocableHandlerMethod {
 	 */
 	public final void invokeAndHandle(ServletWebRequest webRequest,
 			ModelAndViewContainer mavContainer, Object... providedArgs) throws Exception {
-
+		// 执行Controller的方法
 		Object returnValue = invokeForRequest(webRequest, mavContainer, providedArgs);
 
 		setResponseStatus(webRequest);
@@ -119,6 +119,7 @@ public class ServletInvocableHandlerMethod extends InvocableHandlerMethod {
 		mavContainer.setRequestHandled(false);
 
 		try {
+			// 处理结果
 			this.returnValueHandlers.handleReturnValue(returnValue, getReturnValueType(returnValue), mavContainer, webRequest);
 		}
 		catch (Exception ex) {

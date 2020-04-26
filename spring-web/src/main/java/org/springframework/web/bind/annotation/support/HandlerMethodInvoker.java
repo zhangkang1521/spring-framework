@@ -168,11 +168,13 @@ public class HandlerMethodInvoker {
 					implicitModel.addAttribute(attrName, attrValue);
 				}
 			}
+			// 参数
 			Object[] args = resolveHandlerArguments(handlerMethodToInvoke, handler, webRequest, implicitModel);
 			if (debug) {
 				logger.debug("Invoking request handler method: " + handlerMethodToInvoke);
 			}
 			ReflectionUtils.makeAccessible(handlerMethodToInvoke);
+			// 反射调用Controller的方法
 			return handlerMethodToInvoke.invoke(handler, args);
 		}
 		catch (IllegalStateException ex) {
@@ -308,6 +310,7 @@ public class HandlerMethodInvoker {
 			}
 
 			if (annotationsFound == 0) {
+				// 注入HttpServletRequest等参数
 				Object argValue = resolveCommonArgument(methodParam, webRequest);
 				if (argValue != WebArgumentResolver.UNRESOLVED) {
 					args[i] = argValue;
@@ -323,7 +326,7 @@ public class HandlerMethodInvoker {
 									"Model or Map but is not assignable from the actual model. You may need to switch " +
 									"newer MVC infrastructure classes to use this argument.");
 						}
-						args[i] = implicitModel;
+						args[i] = implicitModel; // 注入Model到参数
 					}
 					else if (SessionStatus.class.isAssignableFrom(paramType)) {
 						args[i] = this.sessionStatus;

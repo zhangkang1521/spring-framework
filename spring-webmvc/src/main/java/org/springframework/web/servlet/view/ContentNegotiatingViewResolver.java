@@ -278,7 +278,9 @@ public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport 
 		Assert.isInstanceOf(ServletRequestAttributes.class, attrs);
 		List<MediaType> requestedMediaTypes = getMediaTypes(((ServletRequestAttributes) attrs).getRequest());
 		if (requestedMediaTypes != null) {
+			// 解析出所有view
 			List<View> candidateViews = getCandidateViews(viewName, locale, requestedMediaTypes);
+			// 找一个Accept与ContentType兼容的视图返回
 			View bestView = getBestView(candidateViews, requestedMediaTypes, attrs);
 			if (bestView != null) {
 				return bestView;
@@ -362,6 +364,7 @@ public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport 
 				candidateViews.add(view);
 			}
 			for (MediaType requestedMediaType : requestedMediaTypes) {
+				// 加上文件后缀名再进行解析，一般没有
 				List<String> extensions = this.contentNegotiationManager.resolveFileExtensions(requestedMediaType);
 				for (String extension : extensions) {
 					String viewNameWithExtension = viewName + "." + extension;
@@ -394,6 +397,7 @@ public class ContentNegotiatingViewResolver extends WebApplicationObjectSupport 
 			for (View candidateView : candidateViews) {
 				if (StringUtils.hasText(candidateView.getContentType())) {
 					MediaType candidateContentType = MediaType.parseMediaType(candidateView.getContentType());
+					// 找到一个兼容的类型就返回，例如Accept为text/html，如果视图的contentType是text/html，则兼容
 					if (mediaType.isCompatibleWith(candidateContentType)) {
 						if (logger.isDebugEnabled()) {
 							logger.debug("Returning [" + candidateView + "] based on requested media type '"

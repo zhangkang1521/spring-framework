@@ -356,6 +356,7 @@ public class FreeMarkerConfigurationFactory {
 					logger.debug(
 							"Template loader path [" + path + "] resolved to file path [" + file.getAbsolutePath() + "]");
 				}
+				// 从这个位置加载模板
 				return new FileTemplateLoader(file);
 			}
 			catch (IOException ex) {

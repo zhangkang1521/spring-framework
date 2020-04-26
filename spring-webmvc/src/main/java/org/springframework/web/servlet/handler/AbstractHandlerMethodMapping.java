@@ -57,8 +57,10 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	private boolean detectHandlerMethodsInAncestorContexts = false;
 
+	/** mapping -> HandlerMethod */
 	private final Map<T, HandlerMethod> handlerMethods = new LinkedHashMap<T, HandlerMethod>();
 
+	/** url -> mapping */
 	private final MultiValueMap<String, T> urlMap = new LinkedMultiValueMap<String, T>();
 
 

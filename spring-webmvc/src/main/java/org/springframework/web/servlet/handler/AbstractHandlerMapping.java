@@ -294,7 +294,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 * @see #getHandlerInternal
 	 */
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
-		Object handler = getHandlerInternal(request);
+		Object handler = getHandlerInternal(request); // 获取Handler，交由子类实现
 		if (handler == null) {
 			handler = getDefaultHandler();
 		}
@@ -306,6 +306,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 			String handlerName = (String) handler;
 			handler = getApplicationContext().getBean(handlerName);
 		}
+		// 通用逻辑，将拦截器加入执行链中
 		return getHandlerExecutionChain(handler, request);
 	}
 

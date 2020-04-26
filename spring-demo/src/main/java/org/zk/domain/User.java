@@ -117,4 +117,7 @@ public class User {
         this.age = age;
     }
 
+    public int getAge() {
+        return age;
+    }
 }
