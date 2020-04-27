@@ -166,6 +166,7 @@ public final class RequestMappingInfo implements RequestCondition<RequestMapping
 	 * @return a new instance in case all conditions match; or {@code null} otherwise
 	 */
 	public RequestMappingInfo getMatchingCondition(HttpServletRequest request) {
+		// 返回null代表不匹配
 		RequestMethodsRequestCondition methods = this.methodsCondition.getMatchingCondition(request);
 		ParamsRequestCondition params = this.paramsCondition.getMatchingCondition(request);
 		HeadersRequestCondition headers = this.headersCondition.getMatchingCondition(request);
@@ -173,7 +174,7 @@ public final class RequestMappingInfo implements RequestCondition<RequestMapping
 		ProducesRequestCondition produces = this.producesCondition.getMatchingCondition(request);
 
 		if (methods == null || params == null || headers == null || consumes == null || produces == null) {
-			return null;
+			return null; // 任意一个条件不匹配则不匹配
 		}
 
 		PatternsRequestCondition patterns = this.patternsCondition.getMatchingCondition(request);

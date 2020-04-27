@@ -230,6 +230,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		if (logger.isDebugEnabled()) {
 			logger.debug("Looking up handler method for path " + lookupPath);
 		}
+		// 找到对应Controller的Method
 		HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
 		if (logger.isDebugEnabled()) {
 			if (handlerMethod != null) {
@@ -253,12 +254,14 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 */
 	protected HandlerMethod lookupHandlerMethod(String lookupPath, HttpServletRequest request) throws Exception {
 		List<Match> matches = new ArrayList<Match>();
-		List<T> directPathMatches = this.urlMap.get(lookupPath);
+		List<T> directPathMatches = this.urlMap.get(lookupPath); // RequestMappingInfo
 		if (directPathMatches != null) {
+			// 其他条件符合才加入matches，比如consumer,producer
 			addMatchingMappings(directPathMatches, matches, request);
 		}
 		if (matches.isEmpty()) {
 			// No choice but to go through all mappings...
+			// 比如pattern是 /hello ，请求是 /hello/ 或 hello.do
 			addMatchingMappings(this.handlerMethods.keySet(), matches, request);
 		}
 
@@ -268,6 +271,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			if (logger.isTraceEnabled()) {
 				logger.trace("Found " + matches.size() + " matching mapping(s) for [" + lookupPath + "] : " + matches);
 			}
+			// 最合适的匹配
 			Match bestMatch = matches.get(0);
 			if (matches.size() > 1) {
 				Match secondBestMatch = matches.get(1);

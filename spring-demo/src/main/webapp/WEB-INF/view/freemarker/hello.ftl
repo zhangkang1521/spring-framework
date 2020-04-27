@@ -6,9 +6,5 @@
 </head>
 <body>
     hello,freeMarker, I am ${username}
-    <div>
-        <div>${year}</div>
-
-    </div>
 </body>
 </html>

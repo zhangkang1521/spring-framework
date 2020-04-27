@@ -352,7 +352,7 @@ public @interface RequestMapping {
 	 * @see org.springframework.http.MediaType
 	 * @see javax.servlet.http.HttpServletRequest#getContentType()
 	 */
-	String[] consumes() default {};
+	String[] consumes() default {}; // Content-Type代表http请求体内容类型，匹配才选择这个方法
 
 	/**
 	 * The producible media types of the mapped request, narrowing the primary mapping.
@@ -370,6 +370,6 @@ public @interface RequestMapping {
 	 * this produces restriction.
 	 * @see org.springframework.http.MediaType
 	 */
-	String[] produces() default {};
+	String[] produces() default {}; // Accept代表客户端可接受类型，匹配才选择这个方法
 
 }

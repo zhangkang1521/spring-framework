@@ -234,14 +234,14 @@ public final class PatternsRequestCondition extends AbstractRequestCondition<Pat
 			else {
 				boolean hasSuffix = pattern.indexOf('.') != -1;
 				if (!hasSuffix && this.pathMatcher.match(pattern + ".*", lookupPath)) {
-					return pattern + ".*";
+					return pattern + ".*"; // /hello.do 能匹配到 /hello
 				}
 			}
 		}
 		if (this.pathMatcher.match(pattern, lookupPath)) {
 			return pattern;
 		}
-		if (this.useTrailingSlashMatch) {
+		if (this.useTrailingSlashMatch) { // 尾部加上/再进行匹配
 			if (!pattern.endsWith("/") && this.pathMatcher.match(pattern + "/", lookupPath)) {
 				return pattern +"/";
 			}

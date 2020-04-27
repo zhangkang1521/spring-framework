@@ -50,13 +50,13 @@
     </bean>
 
     <!-- jxls视图解析 -->
-    <bean id="jxlsExcelViewResolver" class="org.zk.web.JxlsExcelViewResolver">
-        <property name="order" value="3"/>
-        <property name="cache" value="false"/>
-        <property name="contentType" value="application/vnd.ms-excel"/>
-        <property name="prefix" value="/WEB-INF/view/excel/"/>
-        <property name="suffix" value=".xls"/>
-    </bean>
+    <!--<bean id="jxlsExcelViewResolver" class="org.zk.web.JxlsExcelViewResolver">-->
+        <!--<property name="order" value="3"/>-->
+        <!--<property name="cache" value="false"/>-->
+        <!--<property name="contentType" value="application/vnd.ms-excel"/>-->
+        <!--<property name="prefix" value="/WEB-INF/view/excel/"/>-->
+        <!--<property name="suffix" value=".xls"/>-->
+    <!--</bean>-->
 
     <!-- 拦截器，自定义标签解析查看spring-mvc包下spring.handlers-->
     <!--<mvc:interceptors>-->
