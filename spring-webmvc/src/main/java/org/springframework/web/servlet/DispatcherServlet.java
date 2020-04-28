@@ -458,6 +458,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		initHandlerMappings(context);
 		// 默认初始化3个HandlerAdapter
 		initHandlerAdapters(context);
+		// 异常处理
 		initHandlerExceptionResolvers(context);
 		// 如果方法返回void，设置一个viewName
 		initRequestToViewNameTranslator(context);
@@ -911,9 +912,10 @@ public class DispatcherServlet extends FrameworkServlet {
 				multipartRequestParsed = (processedRequest != request);
 
 				// Determine handler for the current request.
-				// 根据HandlerMapping找到对应的Handler(Controller), 加上拦截器，封装成一个执行链
+				// 根据HandlerMapping找到对应的Handler(HandleMethod或Controller等), 加上拦截器，封装成一个执行链
 				mappedHandler = getHandler(processedRequest, false);
 				if (mappedHandler == null || mappedHandler.getHandler() == null) {
+					// 没有找到handler，直接返回404
 					noHandlerFound(processedRequest, response);
 					return;
 				}
@@ -1007,6 +1009,7 @@ public class DispatcherServlet extends FrameworkServlet {
 			}
 			else {
 				Object handler = (mappedHandler != null ? mappedHandler.getHandler() : null);
+				// 异常解析
 				mv = processHandlerException(request, response, handler, exception);
 				errorView = (mv != null);
 			}
@@ -1170,6 +1173,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Check registered HandlerExceptionResolvers...
 		ModelAndView exMv = null;
+		// 默认有3个异常解析器，解析到返回值则返回
 		for (HandlerExceptionResolver handlerExceptionResolver : this.handlerExceptionResolvers) {
 			exMv = handlerExceptionResolver.resolveException(request, response, handler, ex);
 			if (exMv != null) {

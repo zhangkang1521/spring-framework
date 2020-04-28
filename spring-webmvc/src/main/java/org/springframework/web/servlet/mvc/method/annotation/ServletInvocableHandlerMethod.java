@@ -100,9 +100,10 @@ public class ServletInvocableHandlerMethod extends InvocableHandlerMethod {
 	 */
 	public final void invokeAndHandle(ServletWebRequest webRequest,
 			ModelAndViewContainer mavContainer, Object... providedArgs) throws Exception {
-		// 执行Controller的方法
+		// 执行Controller的方法，执行@ExceptionHandler方法也走这里
 		Object returnValue = invokeForRequest(webRequest, mavContainer, providedArgs);
 
+		// 根据@ResponseStatus设置http状态码
 		setResponseStatus(webRequest);
 
 		if (returnValue == null) {

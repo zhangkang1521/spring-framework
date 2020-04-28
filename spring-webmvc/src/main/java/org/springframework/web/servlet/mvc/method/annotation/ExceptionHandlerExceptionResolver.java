@@ -281,7 +281,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 		if (logger.isDebugEnabled()) {
 			logger.debug("Looking for exception mappings: " + getApplicationContext());
 		}
-
+		// 查询出具有@ControllerAdvice的bean
 		List<ControllerAdviceBean> beans = ControllerAdviceBean.findAnnotatedBeans(getApplicationContext());
 		Collections.sort(beans, new OrderComparator());
 
@@ -301,7 +301,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 	@Override
 	protected ModelAndView doResolveHandlerMethodException(HttpServletRequest request,
 			HttpServletResponse response, HandlerMethod handlerMethod, Exception exception) {
-
+		// 获取@ControllerAdvice中的@ExceptionHandler注解的方法
 		ServletInvocableHandlerMethod exceptionHandlerMethod = getExceptionHandlerMethod(handlerMethod, exception);
 		if (exceptionHandlerMethod == null) {
 			return null;
@@ -362,7 +362,7 @@ public class ExceptionHandlerExceptionResolver extends AbstractHandlerMethodExce
 				return new ServletInvocableHandlerMethod(handlerMethod.getBean(), method);
 			}
 		}
-
+		// exceptionHandlerAdviceCache再afterPropertySet中初始化
 		for (Entry<ControllerAdviceBean, ExceptionHandlerMethodResolver> entry : this.exceptionHandlerAdviceCache.entrySet()) {
 			Method method = entry.getValue().resolveMethod(exception);
 			if (method != null) {

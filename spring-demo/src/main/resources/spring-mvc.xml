@@ -8,6 +8,9 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!-- 统一异常处理 -->
+    <bean id="myControllerAdvice" class="org.zk.controller.MyControllerAdvice"/>
+
     <!-- 1.最简单的情况，url到controller的映射自己配置 -->
     <!--<bean id="userController" class="org.zk.controller.UserSimpleController"/>-->
     <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
