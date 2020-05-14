@@ -83,7 +83,7 @@ public class ServletRequestMethodArgumentResolver implements HandlerMethodArgume
 				throw new IllegalStateException(
 						"Current request is not of type [" + paramType.getName() + "]: " + request);
 			}
-			return nativeRequest;
+			return nativeRequest; // 原生的HttpServlet
 		}
 		else if (HttpSession.class.isAssignableFrom(paramType)) {
 			return request.getSession();

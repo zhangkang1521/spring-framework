@@ -116,7 +116,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 	@SuppressWarnings("unchecked")
 	protected <T> Object readWithMessageConverters(HttpInputMessage inputMessage,
 			MethodParameter methodParam, Type targetType) throws IOException, HttpMediaTypeNotSupportedException {
-
+		// 获取header中的content-type
 		MediaType contentType;
 		try {
 			contentType = inputMessage.getHeaders().getContentType();
@@ -128,10 +128,10 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 			contentType = MediaType.APPLICATION_OCTET_STREAM;
 		}
 
-		Class<?> contextClass = methodParam.getDeclaringClass();
+		Class<?> contextClass = methodParam.getDeclaringClass(); // Controller
 		Map<TypeVariable, Type> map = GenericTypeResolver.getTypeVariableMap(contextClass);
 		Class<T> targetClass = (Class<T>) GenericTypeResolver.resolveType(targetType, map);
-
+		// json转换，xml转换等，在mvc-annotation中初始化
 		for (HttpMessageConverter<?> converter : this.messageConverters) {
 			if (converter instanceof GenericHttpMessageConverter) {
 				GenericHttpMessageConverter genericConverter = (GenericHttpMessageConverter) converter;

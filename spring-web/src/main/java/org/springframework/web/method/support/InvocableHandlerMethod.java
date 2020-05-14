@@ -124,7 +124,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 	 */
 	public final Object invokeForRequest(NativeWebRequest request, ModelAndViewContainer mavContainer,
 			Object... providedArgs) throws Exception {
-
+		// 解析出参数
 		Object[] args = getMethodArgumentValues(request, mavContainer, providedArgs);
 		if (logger.isTraceEnabled()) {
 			StringBuilder sb = new StringBuilder("Invoking [");
@@ -156,6 +156,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 			if (args[i] != null) {
 				continue;
 			}
+			// 解析参数，默认24个解析器，在RequestMappingHandlerAdapter.afterPropertiesSet中初始化
 			if (this.argumentResolvers.supportsParameter(parameter)) {
 				try {
 					args[i] = this.argumentResolvers.resolveArgument(

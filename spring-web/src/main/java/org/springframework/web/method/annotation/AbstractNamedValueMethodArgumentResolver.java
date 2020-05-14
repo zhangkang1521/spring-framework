@@ -82,14 +82,14 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 
 		Class<?> paramType = parameter.getParameterType();
 		NamedValueInfo namedValueInfo = getNamedValueInfo(parameter);
-
+		// 从request,cookies等获取值，各子类不同
 		Object arg = resolveName(namedValueInfo.name, parameter, webRequest);
 		if (arg == null) {
 			if (namedValueInfo.defaultValue != null) {
 				arg = resolveDefaultValue(namedValueInfo.defaultValue);
 			}
 			else if (namedValueInfo.required) {
-				handleMissingValue(namedValueInfo.name, parameter);
+				handleMissingValue(namedValueInfo.name, parameter); // required=true,没有值则抛异常
 			}
 			arg = handleNullValue(namedValueInfo.name, arg, paramType);
 		}
@@ -99,6 +99,7 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 
 		if (binderFactory != null) {
 			WebDataBinder binder = binderFactory.createBinder(webRequest, null, namedValueInfo.name);
+			// 将原生获取的类型转换成我们需要的类型
 			arg = binder.convertIfNecessary(arg, paramType, parameter);
 		}
 
@@ -157,6 +158,7 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 	 * Resolves the given default value into an argument value.
 	 */
 	private Object resolveDefaultValue(String defaultValue) {
+		// 默认值支持SpringEL表达式，例如#{1+1}
 		if (this.configurableBeanFactory == null) {
 			return defaultValue;
 		}

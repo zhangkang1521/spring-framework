@@ -75,7 +75,7 @@ public class ServletResponseMethodArgumentResolver implements HandlerMethodArgum
 				throw new IllegalStateException(
 						"Current response is not of type [" + paramType.getName() + "]: " + response);
 			}
-			return nativeResponse;
+			return nativeResponse; // 原生的HttpServletResponse
 		}
 		else if (OutputStream.class.isAssignableFrom(paramType)) {
 			return response.getOutputStream();

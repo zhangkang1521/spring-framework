@@ -61,7 +61,7 @@ public class ResourceHttpMessageConverter extends AbstractHttpMessageConverter<R
 	@Override
 	protected Resource readInternal(Class<? extends Resource> clazz, HttpInputMessage inputMessage)
 			throws IOException, HttpMessageNotReadableException {
-
+		// @RequestBody Resource byteResource
 		byte[] body = StreamUtils.copyToByteArray(inputMessage.getBody());
 		return new ByteArrayResource(body);
 	}

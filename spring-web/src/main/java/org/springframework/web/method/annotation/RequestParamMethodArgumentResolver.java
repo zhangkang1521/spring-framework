@@ -110,7 +110,7 @@ public class RequestParamMethodArgumentResolver extends AbstractNamedValueMethod
 				return StringUtils.hasText(paramName);
 			}
 			else {
-				return true;
+				return true; // 有@RequestParam注解，不是Map，可以解析
 			}
 		}
 		else {
@@ -118,9 +118,10 @@ public class RequestParamMethodArgumentResolver extends AbstractNamedValueMethod
 				return false;
 			}
 			else if (MultipartFile.class.equals(paramType) || "javax.servlet.http.Part".equals(paramType.getName())) {
-				return true;
+				return true; // 文件解析
 			}
 			else if (this.useDefaultResolution) {
+				// 只解析简单类型，ModelAttributeMethodProcessor处理复杂类型
 				return BeanUtils.isSimpleProperty(paramType);
 			}
 			else {
@@ -138,6 +139,7 @@ public class RequestParamMethodArgumentResolver extends AbstractNamedValueMethod
 	@Override
 	protected Object resolveName(String name, MethodParameter parameter, NativeWebRequest webRequest) throws Exception {
 		HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+		// 在doDispatcher中已经使用文件上传解析器进行解析了
 		MultipartHttpServletRequest multipartRequest =
 				WebUtils.getNativeRequest(servletRequest, MultipartHttpServletRequest.class);
 		Object arg;
@@ -145,7 +147,7 @@ public class RequestParamMethodArgumentResolver extends AbstractNamedValueMethod
 		if (MultipartFile.class.equals(parameter.getParameterType())) {
 			assertIsMultipartRequest(servletRequest);
 			Assert.notNull(multipartRequest, "Expected MultipartHttpServletRequest: is a MultipartResolver configured?");
-			arg = multipartRequest.getFile(name);
+			arg = multipartRequest.getFile(name); // 获取到解析的文件
 		}
 		else if (isMultipartFileCollection(parameter)) {
 			assertIsMultipartRequest(servletRequest);
@@ -165,6 +167,7 @@ public class RequestParamMethodArgumentResolver extends AbstractNamedValueMethod
 				}
 			}
 			if (arg == null) {
+				// 从原生request中获取参数
 				String[] paramValues = webRequest.getParameterValues(name);
 				if (paramValues != null) {
 					arg = (paramValues.length == 1 ? paramValues[0] : paramValues);

@@ -133,7 +133,7 @@ public class SourceHttpMessageConverter<T extends Source> extends AbstractHttpMe
 	@SuppressWarnings("unchecked")
 	protected T readInternal(Class<? extends T> clazz, HttpInputMessage inputMessage)
 			throws IOException, HttpMessageNotReadableException {
-
+		// @RequestBody DOMSource domSource 等
 		InputStream body = inputMessage.getBody();
 		if (DOMSource.class.equals(clazz)) {
 			return (T) readDOMSource(body);

@@ -47,6 +47,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * <p>By default, this converter supports {@code application/json}. This can be overridden by setting the
  * {@link #setSupportedMediaTypes(List) supportedMediaTypes} property.
  *
+ * MappingJackson2XmlHttpMessageConverter spring-4.1之后才有
+ *
  * @author Arjen Poutsma
  * @author Keith Donald
  * @author Rossen Stoyanchev

@@ -1,33 +1,29 @@
 package org.zk.domain;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
  * Created by Administrator on 5/20/2018.
  */
+//@XmlRootElement
 public class User {
     private Integer id;
 
     private String username;
+
     private int age;
 //    private List<String> interests;
     private Integer[] arr;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     private Car car;
     Class clzz;
 
-    private ApplicationContext ctx;
-
-    public ApplicationContext getCtx() {
-        return ctx;
-    }
-
-    public void setCtx(ApplicationContext ctx) {
-        this.ctx = ctx;
-    }
 
     public User() {
         System.out.println("User()");

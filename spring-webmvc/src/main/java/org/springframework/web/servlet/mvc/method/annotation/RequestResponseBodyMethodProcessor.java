@@ -73,6 +73,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 
 
 	public boolean supportsParameter(MethodParameter parameter) {
+		// 参数有@RequestBody
 		return parameter.hasParameterAnnotation(RequestBody.class);
 	}
 
@@ -89,7 +90,7 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 	 */
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-
+		// 使用MessageConverter转换json,xml等到java对象x
 		Object arg = readWithMessageConverters(webRequest, parameter, parameter.getGenericParameterType());
 		String name = Conventions.getVariableNameForParameter(parameter);
 		WebDataBinder binder = binderFactory.createBinder(webRequest, arg, name);

@@ -46,6 +46,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 public class RequestParamMapMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 	public boolean supportsParameter(MethodParameter parameter) {
+		// @RequestParam Map
 		RequestParam requestParamAnnot = parameter.getParameterAnnotation(RequestParam.class);
 		if (requestParamAnnot != null) {
 			if (Map.class.isAssignableFrom(parameter.getParameterType())) {

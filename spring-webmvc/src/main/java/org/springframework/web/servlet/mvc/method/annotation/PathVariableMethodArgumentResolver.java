@@ -67,8 +67,9 @@ public class PathVariableMethodArgumentResolver extends AbstractNamedValueMethod
 
 	public boolean supportsParameter(MethodParameter parameter) {
 		if (!parameter.hasParameterAnnotation(PathVariable.class)) {
-			return false;
+			return false; // 没有@PathVariable，肯定不支持
 		}
+		// assignableFrom用于比较两个class之间的关系
 		if (Map.class.isAssignableFrom(parameter.getParameterType())) {
 			String paramName = parameter.getParameterAnnotation(PathVariable.class).value();
 			return StringUtils.hasText(paramName);
@@ -85,6 +86,7 @@ public class PathVariableMethodArgumentResolver extends AbstractNamedValueMethod
 	@Override
 	@SuppressWarnings("unchecked")
 	protected Object resolveName(String name, MethodParameter parameter, NativeWebRequest request) throws Exception {
+		// HandlerMapping查找过程中会设值
 		Map<String, String> uriTemplateVars =
 			(Map<String, String>) request.getAttribute(
 					HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE, RequestAttributes.SCOPE_REQUEST);

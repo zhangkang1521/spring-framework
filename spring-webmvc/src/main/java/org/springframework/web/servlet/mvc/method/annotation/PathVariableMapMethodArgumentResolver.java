@@ -43,6 +43,7 @@ import org.springframework.web.servlet.HandlerMapping;
 public class PathVariableMapMethodArgumentResolver implements HandlerMethodArgumentResolver {
 
 	public boolean supportsParameter(MethodParameter parameter) {
+		// 解析 @PathVariable Map
 		PathVariable annot = parameter.getParameterAnnotation(PathVariable.class);
 		return ((annot != null) && (Map.class.isAssignableFrom(parameter.getParameterType()))
 				&& (!StringUtils.hasText(annot.value())));

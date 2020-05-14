@@ -45,7 +45,7 @@ public class ModelMethodProcessor implements HandlerMethodArgumentResolver, Hand
 			MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory)
 			throws Exception {
-
+		// 返回Model类型
 		return mavContainer.getModel();
 	}
 

@@ -118,7 +118,7 @@ public class SessionAttributesHandler {
 		for (String name : attributes.keySet()) {
 			Object value = attributes.get(name);
 			Class<?> attrType = (value != null) ? value.getClass() : null;
-
+			// 指定的属性才加入
 			if (isHandlerSessionAttribute(name, attrType)) {
 				this.sessionAttributeStore.storeAttribute(request, name, value);
 			}

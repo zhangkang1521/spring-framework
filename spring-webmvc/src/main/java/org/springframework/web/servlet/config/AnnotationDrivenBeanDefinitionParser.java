@@ -189,6 +189,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		handlerAdapterDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 		handlerAdapterDef.getPropertyValues().add("contentNegotiationManager", contentNegotiationManager);
 		handlerAdapterDef.getPropertyValues().add("webBindingInitializer", bindingDef);
+		// 初始化RequestMappingHandlerAdapter的messageConverters
 		handlerAdapterDef.getPropertyValues().add("messageConverters", messageConverters);
 		if (element.hasAttribute("ignoreDefaultModelOnRedirect")) {
 			Boolean ignoreDefaultModel = Boolean.valueOf(element.getAttribute("ignoreDefaultModelOnRedirect"));
@@ -446,6 +447,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 			}
 		}
 
+		// 默认的MessageConverter
 		if (convertersElement == null || Boolean.valueOf(convertersElement.getAttribute("register-defaults"))) {
 			messageConverters.setSource(source);
 			messageConverters.add(createConverterDefinition(ByteArrayHttpMessageConverter.class, source));

@@ -25,6 +25,9 @@ import java.lang.annotation.Target;
 import org.springframework.ui.Model;
 
 /**
+ * 1.单独注解在方法上：在RequestMapping方法前执行，如果有返回值，返回值会放入Model中
+ * 2.和@RequestMapping一起注解，返回值处理使用ModelAttributeMethodProcessor，返回值加入到Model中，view使用默认Translator转换
+ * 3.注解参数，使用ModelAttributeMethodProcessor解析参数
  * Annotation that binds a method parameter or method return value
  * to a named model attribute, exposed to a web view. Supported
  * for controller classes with {@link RequestMapping @RequestMapping}

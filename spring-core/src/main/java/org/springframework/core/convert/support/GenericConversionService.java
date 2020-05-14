@@ -165,6 +165,7 @@ public class GenericConversionService implements ConfigurableConversionService {
 			throw new IllegalArgumentException("source to convert from must be an instance of " +
 					sourceType + "; instead it was a " + source.getClass().getName());
 		}
+		// 获取合适的Converter
 		GenericConverter converter = getConverter(sourceType, targetType);
 		if (converter != null) {
 			Object result = ConversionUtils.invokeConverter(converter, source, sourceType, targetType);
@@ -427,7 +428,7 @@ public class GenericConversionService implements ConfigurableConversionService {
 	private static class Converters {
 
 		private final Set<GenericConverter> globalConverters = new LinkedHashSet<GenericConverter>();
-
+		// 相同条件，ConvertiblePair的sourceType和targetType相同
 		private final Map<ConvertiblePair, ConvertersForPair> converters =
 				new LinkedHashMap<ConvertiblePair, ConvertersForPair>(36);
 

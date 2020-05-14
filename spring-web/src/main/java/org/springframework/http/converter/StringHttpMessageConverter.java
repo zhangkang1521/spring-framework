@@ -84,6 +84,7 @@ public class StringHttpMessageConverter extends AbstractHttpMessageConverter<Str
 
 	@Override
 	protected String readInternal(Class<? extends String> clazz, HttpInputMessage inputMessage) throws IOException {
+		// 直接将输入流写入String
 		Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
 		return StreamUtils.copyToString(inputMessage.getBody(), charset);
 	}

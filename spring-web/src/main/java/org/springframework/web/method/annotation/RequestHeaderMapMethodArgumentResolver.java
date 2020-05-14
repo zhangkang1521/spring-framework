@@ -76,6 +76,7 @@ public class RequestHeaderMapMethodArgumentResolver implements HandlerMethodArgu
 			return result;
 		}
 		else {
+			// 获取所有Header放入Map中
 			Map<String, String> result = new LinkedHashMap<String, String>();
 			for (Iterator<String> iterator = webRequest.getHeaderNames(); iterator.hasNext();) {
 				String headerName = iterator.next();

@@ -71,7 +71,7 @@ public class HandlerMethodArgumentResolverComposite implements HandlerMethodArgu
 			MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory)
 			throws Exception {
-
+		// 先获取到指定的参数解析器
 		HandlerMethodArgumentResolver resolver = getArgumentResolver(parameter);
 		Assert.notNull(resolver, "Unknown parameter type [" + parameter.getParameterType().getName() + "]");
 		return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
@@ -90,7 +90,7 @@ public class HandlerMethodArgumentResolverComposite implements HandlerMethodArgu
 				}
 				if (methodArgumentResolver.supportsParameter(parameter)) {
 					result = methodArgumentResolver;
-					this.argumentResolverCache.put(parameter, result);
+//					this.argumentResolverCache.put(parameter, result);
 					break;
 				}
 			}

@@ -53,7 +53,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
  */
 public final class ModelFactory {
 
-	private final List<InvocableHandlerMethod> attributeMethods;
+	private final List<InvocableHandlerMethod> attributeMethods; // @ModelAttribute单独注解的方法
 
 	private final WebDataBinderFactory binderFactory;
 
@@ -90,16 +90,17 @@ public final class ModelFactory {
 	 */
 	public void initModel(NativeWebRequest request, ModelAndViewContainer mavContainer, HandlerMethod handlerMethod)
 			throws Exception {
-
+		// 将@SessionAttributes中的属性加入Model
 		Map<String, ?> attributesInSession = this.sessionAttributesHandler.retrieveAttributes(request);
 		mavContainer.mergeAttributes(attributesInSession);
-
+		// 先调用modelAttribute方法
 		invokeModelAttributeMethods(request, mavContainer);
 
 		for (String name : findSessionAttributeArguments(handlerMethod)) {
 			if (!mavContainer.containsAttribute(name)) {
 				Object value = this.sessionAttributesHandler.retrieveAttribute(request, name);
 				if (value == null) {
+					// @SessionAttributes,@ModelAttribute配合使用，@ModelAttribute获取不到值的情况
 					throw new HttpSessionRequiredException("Expected session attribute '" + name + "'");
 				}
 				mavContainer.addAttribute(name, value);
@@ -125,7 +126,7 @@ public final class ModelFactory {
 			if (!attrMethod.isVoid()){
 				String returnValueName = getNameForReturnValue(returnValue, attrMethod.getReturnType());
 				if (!mavContainer.containsAttribute(returnValueName)) {
-					mavContainer.addAttribute(returnValueName, returnValue);
+					mavContainer.addAttribute(returnValueName, returnValue); // 将返回值加入的Model中
 				}
 			}
 		}
@@ -199,6 +200,7 @@ public final class ModelFactory {
 			this.sessionAttributesHandler.cleanupAttributes(request);
 		}
 		else {
+			// 保存@SessionAttributes中指定的属性到Session
 			this.sessionAttributesHandler.storeAttributes(request, mavContainer.getModel());
 		}
 

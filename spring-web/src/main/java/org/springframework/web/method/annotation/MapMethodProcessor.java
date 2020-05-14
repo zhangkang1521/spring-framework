@@ -46,7 +46,7 @@ public class MapMethodProcessor implements HandlerMethodArgumentResolver, Handle
 			MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory)
 			throws Exception {
-
+		// Map其实就是返回Model
 		return mavContainer.getModel();
 	}
 

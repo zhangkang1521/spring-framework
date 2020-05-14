@@ -94,7 +94,7 @@ public class RequestPartMethodArgumentResolver extends AbstractMessageConverterM
 				return false;
 			}
 			else if (MultipartFile.class.equals(parameter.getParameterType())) {
-				return true;
+				return true; // 文件解析
 			}
 			else if ("javax.servlet.http.Part".equals(parameter.getParameterType().getName())) {
 				return true;

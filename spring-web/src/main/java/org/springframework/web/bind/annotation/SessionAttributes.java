@@ -24,6 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 将指定的Model中的属性放入Session中，注意不要在有@ResponseBody的Controller中使用，
+ * 否则会报错Cannot create a session after the response has been committed
  * Annotation that indicates the session attributes that a specific handler
  * uses. This will typically list the names of model attributes which should be
  * transparently stored in the session or some conversational storage,

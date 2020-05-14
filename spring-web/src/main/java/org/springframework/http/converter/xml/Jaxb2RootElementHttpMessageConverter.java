@@ -47,6 +47,7 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.util.ClassUtils;
 
 /**
+ * xml转换
  * Implementation of {@link org.springframework.http.converter.HttpMessageConverter HttpMessageConverter}
  * that can read and write XML using JAXB2.
  *

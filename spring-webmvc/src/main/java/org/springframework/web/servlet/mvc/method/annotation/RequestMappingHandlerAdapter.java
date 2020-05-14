@@ -129,7 +129,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 
 	private ContentNegotiationManager contentNegotiationManager = new ContentNegotiationManager();
 
-	private List<HttpMessageConverter<?>> messageConverters;
+	private List<HttpMessageConverter<?>> messageConverters; // 何处初始化？
 
 	private WebBindingInitializer webBindingInitializer;
 
@@ -173,6 +173,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		stringHttpMessageConverter.setWriteAcceptCharset(false);  // see SPR-7316
 
 		this.messageConverters = new ArrayList<HttpMessageConverter<?>>(4);
+		// 会被mvc-annotation中设置的覆盖
 		this.messageConverters.add(new ByteArrayHttpMessageConverter());
 		this.messageConverters.add(stringHttpMessageConverter);
 		this.messageConverters.add(new SourceHttpMessageConverter<Source>());
@@ -475,6 +476,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 
 
 	public void afterPropertiesSet() {
+		// 初始化参数解析器
 		if (this.argumentResolvers == null) {
 			List<HandlerMethodArgumentResolver> resolvers = getDefaultArgumentResolvers();
 			this.argumentResolvers = new HandlerMethodArgumentResolverComposite().addResolvers(resolvers);
@@ -529,7 +531,9 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		}
 
 		// Catch-all
+		// 简单类型，不加@RequestParam
 		resolvers.add(new RequestParamMethodArgumentResolver(getBeanFactory(), true));
+		// 复杂类型，不加@ModelAttribute
 		resolvers.add(new ServletModelAttributeMethodProcessor(true));
 
 		return resolvers;
@@ -618,6 +622,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		Collections.sort(beans, new OrderComparator());
 
 		for (ControllerAdviceBean bean : beans) {
+			// ControllerAdvice中@ModelAttribute注解的方法
 			Set<Method> attrMethods = HandlerMethodSelector.selectMethods(bean.getBeanType(), MODEL_ATTRIBUTE_METHODS);
 			if (!attrMethods.isEmpty()) {
 				this.modelAttributeAdviceCache.put(bean, attrMethods);
@@ -710,13 +715,14 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 			HttpServletResponse response, HandlerMethod handlerMethod) throws Exception {
 
 		ServletWebRequest webRequest = new ServletWebRequest(request, response);
-
+		// 初始化参数解析器等
 		WebDataBinderFactory binderFactory = getDataBinderFactory(handlerMethod);
 		ModelFactory modelFactory = getModelFactory(handlerMethod, binderFactory);
 		ServletInvocableHandlerMethod requestMappingMethod = createRequestMappingMethod(handlerMethod, binderFactory);
 
 		ModelAndViewContainer mavContainer = new ModelAndViewContainer();
 		mavContainer.addAllAttributes(RequestContextUtils.getInputFlashMap(request));
+		// 将SessionAttributes值加入Model；调用@ModelAttribute注解的方法，如有返回值则加入Model
 		modelFactory.initModel(webRequest, mavContainer, requestMappingMethod);
 		mavContainer.setIgnoreDefaultModelOnRedirect(this.ignoreDefaultModelOnRedirect);
 
@@ -739,7 +745,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 			}
 			requestMappingMethod = requestMappingMethod.wrapConcurrentResult(result);
 		}
-
+		// 执行方法
 		requestMappingMethod.invokeAndHandle(webRequest, mavContainer);
 
 		if (asyncManager.isConcurrentHandlingStarted()) {
@@ -767,16 +773,18 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		Set<Method> methods = this.modelAttributeCache.get(handlerType);
 		if (methods == null) {
 			methods = HandlerMethodSelector.selectMethods(handlerType, MODEL_ATTRIBUTE_METHODS);
-			this.modelAttributeCache.put(handlerType, methods);
+//			this.modelAttributeCache.put(handlerType, methods);
 		}
 		List<InvocableHandlerMethod> attrMethods = new ArrayList<InvocableHandlerMethod>();
 		// Global methods first
+		// ControllerAdvice中的@ModelAttribute方法
 		for (Entry<ControllerAdviceBean, Set<Method>> entry : this.modelAttributeAdviceCache.entrySet()) {
 			Object bean = entry.getKey().resolveBean();
 			for (Method method : entry.getValue()) {
 				attrMethods.add(createModelAttributeMethod(binderFactory, bean, method));
 			}
 		}
+		// 本Controller中的@ModelAttribute方法
 		for (Method method : methods) {
 			Object bean = handlerMethod.getBean();
 			attrMethods.add(createModelAttributeMethod(binderFactory, bean, method));

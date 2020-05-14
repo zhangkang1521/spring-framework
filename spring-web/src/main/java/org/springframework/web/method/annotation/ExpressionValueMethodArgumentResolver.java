@@ -61,7 +61,7 @@ public class ExpressionValueMethodArgumentResolver extends AbstractNamedValueMet
 	@Override
 	protected Object resolveName(String name, MethodParameter parameter, NativeWebRequest webRequest)
 			throws Exception {
-		// No name to resolve
+		// No name to resolve，@Value不需要获取请求的参数
 		return null;
 	}
 

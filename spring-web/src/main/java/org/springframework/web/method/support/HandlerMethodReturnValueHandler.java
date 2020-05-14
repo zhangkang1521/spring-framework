@@ -20,6 +20,7 @@ import org.springframework.core.MethodParameter;
 import org.springframework.web.context.request.NativeWebRequest;
 
 /**
+ * 返回值
  * Strategy interface to handle the value returned from the invocation of a
  * handler method .
  *

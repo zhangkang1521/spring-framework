@@ -48,6 +48,7 @@ public class MatrixVariableMethodArgumentResolver extends AbstractNamedValueMeth
 	}
 
 	public boolean supportsParameter(MethodParameter parameter) {
+		// 矩阵变量 /owners/42;q=11/pets/21;s=23;q=22
 		if (!parameter.hasParameterAnnotation(MatrixVariable.class)) {
 			return false;
 		}

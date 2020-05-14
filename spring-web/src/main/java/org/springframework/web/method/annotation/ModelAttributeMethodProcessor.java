@@ -83,6 +83,8 @@ public class ModelAttributeMethodProcessor
 			return true;
 		}
 		else if (this.annotationNotRequired) {
+			// 没有注解，不是简单类型，可以解析，
+			// 简单类型由RequestParamMethodArgumentProcessor处理
 			return !BeanUtils.isSimpleProperty(parameter.getParameterType());
 		}
 		else {
@@ -103,11 +105,13 @@ public class ModelAttributeMethodProcessor
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
 		String name = ModelFactory.getNameForParameter(parameter);
+		// 如果Model中有这个参数，则获取，否则新建
 		Object attribute = (mavContainer.containsAttribute(name) ? mavContainer.getModel().get(name) :
 				createAttribute(name, parameter, binderFactory, webRequest));
 
 		WebDataBinder binder = binderFactory.createBinder(webRequest, attribute, name);
 		if (binder.getTarget() != null) {
+			// 绑定参数
 			bindRequestParameters(binder, webRequest);
 			validateIfApplicable(binder, parameter);
 			if (binder.getBindingResult().hasErrors() && isBindExceptionRequired(binder, parameter)) {
@@ -116,6 +120,7 @@ public class ModelAttributeMethodProcessor
 		}
 
 		// Add resolved attribute and BindingResult at the end of the model
+		// 将解析的参数加入到Model中
 		Map<String, Object> bindingResultModel = binder.getBindingResult().getModel();
 		mavContainer.removeAttributes(bindingResultModel);
 		mavContainer.addAllAttributes(bindingResultModel);
@@ -201,7 +206,7 @@ public class ModelAttributeMethodProcessor
 	 */
 	public void handleReturnValue(Object returnValue, MethodParameter returnType,
 			ModelAndViewContainer mavContainer, NativeWebRequest webRequest) throws Exception {
-
+		// 将返回值加入到Model中
 		if (returnValue != null) {
 			String name = ModelFactory.getNameForReturnValue(returnValue, returnType);
 			mavContainer.addAttribute(name, returnValue);
