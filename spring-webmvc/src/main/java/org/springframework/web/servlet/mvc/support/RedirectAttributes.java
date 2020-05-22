@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2002-2012 the original author or authors.
  *
@@ -59,6 +60,7 @@ import org.springframework.web.servlet.FlashMap;
  */
 public interface RedirectAttributes extends Model {
 
+	// 会在url中加上拼接参数
 	RedirectAttributes addAttribute(String attributeName, Object attributeValue);
 
 	RedirectAttributes addAttribute(Object attributeValue);
@@ -68,7 +70,7 @@ public interface RedirectAttributes extends Model {
 	RedirectAttributes mergeAttributes(Map<String, ?> attributes);
 
 	/**
-	 * Add the given flash attribute.
+	 * Add the given flash attribute.不在url中拼接参数，在session中存储
 	 * @param attributeName the attribute name; never {@code null}
 	 * @param attributeValue the attribute value; may be {@code null}
 	 */

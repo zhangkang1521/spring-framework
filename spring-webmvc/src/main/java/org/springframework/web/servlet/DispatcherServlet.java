@@ -464,6 +464,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		initRequestToViewNameTranslator(context);
 		// 初始化ViewResolver
 		initViewResolvers(context);
+		// 重定向传参用
 		initFlashMapManager(context);
 	}
 

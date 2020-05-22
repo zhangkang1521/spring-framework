@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>user-list</title>
+    <title>user-detail</title>
 </head>
 <body>
-    hello,user-list
+    hello,user-detail
 </body>
 </html>

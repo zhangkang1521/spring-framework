@@ -3,6 +3,7 @@ package org.zk.domain;
 import org.springframework.context.ApplicationContext;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import java.util.Date;
 public class User {
     private Integer id;
 
+    @NotNull(message = "用户名不能为空")
     private String username;
 
     private int age;

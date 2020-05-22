@@ -6,10 +6,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.zk.core.Result;
 import org.zk.domain.User;
 import org.zk.web.JxlsExcelView;
 
@@ -27,30 +31,9 @@ import java.util.*;
  */
 @RequestMapping("/user")
 @Controller
-@SessionAttributes(value="currentUser")
 public class UserAnnotationController {
 
-	// @InitBinder
-//	public void initBinder(WebDataBinder binder){
-//		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		CustomDateEditor dateEditor = new CustomDateEditor(df, true);
-//		binder.registerCustomEditor(Date.class, dateEditor);
-//	}
 
-//	@ModelAttribute
-//	public User populateModel(@RequestParam String abc, Model model) {
-//		model.addAttribute("attributeName", abc);
-//		return new User();
-//	}
-
-	@RequestMapping("test")
-	@ResponseBody
-	public String test(Model model) {
-//		ModelAndView mav = new ModelAndView("/user/list");
-//		mav.addObject("currentUser", new User(1,"zk"));
-		 model.addAttribute("currentUser", new User(2, "kk"));
-		return "/user/list";
-	}
 
 
 	// Content-Type:
@@ -59,14 +42,13 @@ public class UserAnnotationController {
 	// json格式：application/json
 	@RequestMapping(value = "/list")
 	@ResponseBody
-	public User hello(HttpSession session, @ModelAttribute("currentUser") User currentUser) {
+	public Result list(@Validated User user) {
 //		if (true) {
 //			throw new RuntimeException("ss");
 //		}
-		User user2 = (User)session.getAttribute("currentUser");
-		System.out.println(user2);
-		return user2;
+		return new Result();
 	}
+
 
 
 
