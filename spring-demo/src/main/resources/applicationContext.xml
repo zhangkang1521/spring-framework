@@ -7,9 +7,24 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
+    <!-- 单例bean,spring容器启动时即初始化 -->
     <bean id="user" class="org.zk.domain.User">
-        <property name="username" value="ss"/>
+        <property name="username" value="zx"/>
     </bean>
+
+    <!--<bean id="car" class="org.zk.domain.Car"></bean>-->
+
+    <!-- bean前置处理，后置处理 -->
+    <bean class="org.zk.domain.MyBeanPostProcessor"/>
+
+    <!-- 实例化处理 -->
+    <bean class="org.zk.domain.MyInstantiationAwareBeanPostProcessors"></bean>
+
+    <!-- 模拟dubbo @Reference -->
+    <!--<bean class="org.zk.domain.ReferenceAnnotationBeanPostProcessor"></bean>-->
+
+    <!-- @Autowired @Value @Inject注解的字段或方法处理 -->
+    <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
 
     <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
 
@@ -63,12 +78,6 @@
    <!-- <bean id="car" class="org.zk.domain.Car" lazy-init="true">
         <property name="createTime" value="2018-08-05 20:48:00"/>
     </bean>-->
-
-
-    <!--<bean class="org.zk.domain.MyInstantiationAwareBeanPostProcessors"></bean>-->
-
-    <!-- -->
-        <!--<bean class="org.zk.domain.MyBeanPostProcessor"></bean>-->
 
 
     <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">

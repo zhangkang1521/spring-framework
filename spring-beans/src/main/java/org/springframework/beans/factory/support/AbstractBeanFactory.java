@@ -292,7 +292,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					sharedInstance = getSingleton(beanName, new ObjectFactory<Object>() {
 						public Object getObject() throws BeansException {
 							try {
-								return createBean(beanName, mbd, args); // 创建bean
+								// 创建bean
+								return createBean(beanName, mbd, args);
 							}
 							catch (BeansException ex) {
 								// Explicitly remove instance from singleton cache: It might have been put there

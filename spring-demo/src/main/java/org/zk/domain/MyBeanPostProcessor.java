@@ -14,12 +14,12 @@ public class MyBeanPostProcessor implements BeanPostProcessor, Ordered {
 
 
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("MyBeanPostProcessor.postProcessBeforeInitialization " + beanName);
+        System.out.println("bean前置处理" + beanName);
         return bean;
     }
 
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-        System.out.println("MyBeanPostProcessor.postProcessAfterInitialization " + beanName);
+        System.out.println("bean后置处理" + beanName);
         return bean;
     }
 

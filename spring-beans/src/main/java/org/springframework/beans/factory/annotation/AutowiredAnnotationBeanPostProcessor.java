@@ -330,6 +330,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					if (metadata != null) {
 						metadata.clear(pvs);
 					}
+					//
 					metadata = buildAutowiringMetadata(clazz);
 					this.injectionMetadataCache.put(cacheKey, metadata);
 				}
@@ -344,6 +345,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 		do {
 			LinkedList<InjectionMetadata.InjectedElement> currElements = new LinkedList<InjectionMetadata.InjectedElement>();
+			// 遍历所有字段，如果有@Autowired @Value注解则加入
 			for (Field field : targetClass.getDeclaredFields()) {
 				Annotation ann = findAutowiredAnnotation(field);
 				if (ann != null) {
@@ -357,6 +359,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					currElements.add(new AutowiredFieldElement(field, required));
 				}
 			}
+			// 遍历所有方法
 			for (Method method : targetClass.getDeclaredMethods()) {
 				Annotation ann = null;
 				Method bridgedMethod = BridgeMethodResolver.findBridgedMethod(method);
@@ -381,7 +384,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				}
 			}
 			elements.addAll(0, currElements);
-			targetClass = targetClass.getSuperclass();
+			targetClass = targetClass.getSuperclass(); // 父类的属性，方法等
 		}
 		while (targetClass != null && targetClass != Object.class);
 
@@ -524,7 +527,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				}
 				if (value != null) {
 					ReflectionUtils.makeAccessible(field);
-					field.set(bean, value);
+					field.set(bean, value); // 设置字段
 				}
 			}
 			catch (Throwable ex) {

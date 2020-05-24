@@ -30,10 +30,8 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        MyTarget target = ctx.getBean(MyTarget.class);
-        target.sayHello();
-//        myTarget.sayWorld();
-//        myTarget.sayWorld();
+        User user = (User)ctx.getBean("user");
+        System.out.println(user.getUsername());
     }
 
     @Test

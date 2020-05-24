@@ -8,6 +8,6 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(UserConfiguration.class) // 导入配置
+@Import(MyRegister.class) // 导入配置
 public @interface EnableUser {
 }

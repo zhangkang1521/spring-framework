@@ -1,17 +1,17 @@
 package org.zk.domain;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.beans.factory.InitializingBean;
+import org.zk.annotation.Reference;
+import org.zk.service.UserService;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 /**
  * Created by Administrator on 5/20/2018.
  */
 //@XmlRootElement
-public class User {
+public class User implements InitializingBean  {
     private Integer id;
 
     @NotNull(message = "用户名不能为空")
@@ -23,12 +23,12 @@ public class User {
 //    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
-    private Car car;
-    Class clzz;
+    @Reference
+    private UserService userService;
 
 
     public User() {
-        System.out.println("User()");
+        System.out.println("调用构造方法User()");
     }
 
 
@@ -70,13 +70,7 @@ public class User {
         this.username = username;
     }
 
-    public Car getCar() {
-        return car;
-    }
 
-    public void setCar(Car car) {
-        this.car = car;
-    }
 
 //    public List<String> getInterests() {
 //        return interests;
@@ -103,12 +97,12 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Class getClzz() {
-        return clzz;
+    public UserService getUserService() {
+        return userService;
     }
 
-    public void setClzz(Class clzz) {
-        this.clzz = clzz;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     public void setAge(int age) {
@@ -117,5 +111,10 @@ public class User {
 
     public int getAge() {
         return age;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("调用afterPropertiesSet");
     }
 }
