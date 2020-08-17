@@ -786,10 +786,12 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	protected Object doResolveDependency(DependencyDescriptor descriptor, Class<?> type, String beanName,
 			Set<String> autowiredBeanNames, TypeConverter typeConverter) throws BeansException {
-		// 这一行代码有什么用，没找到
+		// 如果是@Value，如@Value("${jdbc.username}")，这里value获取到的值就是${jdbc.username}
+		// 如果是@Autowired，获取到value为空
 		Object value = getAutowireCandidateResolver().getSuggestedValue(descriptor);
-		if (value != null) {
+		if (value != null) { // @Value
 			if (value instanceof String) {
+				// 获取到${jdbc.username}对应配置文件中的值
 				String strVal = resolveEmbeddedValue((String) value);
 				BeanDefinition bd = (beanName != null && containsBean(beanName) ? getMergedBeanDefinition(beanName) : null);
 				value = evaluateBeanDefinitionString(strVal, bd);
@@ -865,7 +867,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			return matchingBeans;
 		}
 		else {
-			// 一般属性走这里
+			// @Autowired 获取到可以注入的依赖
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, type, descriptor);
 			if (matchingBeans.isEmpty()) {
 				if (descriptor.isRequired()) {

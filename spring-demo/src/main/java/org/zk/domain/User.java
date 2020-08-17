@@ -1,6 +1,11 @@
 package org.zk.domain;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.zk.annotation.Reference;
 import org.zk.service.UserService;
 
@@ -11,10 +16,10 @@ import java.util.Date;
  * Created by Administrator on 5/20/2018.
  */
 //@XmlRootElement
-public class User implements InitializingBean  {
+public class User implements InitializingBean , ApplicationContextAware {
     private Integer id;
 
-    @NotNull(message = "用户名不能为空")
+    @Value("${jdbc.username}")
     private String username;
 
     private int age;
@@ -25,6 +30,9 @@ public class User implements InitializingBean  {
 
     @Reference
     private UserService userService;
+
+    @Autowired
+    private Car car;
 
 
     public User() {
@@ -116,5 +124,10 @@ public class User implements InitializingBean  {
     @Override
     public void afterPropertiesSet() throws Exception {
         System.out.println("调用afterPropertiesSet");
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        System.out.println("调用setApplicationContext");
     }
 }

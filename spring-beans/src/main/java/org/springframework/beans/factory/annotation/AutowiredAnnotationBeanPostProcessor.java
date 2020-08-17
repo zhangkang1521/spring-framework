@@ -503,6 +503,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					DependencyDescriptor desc = new DependencyDescriptor(field, this.required);
 					Set<String> autowiredBeanNames = new LinkedHashSet<String>(1);
 					TypeConverter typeConverter = beanFactory.getTypeConverter();
+					// 获取值
 					value = beanFactory.resolveDependency(desc, beanName, autowiredBeanNames, typeConverter);
 					synchronized (this) {
 						if (!this.cached) {
