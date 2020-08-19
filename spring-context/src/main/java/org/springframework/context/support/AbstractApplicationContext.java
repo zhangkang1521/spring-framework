@@ -463,7 +463,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				// 回调容器后处理器
+				// 回调容器注册后处理器，容器后处理器
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
@@ -632,7 +632,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			List<BeanFactoryPostProcessor> regularPostProcessors = new LinkedList<BeanFactoryPostProcessor>();
 			List<BeanDefinitionRegistryPostProcessor> registryPostProcessors =
 					new LinkedList<BeanDefinitionRegistryPostProcessor>();
-			// 编码加入的BeanFactoryPostProcessor
+			// 编码加入的BeanFactoryPostProcessor，一般没有
 			for (BeanFactoryPostProcessor postProcessor : getBeanFactoryPostProcessors()) {
 				if (postProcessor instanceof BeanDefinitionRegistryPostProcessor) {
 					BeanDefinitionRegistryPostProcessor registryPostProcessor =
@@ -644,16 +644,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 					regularPostProcessors.add(postProcessor);
 				}
 			}
-			// 配置的BeanDefinitionRegistryPostProcessor
+			// 配置的容器注册后处理器
 			Map<String, BeanDefinitionRegistryPostProcessor> beanMap =
 					beanFactory.getBeansOfType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			List<BeanDefinitionRegistryPostProcessor> registryPostProcessorBeans =
 					new ArrayList<BeanDefinitionRegistryPostProcessor>(beanMap.values());
 			OrderComparator.sort(registryPostProcessorBeans);
 			for (BeanDefinitionRegistryPostProcessor postProcessor : registryPostProcessorBeans) {
+				// 回调容器注册方法
 				postProcessor.postProcessBeanDefinitionRegistry(registry);
 			}
 			invokeBeanFactoryPostProcessors(registryPostProcessors, beanFactory);
+			// 回调容器后处理器
 			invokeBeanFactoryPostProcessors(registryPostProcessorBeans, beanFactory);
 			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
 			processedBeans.addAll(beanMap.keySet());
@@ -665,6 +667,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Do not initialize FactoryBeans here: We need to leave all regular beans
 		// uninitialized to let the bean factory post-processors apply to them!
+		// 配置的容器后处理器
 		String[] postProcessorNames =
 				beanFactory.getBeanNamesForType(BeanFactoryPostProcessor.class, true, false);
 
@@ -673,6 +676,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		List<BeanFactoryPostProcessor> priorityOrderedPostProcessors = new ArrayList<BeanFactoryPostProcessor>();
 		List<String> orderedPostProcessorNames = new ArrayList<String>();
 		List<String> nonOrderedPostProcessorNames = new ArrayList<String>();
+		// 按优先级排列后调用
 		for (String ppName : postProcessorNames) {
 			if (processedBeans.contains(ppName)) {
 				// skip - already processed in first phase above
