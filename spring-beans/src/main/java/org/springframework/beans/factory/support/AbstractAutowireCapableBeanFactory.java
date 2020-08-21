@@ -434,7 +434,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Prepare method overrides.
 		try {
-			// 检测方法是否存在，是否有多个方法重载
+			// lookup-method, replace-method 方法
 			mbd.prepareMethodOverrides();
 		}
 		catch (BeanDefinitionValidationException ex) {
@@ -484,7 +484,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
 		if (instanceWrapper == null) {
-			// 创建beanWrapper
+			// 构造bean，一般是反射或工厂
 			instanceWrapper = createBeanInstance(beanName, mbd, args);
 		}
 		final Object bean = (instanceWrapper != null ? instanceWrapper.getWrappedInstance() : null);
@@ -521,7 +521,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// 依赖注入
 			populateBean(beanName, mbd, instanceWrapper);
 			if (exposedObject != null) {
-				// 前置处理，调用初始化方法, 后置处理
+				// bean初始化
+				// 1.BeanNameAware等容器感知
+				// 2.初始化前置处理
+				// 3.afterPropertiesSet, init-method
+				// 4.初始化后置处理
 				exposedObject = initializeBean(beanName, exposedObject, mbd);
 			}
 		}
@@ -899,6 +903,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			if (mbd.hasBeanClass() && !mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 				bean = applyBeanPostProcessorsBeforeInstantiation(mbd.getBeanClass(), beanName);
 				if (bean != null) {
+					// 保证调用了初始化后置处理
 					bean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
 				}
 			}
@@ -1036,6 +1041,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				}, getAccessControlContext());
 			}
 			else {
+				// 实例化
 				beanInstance = getInstantiationStrategy().instantiate(mbd, beanName, parent);
 			}
 			BeanWrapper bw = new BeanWrapperImpl(beanInstance);
@@ -1499,6 +1505,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * @see #applyBeanPostProcessorsAfterInitialization
 	 */
 	protected Object initializeBean(final String beanName, final Object bean, RootBeanDefinition mbd) {
+		// 3个Aware，容器感知，还有一些使用ApplicationContextAwareProcessor处理
 		if (System.getSecurityManager() != null) {
 			AccessController.doPrivileged(new PrivilegedAction<Object>() {
 				public Object run() {
@@ -1511,14 +1518,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			invokeAwareMethods(beanName, bean);
 		}
 
+		// 前置处理
 		Object wrappedBean = bean;
 		if (mbd == null || !mbd.isSynthetic()) {
-			// 前置处理
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 		}
 
+		// afterProperties,init-method
 		try {
-			// afterProperties
 			invokeInitMethods(beanName, wrappedBean, mbd);
 		}
 		catch (Throwable ex) {
@@ -1527,8 +1534,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 					beanName, "Invocation of init method failed", ex);
 		}
 
+		// 后置处理
 		if (mbd == null || !mbd.isSynthetic()) {
-			// 后置处理
 			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
 		}
 		return wrappedBean;
@@ -1564,6 +1571,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			throws Throwable {
 
 		boolean isInitializingBean = (bean instanceof InitializingBean);
+		// 调用afterPropertiesSet方法，一般用于bean依赖注入后的一些处理
 		if (isInitializingBean && (mbd == null || !mbd.isExternallyManagedInitMethod("afterPropertiesSet"))) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Invoking afterPropertiesSet() on bean with name '" + beanName + "'");
@@ -1586,6 +1594,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 		}
 
+		// 配置的init-method
 		if (mbd != null) {
 			String initMethodName = mbd.getInitMethodName();
 			if (initMethodName != null && !(isInitializingBean && "afterPropertiesSet".equals(initMethodName)) &&

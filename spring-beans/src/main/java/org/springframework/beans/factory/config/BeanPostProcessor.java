@@ -42,6 +42,7 @@ import org.springframework.beans.BeansException;
 public interface BeanPostProcessor {
 
 	/**
+	 * bean初始化前调用
 	 * Apply this BeanPostProcessor to the given new bean instance <i>before</i> any bean
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.
@@ -56,6 +57,7 @@ public interface BeanPostProcessor {
 	Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
 
 	/**
+	 * bean初始化后调用
 	 * Apply this BeanPostProcessor to the given new bean instance <i>after</i> any bean
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.

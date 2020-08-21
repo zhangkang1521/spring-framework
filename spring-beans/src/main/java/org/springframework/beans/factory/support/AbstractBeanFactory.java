@@ -228,7 +228,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			final String name, final Class<T> requiredType, final Object[] args, boolean typeCheckOnly)
 			throws BeansException {
 
-		final String beanName = transformedBeanName(name); // 加上前缀&，代表获取FactoryBean
+		// 如果是别名转换为真正的名字；
+		// 如果有前置&则去除（ 加上前缀&，代表获取FactoryBean，而不是getObject方法返回的对象）
+		final String beanName = transformedBeanName(name);
 		Object bean;
 
 		// Eagerly check singleton cache for manually registered singletons.
@@ -254,7 +256,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 
 			// Check if bean definition exists in this factory.
-			// 从父容器一直往上查找
+			// 从父容器一直往上查找，父容器一般为空
 			BeanFactory parentBeanFactory = getParentBeanFactory();
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.

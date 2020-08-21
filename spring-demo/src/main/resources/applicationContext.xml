@@ -8,17 +8,46 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 单例bean,spring容器启动时即初始化 -->
-    <bean id="user" class="org.zk.domain.User">
-        <property name="username" value="${jdbc.username}"/>
+    <bean id="user" class="org.zk.domain.User" lazy-init="true" init-method="init">
+        <property name="username" value="zk"/>
     </bean>
 
     <!--<bean id="car" class="org.zk.domain.Car"></bean>-->
 
-    <!-- bean前置处理，后置处理 -->
-    <!--<bean class="org.zk.domain.MyBeanPostProcessor"/>-->
+    <!-- 容器后处理器，用于容器启动后，对bean的属性进行处理，比如配置文件占位符替换 -->
+    <!--<bean class="org.zk.core.MyBeanFactoryPostProcessor"/>-->
 
-    <!-- 实例化处理 -->
-    <!--<bean class="org.zk.domain.MyInstantiationAwareBeanPostProcessors"></bean>-->
+    <!-- 容器注册后处理器，用于注册bean到容器中，比如mybatis的Mapper自动注册 -->
+    <!--<bean class="org.zk.core.MyBeanDefinitionRegistryPostProcessor"/>-->
+
+    <!-- 容器后处理器，替换bean的占位符 -->
+    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+    <!--<property name="locations">-->
+    <!--<array>-->
+    <!--<value>classpath:jdbc.properties</value>-->
+    <!--</array>-->
+    <!--</property>-->
+    <!--</bean>-->
+
+    <!--
+        bean生命周期：
+        1.实例化bean
+        2.依赖注入
+        3.初始化
+            3.1 BeanNameAware等
+            3.2 初始化前置处理
+            3.3 afterProperties, init-method
+            3.4 初始化后置处理
+    -->
+
+    <!-- bean后置处理器，初始化前后调用-->
+    <!--<bean class="org.zk.core.MyBeanPostProcessor"></bean>-->
+
+    <!-- 实例化处理.构造方法调用前后 -->
+    <!--<bean class="org.zk.core.MyInstantiationAwareBeanPostProcessors"></bean>-->
+
+
+
 
     <!-- 模拟dubbo @Reference -->
     <!--<bean class="org.zk.domain.ReferenceAnnotationBeanPostProcessor"></bean>-->
@@ -57,20 +86,8 @@
 
     <!--<bean class="org.zk.domain.MyBeanDefinitionRegistryPostProcessor"></bean>-->
 
-    <!-- 容器后处理器，用于容器启动后，对bean的属性进行处理，比如配置文件占位符替换 -->
-    <!--<bean class="org.zk.core.MyBeanFactoryPostProcessor"/>-->
 
-    <!-- 容器注册后处理器，用于注册bean到容器中，比如mybatis的Mapper自动注册 -->
-    <!--<bean class="org.zk.core.MyBeanDefinitionRegistryPostProcessor"/>-->
 
-    <!-- 替换bean的占位符 -->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <array>
-                <value>classpath:jdbc.properties</value>
-            </array>
-        </property>
-    </bean>
 
 
    <!-- <bean id="car" class="org.zk.domain.Car" lazy-init="true">
@@ -103,7 +120,7 @@
     <!--<bean class="org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor"/>-->
     <!--<bean class="org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>-->
 
-    <!--<bean class="org.zk.domain.MyBeanPostProcessor"></bean>-->
+
 
 
 
