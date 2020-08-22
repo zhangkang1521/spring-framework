@@ -1,4 +1,4 @@
-package org.zk.service;
+package org.zk.core;
 
 import org.springframework.beans.factory.FactoryBean;
 import org.zk.domain.User;

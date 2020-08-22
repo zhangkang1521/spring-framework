@@ -82,6 +82,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 
 	private int order = Ordered.LOWEST_PRECEDENCE;
 
+	// 记录每个Class对应的@PostConstruct,@Destroy对应的方法
 	private transient final Map<Class<?>, LifecycleMetadata> lifecycleMetadataCache =
 			new ConcurrentHashMap<Class<?>, LifecycleMetadata>(64);
 
@@ -125,6 +126,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 	}
 
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		// 调用@PostConstruct对应的方法
 		LifecycleMetadata metadata = findLifecycleMetadata(bean.getClass());
 		try {
 			metadata.invokeInitMethods(bean, beanName);
@@ -143,9 +145,10 @@ public class InitDestroyAnnotationBeanPostProcessor
 	}
 
 	public void postProcessBeforeDestruction(Object bean, String beanName) throws BeansException {
+		// 调用@PreDestroy修饰的方法
 		LifecycleMetadata metadata = findLifecycleMetadata(bean.getClass());
 		try {
-			metadata.invokeDestroyMethods(bean, beanName); // 调用@PreDestroy修饰的方法
+			metadata.invokeDestroyMethods(bean, beanName);
 		}
 		catch (InvocationTargetException ex) {
 			String msg = "Invocation of destroy method failed on bean with name '" + beanName + "'";
@@ -192,8 +195,9 @@ public class InitDestroyAnnotationBeanPostProcessor
 			LinkedList<LifecycleElement> currInitMethods = new LinkedList<LifecycleElement>();
 			LinkedList<LifecycleElement> currDestroyMethods = new LinkedList<LifecycleElement>();
 			for (Method method : targetClass.getDeclaredMethods()) {
+				// 找到@PostConstruct对应的方法
 				if (this.initAnnotationType != null) {
-					if (method.getAnnotation(this.initAnnotationType) != null) { // 初始化方法
+					if (method.getAnnotation(this.initAnnotationType) != null) {
 						LifecycleElement element = new LifecycleElement(method);
 						currInitMethods.add(element);
 						if (debug) {
@@ -201,6 +205,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 						}
 					}
 				}
+				// 找到@PreDestroy对应的方法
 				if (this.destroyAnnotationType != null) {
 					if (method.getAnnotation(this.destroyAnnotationType) != null) {
 						currDestroyMethods.add(new LifecycleElement(method));

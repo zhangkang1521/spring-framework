@@ -10,12 +10,9 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
-import org.zk.aop.MyTarget;
+import org.zk.config.ApplicationConfig;
 import org.zk.convert.String2DateConverter;
 import org.zk.domain.User;
-import org.zk.event.UserRegisterEvent;
-import org.zk.service.SayHelloService;
-import org.zk.service.UserService;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -45,26 +42,6 @@ public class SpringTest {
 
 
     @Test
-    public void testLookUpMethod() {
-        // https://www.cnblogs.com/ViviChan/p/4981619.html
-        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        UserService userService = ctx.getBean("userService", UserService.class);
-        // 返回的userService是个代理
-        for (int i = 0; i < 3; i++) {
-            System.out.println(userService.getNewUser());
-        }
-    }
-
-    @Test
-    public void testReplacedMethod() {
-        // http://www.cnblogs.com/mjorcen/p/3647234.html
-        // 改变方法逻辑
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        SayHelloService sayHelloService = ctx.getBean("sayHelloService", SayHelloService.class);
-        sayHelloService.sayHello();
-    }
-
-    @Test
     public void testFileSystemCtx() {
         FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext("E:/applicationContext.xml");
     }
@@ -72,7 +49,7 @@ public class SpringTest {
     @Test
     public void testAnnotationCtx() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        User user = ctx.getBean(User.class);
+        User user = (User)ctx.getBean("user10");
         System.out.println(user);
     }
 

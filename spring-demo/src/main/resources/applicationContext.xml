@@ -8,11 +8,12 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 单例bean,spring容器启动时即初始化 -->
-    <bean id="user" class="org.zk.domain.User" lazy-init="true" init-method="init">
+    <bean id="user0" class="org.zk.domain.User" lazy-init="true">
         <property name="username" value="zk"/>
     </bean>
 
-    <!--<bean id="car" class="org.zk.domain.Car"></bean>-->
+
+
 
     <!-- 容器后处理器，用于容器启动后，对bean的属性进行处理，比如配置文件占位符替换 -->
     <!--<bean class="org.zk.core.MyBeanFactoryPostProcessor"/>-->
@@ -31,7 +32,7 @@
 
     <!--
         bean生命周期：
-        1.实例化bean
+        1.创建bean
         2.依赖注入
         3.初始化
             3.1 BeanNameAware等
@@ -45,6 +46,21 @@
 
     <!-- 实例化处理.构造方法调用前后 -->
     <!--<bean class="org.zk.core.MyInstantiationAwareBeanPostProcessors"></bean>-->
+
+    <!-- 自动注入以下4个处理器 -->
+    <!--<context:annotation-config/>  -->
+
+    <!-- @PostConstruct @PreDestroy @Resource 注解处理 -->
+    <!--<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
+
+    <!-- @Autowired @Inject @Value 注解处理 -->
+    <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
+
+    <!-- @Required 注解处理 -->
+    <!--<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>-->
+
+    <!-- @Configuration注解 -->
+    <!--<bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>-->
 
 
 
@@ -111,9 +127,8 @@
     </bean>-->
 
 
-    <!--<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>
-    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
-    <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>-->
+    <!--
+    -->
 
     <!--<bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor"/>-->
     <!--<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>-->

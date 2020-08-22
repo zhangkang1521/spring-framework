@@ -1,4 +1,4 @@
-package org.zk.annotation;
+package org.zk.core;
 
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -9,13 +9,14 @@ import org.zk.domain.User;
 
 import static org.springframework.beans.factory.support.BeanDefinitionBuilder.rootBeanDefinition;
 
-public class MyRegister implements ImportBeanDefinitionRegistrar {
+public class MyImportBeanDefinitionRegistrar implements ImportBeanDefinitionRegistrar {
 
+	// @Import会自动调用
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 		// 自动注入bean
 		BeanDefinitionBuilder builder = rootBeanDefinition(User.class);
 		AbstractBeanDefinition beanDefinition = builder.getBeanDefinition();
-		registry.registerBeanDefinition("user", beanDefinition);
+		registry.registerBeanDefinition("user10", beanDefinition);
 	}
 }

@@ -491,7 +491,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Class<?> beanType = (instanceWrapper != null ? instanceWrapper.getWrappedClass() : null);
 
 		// Allow post-processors to modify the merged bean definition.
-		// 例如CommonAnnotationBeanPostProcessor将@PostConstruct @PreDestroy的方法放入缓存中
+		// 例如CommonAnnotationBeanPostProcessor查找@PostConstruct @PreDestroy的方法并记录，方便后面调用
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {
 				applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);

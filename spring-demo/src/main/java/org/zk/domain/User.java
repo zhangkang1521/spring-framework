@@ -5,6 +5,7 @@ import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -13,6 +14,9 @@ import org.springframework.context.annotation.Lazy;
 import org.zk.annotation.Reference;
 import org.zk.service.UserService;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 import java.beans.ConstructorProperties;
 import java.util.Date;
@@ -36,12 +40,22 @@ public class User implements InitializingBean , ApplicationContextAware, BeanNam
 //    @Reference
     private UserService userService;
 
-    @Autowired
+
     private Car car;
 
 
     public User() {
         System.out.println("调用构造方法User()");
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("invoke postConstruct");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("invoke preDestroy");
     }
 
 
@@ -58,6 +72,9 @@ public class User implements InitializingBean , ApplicationContextAware, BeanNam
         this.age = age;
     }
 
+    public void setCar(Car car1) {
+        this.car = car;
+    }
 
     public void sayHello() {
         System.out.println(Thread.currentThread());
