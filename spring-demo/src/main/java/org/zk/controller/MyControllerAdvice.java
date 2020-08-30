@@ -29,8 +29,8 @@ public class MyControllerAdvice {
 //		binder.registerCustomEditor(String.class, new StringTrimmerEditor());
 
 		// 此处使用Spring内置的CustomDateEditor
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
 	// 所有request方法之前执行

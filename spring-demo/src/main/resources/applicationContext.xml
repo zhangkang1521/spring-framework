@@ -9,8 +9,10 @@
 
     <!-- 单例bean,spring容器启动时即初始化 -->
     <bean id="user0" class="org.zk.domain.User" lazy-init="true">
-        <property name="username" value="zk"/>
+        <property name="id" value="100"/>
+        <property name="birthday" value="2020年05月01日"/>
     </bean>
+
 
 
 
@@ -30,16 +32,7 @@
     <!--</property>-->
     <!--</bean>-->
 
-    <!--
-        bean生命周期：
-        1.创建bean
-        2.依赖注入
-        3.初始化
-            3.1 BeanNameAware等
-            3.2 初始化前置处理
-            3.3 afterProperties, init-method
-            3.4 初始化后置处理
-    -->
+
 
     <!-- bean后置处理器，初始化前后调用-->
     <!--<bean class="org.zk.core.MyBeanPostProcessor"></bean>-->
@@ -63,13 +56,28 @@
     <!--<bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>-->
 
 
+    <!--  自定义属性编辑器，将String转换为Date，使用容器后处理器加入自定义属性编辑器注册器 -->
+    <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
+        <!--<property name="propertyEditorRegistrars">-->
+            <!--<list>-->
+                <!--<bean class="org.zk.core.MyDatePropertyEditorRegistrar"></bean>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <!-- beanId必须为conversionService，在refresh的finishBeanFactoryInitialization方法中添加 -->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="org.zk.core.MyString2DateConverter"></bean>
+            </set>
+        </property>
+    </bean>
 
 
     <!-- 模拟dubbo @Reference -->
     <!--<bean class="org.zk.domain.ReferenceAnnotationBeanPostProcessor"></bean>-->
 
-    <!-- @Autowired @Value @Inject注解的字段或方法处理 -->
-    <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
 
     <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
 
@@ -82,14 +90,7 @@
 
 
 
-    <!-- beanId必须为conversionService -->
-    <!--<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="org.zk.convert.String2DateConverter"></bean>
-            </set>
-        </property>
-    </bean>-->
+
 
 <!--    <bean class="org.zk.event.UserService"></bean>
     <bean class="org.zk.event.ScoreService"></bean>
@@ -111,20 +112,7 @@
     </bean>-->
 
 
-    <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
-        &lt;!&ndash;<property name="customEditors">
-            <map>
-                <entry key="java.util.Date">
-                    <bean class="org.zk.domain.DatePropertyEditor"/>
-                </entry>
-            </map>
-        </property>&ndash;&gt;
-        <property name="propertyEditorRegistrars">
-            <list>
-                <bean class="org.zk.domain.DatePropertyEditorRegistrar"></bean>
-            </list>
-        </property>
-    </bean>-->
+
 
 
     <!--

@@ -168,12 +168,14 @@ public class CustomEditorConfigurer implements BeanFactoryPostProcessor, BeanCla
 
 	@SuppressWarnings("unchecked")
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		// 加入属性编辑器注册器
 		if (this.propertyEditorRegistrars != null) {
 			for (PropertyEditorRegistrar propertyEditorRegistrar : this.propertyEditorRegistrars) {
 				beanFactory.addPropertyEditorRegistrar(propertyEditorRegistrar);
 			}
 		}
 
+		// customEditors属性Deprecated，使用注册器
 		if (this.customEditors != null) {
 			for (Map.Entry<String, ?> entry : this.customEditors.entrySet()) {
 				String key = entry.getKey();

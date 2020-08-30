@@ -27,7 +27,7 @@
     <!-- 3.使用注解，向容器中注入RequestMappingHandlerMapping，RequestMappingHandlerAdapter等bean -->
     <mvc:annotation-driven />
 
-    <!-- 自定义参数解析 -->
+    <!-- 自定义参数解析，SpringBoot会自动初始化DefaultFormattingConversionService -->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <list>

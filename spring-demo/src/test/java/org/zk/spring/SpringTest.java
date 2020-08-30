@@ -11,7 +11,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.zk.config.ApplicationConfig;
-import org.zk.convert.String2DateConverter;
+import org.zk.core.MyString2DateConverter;
 import org.zk.domain.User;
 
 import java.util.Date;
@@ -27,8 +27,8 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = (User)ctx.getBean("user");
-        System.out.println(user.getUsername());
+        User user = (User)ctx.getBean("user0");
+        System.out.println(user.getBirthday());
         ctx.close();
     }
 
@@ -49,7 +49,7 @@ public class SpringTest {
     @Test
     public void testAnnotationCtx() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        User user = (User)ctx.getBean("user10");
+        User user = (User)ctx.getBean("user1");
         System.out.println(user);
     }
 
@@ -72,7 +72,7 @@ public class SpringTest {
     @Test
     public void testConvert() {
         DefaultConversionService conversionService = new DefaultConversionService();
-        conversionService.addConverter(new String2DateConverter());
+        conversionService.addConverter(new MyString2DateConverter());
         Date date = conversionService.convert("2018-08-19 20:54:00", Date.class);
     }
 

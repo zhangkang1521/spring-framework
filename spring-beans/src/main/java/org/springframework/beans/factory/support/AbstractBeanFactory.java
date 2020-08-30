@@ -126,7 +126,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	/** Spring ConversionService to use instead of PropertyEditors */
 	private ConversionService conversionService;
 
-	/** Custom PropertyEditorRegistrars to apply to the beans of this factory */
+	/** Custom PropertyEditorRegistrars to apply to the beans of this factory 属性编辑器注册器 */
 	private final Set<PropertyEditorRegistrar> propertyEditorRegistrars =
 			new LinkedHashSet<PropertyEditorRegistrar>(4);
 
@@ -1070,6 +1070,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			registrySupport.useConfigValueEditors();
 		}
 		if (!this.propertyEditorRegistrars.isEmpty()) {
+			// prepareBeanFactory中默认加入的ResourceEditorRegistrar
+			// 自定义的propertyEditorRegistrar
 			for (PropertyEditorRegistrar registrar : this.propertyEditorRegistrars) {
 				try {
 					registrar.registerCustomEditors(registry);

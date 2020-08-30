@@ -478,6 +478,16 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * @see #autowireConstructor
 	 */
 	protected Object doCreateBean(final String beanName, final RootBeanDefinition mbd, final Object[] args) {
+
+//		bean生命周期：
+//		1.创建bean
+//		2.依赖注入
+//		3.初始化
+//		    3.1 BeanNameAware等
+//		    3.2 初始化前置处理
+//		    3.3 afterProperties, init-method
+//		    3.4 初始化后置处理
+
 		// Instantiate the bean.
 		BeanWrapper instanceWrapper = null;
 		if (mbd.isSingleton()) {
@@ -1171,7 +1181,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				checkDependencies(beanName, mbd, filteredPds, pvs);
 			}
 		}
-
+		// 属性值设置
 		applyPropertyValues(beanName, mbd, bw, pvs);
 	}
 
@@ -1424,7 +1434,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Create a deep copy, resolving any references for values.
 		List<PropertyValue> deepCopy = new ArrayList<PropertyValue>(original.size());
 		boolean resolveNecessary = false;
-		for (PropertyValue pv : original) { // 循环处理每个属性
+		// 循环处理每个属性
+		for (PropertyValue pv : original) {
 			if (pv.isConverted()) {
 				deepCopy.add(pv);
 			}

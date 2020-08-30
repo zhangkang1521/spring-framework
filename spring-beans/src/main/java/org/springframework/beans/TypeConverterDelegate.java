@@ -148,12 +148,15 @@ class TypeConverterDelegate {
 
 		// Custom editor for this type?
 		// 这里的propertyEditorRegistry就是BeanWrapper
-		PropertyEditor editor = this.propertyEditorRegistry.findCustomEditor(requiredType, propertyName); // 自定义的PropertyEditor
+		// 查询自定义的PropertyEditor
+		PropertyEditor editor = this.propertyEditorRegistry.findCustomEditor(requiredType, propertyName);
 
 		ConversionFailedException firstAttemptEx = null;
 
 		// No custom editor but custom ConversionService specified?
+		// 自定义的ConversionService,默认为空
 		ConversionService conversionService = this.propertyEditorRegistry.getConversionService();
+		// 这里条件有editor == null才进入，说明自定义的属性编辑器优先
 		if (editor == null && conversionService != null && convertedValue != null && typeDescriptor != null) {
 			TypeDescriptor sourceTypeDesc = TypeDescriptor.forObject(newValue);
 			TypeDescriptor targetTypeDesc = typeDescriptor;
@@ -176,8 +179,9 @@ class TypeConverterDelegate {
 					convertedValue = StringUtils.commaDelimitedListToStringArray((String) convertedValue);
 				}
 			}
+			// 查询系统默认初始化的PropertyEditor
 			if (editor == null) {
-				editor = findDefaultEditor(requiredType); // 查询默认初始化的PropertyEditor
+				editor = findDefaultEditor(requiredType);
 			}
 			convertedValue = doConvertValue(oldValue, convertedValue, requiredType, editor); // 调用PropertyEditor转换成对的类型
 		}

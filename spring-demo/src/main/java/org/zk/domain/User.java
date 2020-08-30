@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.zk.annotation.Reference;
 import org.zk.service.UserService;
 
@@ -34,7 +35,7 @@ public class User implements InitializingBean , ApplicationContextAware, BeanNam
     private int age;
 //    private List<String> interests;
     private Integer[] arr;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+//    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date birthday;
 
 //    @Reference
@@ -46,6 +47,10 @@ public class User implements InitializingBean , ApplicationContextAware, BeanNam
 
     public User() {
         System.out.println("调用构造方法User()");
+    }
+
+    public User(Car car) {
+        System.out.println("调用构造方法User(Car car)");
     }
 
     @PostConstruct
