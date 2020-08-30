@@ -169,6 +169,6 @@ public class User implements InitializingBean , ApplicationContextAware, BeanNam
 
     @Override
     public void destroy() throws Exception {
-        System.out.println("destroy");
+        System.out.println("user destroy");
     }
 }

@@ -13,9 +13,6 @@
     </bean>
 
 
-
-
-
     <!-- 容器后处理器，用于容器启动后，对bean的属性进行处理，比如配置文件占位符替换 -->
     <!--<bean class="org.zk.core.MyBeanFactoryPostProcessor"/>-->
 
@@ -86,20 +83,6 @@
     <!-- 模拟dubbo @Reference -->
     <!--<bean class="org.zk.domain.ReferenceAnnotationBeanPostProcessor"></bean>-->
 
-
-    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
-
-    <!--<bean id="myTarget" class="org.zk.aop.MyTargetImpl"></bean>-->
-    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
-    <!--<bean id="myAspect2" class="org.zk.aop.MyAspect2"></bean>-->
-
-    <!--<aop:aspectj-autoproxy/>-->
-
-
-
-
-
-
     <!-- 事件机制  -->
     <!--<bean class="org.zk.event.UserService"></bean>-->
     <!--<bean class="org.zk.event.ScoreService"></bean>-->
@@ -110,8 +93,8 @@
         <!--<property name="taskExecutor" ref="taskExecutor"></property>-->
     <!--</bean>-->
 
-
-    <!--<bean class="org.zk.domain.MyBeanDefinitionRegistryPostProcessor"></bean>-->
+    <!-- 生命周期 -->
+    <!--<bean class="org.zk.core.MyLifeCycle" scope="singleton"/>-->
 
 
 
@@ -124,7 +107,19 @@
     <!--<bean class="org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>-->
 
 
-    <!--<bean class="org.zk.domain.LifeCycle" scope="singleton" init-method="xmlInit" destroy-method="xmlDestroy"/>-->
+
+
+
+
+
+    <!-- aop -->
+    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
+
+    <!--<bean id="myTarget" class="org.zk.aop.MyTargetImpl"></bean>-->
+    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
+    <!--<bean id="myAspect2" class="org.zk.aop.MyAspect2"></bean>-->
+
+    <!--<aop:aspectj-autoproxy/>-->
 
 
 </beans>
