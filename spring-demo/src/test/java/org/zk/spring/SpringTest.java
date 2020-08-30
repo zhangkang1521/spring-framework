@@ -55,8 +55,9 @@ public class SpringTest {
 
     @Test
     public void testMessage() {
+        // 国际化
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        Object[] params = {"Mary", new GregorianCalendar().getTime()};
+        Object[] params = {"Mary"};
         System.out.println(ctx.getMessage("test", params, Locale.US));
         System.out.println(ctx.getMessage("test", params, Locale.CHINA));
     }
@@ -67,13 +68,6 @@ public class SpringTest {
         org.zk.event.UserService userService = (org.zk.event.UserService) ctx.getBean(org.zk.event.UserService.class);
         userService.register("zk");
         System.in.read(); // junit多线程有问题
-    }
-
-    @Test
-    public void testConvert() {
-        DefaultConversionService conversionService = new DefaultConversionService();
-        conversionService.addConverter(new MyString2DateConverter());
-        Date date = conversionService.convert("2018-08-19 20:54:00", Date.class);
     }
 
 

@@ -65,12 +65,20 @@
         <!--</property>-->
     <!--</bean>-->
 
-    <!-- beanId必须为conversionService，在refresh的finishBeanFactoryInitialization方法中添加 -->
-    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
-        <property name="converters">
-            <set>
-                <bean class="org.zk.core.MyString2DateConverter"></bean>
-            </set>
+    <!-- 自定义convert, beanId必须为conversionService，在refresh的finishBeanFactoryInitialization方法中添加 -->
+    <!--<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">-->
+        <!--<property name="converters">-->
+            <!--<set>-->
+                <!--<bean class="org.zk.core.MyString2DateConverter"></bean>-->
+            <!--</set>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages</value>
+            </list>
         </property>
     </bean>
 
@@ -107,16 +115,6 @@
 
 
 
-   <!-- <bean id="car" class="org.zk.domain.Car" lazy-init="true">
-        <property name="createTime" value="2018-08-05 20:48:00"/>
-    </bean>-->
-
-
-
-
-
-    <!--
-    -->
 
     <!--<bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor"/>-->
     <!--<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>-->
@@ -124,23 +122,9 @@
     <!--<bean class="org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>-->
 
 
-
-
-
-
-    <!--<bean id="userService" class="org.zk.service.UserService" lazy-init="true">-->
-    <!--<lookup-method bean="user" name="getNewUser"></lookup-method>-->
-    <!--</bean>-->
-
     <!--<bean class="org.zk.domain.LifeCycle" scope="singleton" init-method="xmlInit" destroy-method="xmlDestroy"/>-->
 
-    <!--<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basenames">
-            <list>
-                <value>messages</value>
-            </list>
-        </property>
-    </bean>-->
+
 </beans>
 
 

@@ -456,6 +456,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
 			// Prepare the bean factory for use in this context.
+			// spel表达式，属性编辑器注册器等
 			prepareBeanFactory(beanFactory);
 
 			try {
