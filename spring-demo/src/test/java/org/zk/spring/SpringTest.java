@@ -7,15 +7,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.zk.config.ApplicationConfig;
-import org.zk.core.MyString2DateConverter;
 import org.zk.domain.User;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 

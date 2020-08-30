@@ -10,7 +10,6 @@
     <!-- 单例bean,spring容器启动时即初始化 -->
     <bean id="user0" class="org.zk.domain.User" lazy-init="true">
         <property name="id" value="100"/>
-        <property name="birthday" value="2020年05月01日"/>
     </bean>
 
 
@@ -74,13 +73,14 @@
         <!--</property>-->
     <!--</bean>-->
 
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basenames">
-            <list>
-                <value>messages</value>
-            </list>
-        </property>
-    </bean>
+    <!-- 国际化 -->
+    <!--<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
+        <!--<property name="basenames">-->
+            <!--<list>-->
+                <!--<value>messages</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 
     <!-- 模拟dubbo @Reference -->
@@ -100,13 +100,15 @@
 
 
 
-<!--    <bean class="org.zk.event.UserService"></bean>
-    <bean class="org.zk.event.ScoreService"></bean>
-    <bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
-    </bean>
-    <bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">
-        <property name="taskExecutor" ref="taskExecutor"></property>
-    </bean>-->
+    <!-- 事件机制  -->
+    <!--<bean class="org.zk.event.UserService"></bean>-->
+    <!--<bean class="org.zk.event.ScoreService"></bean>-->
+    <!-- 自定义事件广播器，异步处理事件 -->
+    <!--<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">-->
+    <!--</bean>-->
+    <!--<bean id="applicationEventMulticaster" class="org.springframework.context.event.SimpleApplicationEventMulticaster">-->
+        <!--<property name="taskExecutor" ref="taskExecutor"></property>-->
+    <!--</bean>-->
 
 
     <!--<bean class="org.zk.domain.MyBeanDefinitionRegistryPostProcessor"></bean>-->

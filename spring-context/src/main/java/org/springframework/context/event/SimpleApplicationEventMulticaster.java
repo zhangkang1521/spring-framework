@@ -83,7 +83,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 
 	@SuppressWarnings("unchecked")
 	public void multicastEvent(final ApplicationEvent event) {
-		// publishEvent()时调用，依次调用每个Listener进行处理
+		// publishEvent()时调用，依次调用每个Listener进行处理，listener与event匹配才通知
 		for (final ApplicationListener listener : getApplicationListeners(event)) {
 			Executor executor = getTaskExecutor();
 			// 有线程池，丢给线程池异步处理

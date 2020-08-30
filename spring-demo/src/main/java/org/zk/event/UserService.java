@@ -5,7 +5,7 @@ import org.springframework.context.ApplicationEventPublisherAware;
 
 public class UserService implements ApplicationEventPublisherAware {
 
-	ApplicationEventPublisher applicationEventPublisher;
+	private ApplicationEventPublisher applicationEventPublisher;
 
 	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
 		this.applicationEventPublisher = applicationEventPublisher;
@@ -14,6 +14,6 @@ public class UserService implements ApplicationEventPublisherAware {
 	public void register(String name) {
 		System.out.println("用户" + name + "注册");
 		applicationEventPublisher.publishEvent(new UserRegisterEvent(name));
-//		applicationEventPublisher.publishEvent(new OtherEvent(name));
+		applicationEventPublisher.publishEvent(new OtherEvent(name));
 	}
 }
