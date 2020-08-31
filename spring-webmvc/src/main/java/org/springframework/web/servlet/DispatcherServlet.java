@@ -446,13 +446,16 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
+	 * 容器刷新事件后执行
 	 * Initialize the strategy objects that this servlet uses.
 	 * <p>May be overridden in subclasses in order to initialize further strategy objects.
 	 */
 	protected void initStrategies(ApplicationContext context) {
-		// 容器刷新后执行
+		// 文件上传
 		initMultipartResolver(context);
+		// 国际化
 		initLocaleResolver(context);
+		// 主题
 		initThemeResolver(context);
 		// 初始化HandlerMapping
 		initHandlerMappings(context);

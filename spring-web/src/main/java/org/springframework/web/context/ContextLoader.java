@@ -356,6 +356,7 @@ public class ContextLoader {
 	 * @see ConfigurableWebApplicationContext
 	 */
 	protected WebApplicationContext createWebApplicationContext(ServletContext sc) {
+		// org.springframework.web.context.support.XmlWebApplicationContext
 		Class<?> contextClass = determineContextClass(sc);
 		if (!ConfigurableWebApplicationContext.class.isAssignableFrom(contextClass)) {
 			throw new ApplicationContextException("Custom context class [" + contextClass.getName() +
@@ -397,6 +398,7 @@ public class ContextLoader {
 		}
 
 		wac.setServletContext(sc);
+		// 读取配置的classpath:applicationContext.xml
 		String configLocationParam = sc.getInitParameter(CONFIG_LOCATION_PARAM);
 		if (configLocationParam != null) {
 			wac.setConfigLocation(configLocationParam);
@@ -411,6 +413,7 @@ public class ContextLoader {
 		}
 
 		customizeContext(sc, wac);
+		// 刷新容器
 		wac.refresh();
 	}
 

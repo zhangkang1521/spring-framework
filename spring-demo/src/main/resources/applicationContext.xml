@@ -52,6 +52,10 @@
     <!--<bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>-->
 
 
+    <!-- 模拟dubbo @Reference -->
+    <!--<bean class="org.zk.domain.ReferenceAnnotationBeanPostProcessor"></bean>-->
+
+
     <!--  自定义属性编辑器，将String转换为Date，使用容器后处理器加入自定义属性编辑器注册器 -->
     <!--<bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">-->
         <!--<property name="propertyEditorRegistrars">-->
@@ -79,9 +83,6 @@
         <!--</property>-->
     <!--</bean>-->
 
-
-    <!-- 模拟dubbo @Reference -->
-    <!--<bean class="org.zk.domain.ReferenceAnnotationBeanPostProcessor"></bean>-->
 
     <!-- 事件机制  -->
     <!--<bean class="org.zk.event.UserService"></bean>-->

@@ -459,6 +459,7 @@ public abstract class FrameworkServlet extends HttpServletBean {
 		long startTime = System.currentTimeMillis();
 
 		try {
+			// 创建spring-mvc容器
 			this.webApplicationContext = initWebApplicationContext();
 			initFrameworkServlet();
 		}
