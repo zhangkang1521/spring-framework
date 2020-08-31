@@ -53,10 +53,11 @@ public class UserAnnotationController {
 
 
 
-//	@RequestMapping("/hello3")
-//	public void hello() {
-//
-//	}
+	@RequestMapping("/hello")
+	public String hello() {
+		return "hello";
+	}
+
 //
 //	@RequestMapping("/jxls")
 //	public String jxls(Model model, HttpServletRequest request) {

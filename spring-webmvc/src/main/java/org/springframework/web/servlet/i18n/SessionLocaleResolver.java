@@ -54,6 +54,7 @@ public class SessionLocaleResolver extends AbstractLocaleResolver {
 
 
 	public Locale resolveLocale(HttpServletRequest request) {
+		// LocaleChangeInterceptor拦截器设置的
 		Locale locale = (Locale) WebUtils.getSessionAttribute(request, LOCALE_SESSION_ATTRIBUTE_NAME);
 		if (locale == null) {
 			locale = determineDefaultLocale(request);
@@ -72,8 +73,10 @@ public class SessionLocaleResolver extends AbstractLocaleResolver {
 	 * @see javax.servlet.http.HttpServletRequest#getLocale()
 	 */
 	protected Locale determineDefaultLocale(HttpServletRequest request) {
+		// 配置文件中的
 		Locale defaultLocale = getDefaultLocale();
 		if (defaultLocale == null) {
+			// 从header中的Accept-Language获取
 			defaultLocale = request.getLocale();
 		}
 		return defaultLocale;

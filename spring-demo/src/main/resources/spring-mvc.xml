@@ -8,8 +8,6 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-    <!-- ControllerAdvice -->
-    <!--<bean id="myControllerAdvice" class="org.zk.controller.MyControllerAdvice"/>-->
 
     <!-- 1.最简单的情况，url到controller的映射自己配置 -->
     <!--<bean id="userController" class="org.zk.controller.UserSimpleController"/>-->
@@ -27,6 +25,10 @@
     <!-- 3.使用注解，向容器中注入RequestMappingHandlerMapping，RequestMappingHandlerAdapter等bean -->
     <mvc:annotation-driven />
 
+    <context:component-scan base-package="org.zk.controller"/>
+    <!--<bean id="userAnnotationController" class="org.zk.controller.UserAnnotationController"/>-->
+    <!--<bean id="myControllerAdvice" class="org.zk.controller.MyControllerAdvice"/>-->
+
     <!-- 自定义参数解析，SpringBoot会自动初始化DefaultFormattingConversionService -->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
@@ -37,32 +39,30 @@
         </property>
     </bean>
 
-    <context:component-scan base-package="org.zk.controller"/>
-    <!--<bean id="userAnnotationController" class="org.zk.controller.UserAnnotationController"/>-->
 
     <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
     </bean>
 
     <!-- jsp视图解析器，视图名称(String)到视图(View)的转换 -->
-    <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
-        <!--<property name="order" value="1"/>-->
-        <!--<property name="prefix" value="/WEB-INF/view/jsp/"/>-->
-        <!--<property name="suffix" value=".jsp"/>-->
-        <!--<property name="contentType" value="text/html;charset=UTF-8"/>-->
-    <!--</bean>-->
-
-    <!-- freemarker配置 -->
-    <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
-        <property name="order" value="2"/>
-        <property name="suffix" value=".ftl"/>
-        <property name="cache" value="false"/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="1"/>
+        <property name="prefix" value="/WEB-INF/view/jsp/"/>
+        <property name="suffix" value=".jsp"/>
         <property name="contentType" value="text/html;charset=UTF-8"/>
     </bean>
-    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
-        <property name="templateLoaderPath">
-            <value>/WEB-INF/view/freemarker/</value>
-        </property>
-    </bean>
+
+    <!-- freemarker配置 -->
+    <!--<bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">-->
+        <!--<property name="order" value="2"/>-->
+        <!--<property name="suffix" value=".ftl"/>-->
+        <!--<property name="cache" value="false"/>-->
+        <!--<property name="contentType" value="text/html;charset=UTF-8"/>-->
+    <!--</bean>-->
+    <!--<bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">-->
+        <!--<property name="templateLoaderPath">-->
+            <!--<value>/WEB-INF/view/freemarker/</value>-->
+        <!--</property>-->
+    <!--</bean>-->
 
     <!-- jxls视图解析 -->
     <!--<bean id="jxlsExcelViewResolver" class="org.zk.web.JxlsExcelViewResolver">-->
@@ -95,5 +95,19 @@
     <!-- 文件上传 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 
+
+    <!-- 国际化 -->
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+    </bean>
+    <!-- 国际化配置文件 -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages"/>
+    </bean>
+    <!-- 设置国际化信息到localResolver中，根据url中的lang=en_us -->
+    <mvc:interceptors>
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang"/>
+        </bean>
+    </mvc:interceptors>
 
 </beans>

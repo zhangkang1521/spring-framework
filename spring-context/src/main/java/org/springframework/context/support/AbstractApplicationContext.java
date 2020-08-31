@@ -1272,6 +1272,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	}
 
 	public String getMessage(String code, Object args[], Locale locale) throws NoSuchMessageException {
+		// spring-mvc国际化
 		return getMessageSource().getMessage(code, args, locale);
 	}
 

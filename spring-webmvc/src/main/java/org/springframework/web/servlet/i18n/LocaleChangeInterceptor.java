@@ -70,6 +70,7 @@ public class LocaleChangeInterceptor extends HandlerInterceptorAdapter {
 			if (localeResolver == null) {
 				throw new IllegalStateException("No LocaleResolver found: not in a DispatcherServlet request?");
 			}
+			// 设置国际化信息
 			localeResolver.setLocale(request, response, StringUtils.parseLocaleString(newLocale));
 		}
 		// Proceed in any case.
