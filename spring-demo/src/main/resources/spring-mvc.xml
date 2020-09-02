@@ -100,13 +100,12 @@
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
     </bean>
     <!-- 国际化配置文件 -->
-    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="basename" value="classpath:messages"/>
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
     </bean>
-    <!-- 设置国际化信息到localResolver中，根据url中的lang=en_us -->
+    <!-- 设置国际化信息到localResolver中，根据url中的locale=en_us -->
     <mvc:interceptors>
         <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang"/>
         </bean>
     </mvc:interceptors>
 

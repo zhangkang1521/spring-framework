@@ -297,6 +297,7 @@ public class ReloadableResourceBundleMessageSource extends AbstractMessageSource
 			}
 		}
 		else {
+			// 重新重配置文件加载
 			for (String basename : this.basenames) {
 				List<String> filenames = calculateAllFilenames(basename, locale);
 				for (String filename : filenames) {
