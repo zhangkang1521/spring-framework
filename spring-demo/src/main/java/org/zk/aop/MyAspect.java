@@ -1,7 +1,9 @@
 package org.zk.aop;
 
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 
 /**
  * Created by Administrator on 8/23/2018.
@@ -9,7 +11,7 @@ import org.aspectj.lang.annotation.*;
 @Aspect
 public class MyAspect {
 
-    @Pointcut("execution(public * org.zk.aop.MyTargetImpl.say*())")
+    @Pointcut("execution(public * org.zk.aop.MyTarget.sayH*())")
     public void pointCut1() {
 
     }

@@ -1,12 +1,20 @@
 package org.zk.spring;
 
-import org.aopalliance.aop.Advice;
 import org.junit.Test;
 import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.framework.ProxyFactoryBean;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.zk.aop.*;
 
-public class AopTest {
+public class SpringAopTest {
+
+	@Test
+	public void testAop() {
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-aop.xml");
+		MyTarget myTarget = ctx.getBean(MyTarget.class);
+		myTarget.sayHello();
+		myTarget.sayWorld();
+	}
 
 	@Test
 	public void test1() {

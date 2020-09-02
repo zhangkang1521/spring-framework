@@ -106,23 +106,7 @@
     <!--<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>-->
     <!--<bean class="org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor"/>-->
     <!--<bean class="org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>-->
-
-
-
-
-
-
-
-    <!-- aop -->
-    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
-
-    <!--<bean id="myTarget" class="org.zk.aop.MyTargetImpl"></bean>-->
-    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
-    <!--<bean id="myAspect2" class="org.zk.aop.MyAspect2"></bean>-->
-
-    <!--<aop:aspectj-autoproxy/>-->
-
-
+    
 </beans>
 
 
