@@ -106,7 +106,7 @@
     <!--<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>-->
     <!--<bean class="org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor"/>-->
     <!--<bean class="org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>-->
-    
+
 </beans>
 
 

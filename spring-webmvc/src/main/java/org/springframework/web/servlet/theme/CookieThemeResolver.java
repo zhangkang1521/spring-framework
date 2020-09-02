@@ -77,8 +77,10 @@ public class CookieThemeResolver extends CookieGenerator implements ThemeResolve
 	}
 
 
+	// <spring:theme code='styleSheet'/> 调用
 	public String resolveThemeName(HttpServletRequest request) {
 		// Check request for preparsed or preset theme.
+		// 拦截器中设置的主题
 		String themeName = (String) request.getAttribute(THEME_REQUEST_ATTRIBUTE_NAME);
 		if (themeName != null) {
 			return themeName;
@@ -101,6 +103,7 @@ public class CookieThemeResolver extends CookieGenerator implements ThemeResolve
 		return themeName;
 	}
 
+	// ThemeChangeInterceptor 设置
 	public void setThemeName(HttpServletRequest request, HttpServletResponse response, String themeName) {
 		if (StringUtils.hasText(themeName)) {
 			// Set request attribute and add cookie.

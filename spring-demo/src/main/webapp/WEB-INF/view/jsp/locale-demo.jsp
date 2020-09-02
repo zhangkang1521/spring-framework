@@ -3,12 +3,14 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css">
 </head>
 <body>
-hello,jsp, I am ${username}
 <div>
-    <%--<spring:message code="test"/>--%>
+    <spring:message code="test"/>
+    <div>
+        <a href="http://localhost:8080/locale-demo?locale=zh_CN">中文</a>
+        <a href="http://localhost:8080/locale-demo?locale=en_US">English</a>
+    </div>
 </div>
 </body>
 </html>

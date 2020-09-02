@@ -100,6 +100,7 @@ public class ResourceBundleThemeSource implements HierarchicalThemeSource {
 		synchronized (this.themeCache) {
 			Theme theme = this.themeCache.get(themeName);
 			if (theme == null) {
+				// basename + 主题名
 				String basename = this.basenamePrefix + themeName;
 				MessageSource messageSource = createMessageSource(basename);
 				theme = new SimpleTheme(themeName, messageSource);

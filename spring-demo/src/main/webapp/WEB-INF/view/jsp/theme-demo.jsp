@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css">
 </head>
 <body>
-hello,jsp, I am ${username}
+theme demo
+<a href="http://localhost:8080/theme-demo?theme=red">red</a>
+<a href="http://localhost:8080/theme-demo?theme=blue">blue</a>
 <div>
-    <%--<spring:message code="test"/>--%>
 </div>
 </body>
 </html>

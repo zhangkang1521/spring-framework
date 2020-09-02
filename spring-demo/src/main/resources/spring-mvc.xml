@@ -87,7 +87,7 @@
     <!--<mvc:resources mapping="/static/**" location="/static/"/>-->
 
     <!-- 注入SimpleUrlHandlerMapping，将/**映射到DefaultServletHttpRequestHandler，其中使用defaultServlet进行静态资源访问 -->
-    <!--<mvc:default-servlet-handler/>-->
+    <mvc:default-servlet-handler/>
 
     <!-- 对于不需要后台处理的简单页面，针对固定path返回固定view，ParameterizableViewController -->
     <!--<mvc:view-controller path="/hi" view-name="hello"/>-->
@@ -97,16 +97,30 @@
 
 
     <!-- 国际化 -->
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-    </bean>
-    <!-- 国际化配置文件 -->
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-        <property name="basename" value="messages"/>
-    </bean>
-    <!-- 设置国际化信息到localResolver中，根据url中的locale=en_us -->
-    <mvc:interceptors>
-        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-        </bean>
-    </mvc:interceptors>
+    <!--<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">-->
+    <!--</bean>-->
+     <!--国际化配置文件 -->
+    <!--<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">-->
+        <!--<property name="basename" value="messages"/>-->
+    <!--</bean>-->
+     <!--设置国际化信息到localeResolver中，根据url中的locale=en_us -->
+    <!--<mvc:interceptors>-->
+        <!--<bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">-->
+        <!--</bean>-->
+    <!--</mvc:interceptors>-->
+
+    <!-- 主题 -->
+    <!--<bean id="themeResolver" class="org.springframework.web.servlet.theme.CookieThemeResolver">-->
+        <!--<property name="defaultThemeName" value="red" />-->
+    <!--</bean>-->
+    <!--<bean id="themeSource" class="org.springframework.ui.context.support.ResourceBundleThemeSource">-->
+        <!--<property name="basenamePrefix" value="theme_" />-->
+    <!--</bean>-->
+    <!-- 设置国际化信息到ThemeResolver中，根据url中参数theme=blue -->
+    <!--<mvc:interceptors>-->
+        <!--<bean id="themeChangeInterceptor" class="org.springframework.web.servlet.theme.ThemeChangeInterceptor">-->
+        <!--</bean>-->
+    <!--</mvc:interceptors>-->
+
 
 </beans>
