@@ -288,6 +288,7 @@ project("spring-demo") {
 		compile(project(":spring-instrument"))
 		compile(project(":spring-webmvc"))
 		compile(project(":spring-web"))
+		compile(project(":spring-jdbc"))
 	}
 }
 
