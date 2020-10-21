@@ -361,6 +361,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 
 		// Create proxy if we have advice.
 		// 获取增强的拦截器 InstantiationModelAwarePointcutAdvisorImpl 包含Advice属性（BeforeAdvice, AfterAdvice）
+		// 这里就是Advisor
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);
@@ -453,7 +454,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 	 */
 	protected Object createProxy(
 			Class<?> beanClass, String beanName, Object[] specificInterceptors, TargetSource targetSource) {
-
+		// 使用ProxyFactory创建代理
 		ProxyFactory proxyFactory = new ProxyFactory();
 		// Copy our properties (proxyTargetClass etc) inherited from ProxyConfig.
 		proxyFactory.copyFrom(this);
@@ -467,6 +468,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 			}
 		}
 
+		// InstantiationModelAwarePointcutAdvisorImpl就是Advisor，无需变化
 		Advisor[] advisors = buildAdvisors(beanName, specificInterceptors);
 		for (Advisor advisor : advisors) {
 			proxyFactory.addAdvisor(advisor);
