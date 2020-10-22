@@ -84,6 +84,7 @@ public class TransactionInterceptor extends TransactionAspectSupport implements 
 	}
 
 
+	// 事务拦截器执行此方法
 	public Object invoke(final MethodInvocation invocation) throws Throwable {
 		// Work out the target class: may be {@code null}.
 		// The TransactionAttributeSource should be passed the target class

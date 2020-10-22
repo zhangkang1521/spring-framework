@@ -100,6 +100,7 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	 * @return the List of candidate Advisors
 	 */
 	protected List<Advisor> findCandidateAdvisors() {
+		// 找到实现Advisor接口的增强器
 		return this.advisorRetrievalHelper.findAdvisorBeans();
 	}
 

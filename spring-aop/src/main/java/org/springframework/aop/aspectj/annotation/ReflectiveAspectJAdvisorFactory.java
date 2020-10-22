@@ -102,7 +102,8 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 
 		// 普通增强器获取
 		final List<Advisor> advisors = new LinkedList<Advisor>();
-		for (Method method : getAdvisorMethods(aspectClass)) {
+		for (Method method : getAdvisorMethods(aspectClass)) { // 排除PointCut注解的方法
+			// 有这些注解的方法 Before.class, Around.class, After.class, AfterReturning.class, AfterThrowing.class, Pointcut.class
 			Advisor advisor = getAdvisor(method, lazySingletonAspectInstanceFactory, advisors.size(), aspectName);
 			if (advisor != null) {
 				advisors.add(advisor); // 这里添加了注解@Before @After ... @PointCut 的方法
@@ -169,12 +170,13 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 			int declarationOrderInAspect, String aspectName) {
 
 		validate(aif.getAspectMetadata().getAspectClass());
-		// 切点信息获取
+		// 有这些注解的方法有返回值 Before.class, Around.class, After.class, AfterReturning.class, AfterThrowing.class, Pointcut.class
 		AspectJExpressionPointcut ajexp =
 				getPointcut(candidateAdviceMethod, aif.getAspectMetadata().getAspectClass());
 		if (ajexp == null) {
 			return null;
 		}
+		// Advisor的实现类，构造方法中初始化BeforeAdvice,AfterAdvice等
 		return new InstantiationModelAwarePointcutAdvisorImpl(
 				this, ajexp, aif, candidateAdviceMethod, declarationOrderInAspect, aspectName);
 	}

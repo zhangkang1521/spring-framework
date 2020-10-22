@@ -102,8 +102,10 @@ public abstract class AbstractBeanFactoryPointcutAdvisor extends AbstractPointcu
 		}
 
 		Assert.state(this.beanFactory != null, "BeanFactory must be set to resolve 'adviceBeanName'");
+		// adviceBeanName在解析tx:annotationDriven标签的时候提供
 		if (this.beanFactory.isSingleton(this.adviceBeanName)) {
 			// Rely on singleton semantics provided by the factory.
+			// 获取到TransactionInterceptor，解析tx:annotationDriven标签的时候注入的
 			advice = this.beanFactory.getBean(this.adviceBeanName, Advice.class);
 			this.advice = advice;
 			return advice;

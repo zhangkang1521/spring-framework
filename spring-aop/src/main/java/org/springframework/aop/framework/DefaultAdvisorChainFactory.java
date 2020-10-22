@@ -72,6 +72,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 							}
 						}
 						else {
+							// 走这里
 							interceptorList.addAll(Arrays.asList(interceptors));
 						}
 					}
