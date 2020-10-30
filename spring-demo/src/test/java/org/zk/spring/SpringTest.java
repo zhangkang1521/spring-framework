@@ -24,7 +24,7 @@ public class SpringTest {
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         User user = (User)ctx.getBean("user0");
-        System.out.println(user.getBirthday());
+        System.out.println(user);
         ctx.close();
     }
 

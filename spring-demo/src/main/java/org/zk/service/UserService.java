@@ -8,4 +8,6 @@ import org.zk.domain.User;
 public interface UserService {
 
    User getNewUser();
+
+   void update();
 }

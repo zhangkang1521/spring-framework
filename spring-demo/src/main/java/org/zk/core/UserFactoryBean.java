@@ -9,7 +9,7 @@ import org.zk.domain.User;
 public class UserFactoryBean implements FactoryBean<User> {
 
     public User getObject() throws Exception {
-        return new User(1, "zk");
+        return new User();
     }
 
     public Class<?> getObjectType() {
