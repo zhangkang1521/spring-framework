@@ -20,6 +20,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.transaction.support.ResourceHolderSupport;
 import org.springframework.util.Assert;
 
@@ -39,6 +41,8 @@ import org.springframework.util.Assert;
  * @see DataSourceUtils
  */
 public class ConnectionHolder extends ResourceHolderSupport {
+
+	private Log log = LogFactory.getLog(this.getClass());
 
 	public static final String SAVEPOINT_NAME_PREFIX = "SAVEPOINT_";
 
@@ -174,7 +178,10 @@ public class ConnectionHolder extends ResourceHolderSupport {
 	 */
 	public Savepoint createSavepoint() throws SQLException {
 		this.savepointCounter++;
-		return getConnection().setSavepoint(SAVEPOINT_NAME_PREFIX + this.savepointCounter);
+		// 创建保存点
+		Savepoint savepoint =  getConnection().setSavepoint(SAVEPOINT_NAME_PREFIX + this.savepointCounter);
+		log.debug("创建保存点：" + SAVEPOINT_NAME_PREFIX + this.savepointCounter + "，" + savepoint);
+		return savepoint;
 	}
 
 	/**

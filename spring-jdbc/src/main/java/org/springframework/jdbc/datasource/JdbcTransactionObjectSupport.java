@@ -126,6 +126,8 @@ public abstract class JdbcTransactionObjectSupport implements SavepointManager, 
 	 */
 	public void rollbackToSavepoint(Object savepoint) throws TransactionException {
 		try {
+			// 回滚到保存点
+			logger.debug("回滚到保存点：" + savepoint);
 			getConnectionHolderForSavepoint().getConnection().rollback((Savepoint) savepoint);
 		}
 		catch (Throwable ex) {
@@ -139,6 +141,7 @@ public abstract class JdbcTransactionObjectSupport implements SavepointManager, 
 	 */
 	public void releaseSavepoint(Object savepoint) throws TransactionException {
 		try {
+			logger.debug("释放保存点:" + savepoint);
 			getConnectionHolderForSavepoint().getConnection().releaseSavepoint((Savepoint) savepoint);
 		}
 		catch (Throwable ex) {

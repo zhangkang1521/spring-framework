@@ -1,12 +1,9 @@
 package org.zk.spring;
 
 import org.junit.Test;
-import org.springframework.aop.aspectj.AspectJExpressionPointcut;
-import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.zk.aop.*;
-import org.zk.tx.UserJdbcService;
+import org.zk.tx.AService;
 
 public class SpringTxTest {
 
@@ -21,7 +18,7 @@ public class SpringTxTest {
 	@Test
 	public void testTx() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-tx.xml");
-		UserJdbcService userJdbcService = ctx.getBean(UserJdbcService.class);
+		AService userJdbcService = ctx.getBean(AService.class);
 		userJdbcService.save();
 	}
 

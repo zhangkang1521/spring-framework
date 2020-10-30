@@ -1,6 +1,6 @@
 package org.zk.tx;
 
-public interface UserJdbcService {
+public interface AService {
 
 	void save();
 
