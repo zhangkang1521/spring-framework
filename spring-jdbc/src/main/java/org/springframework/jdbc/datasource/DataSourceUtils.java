@@ -180,6 +180,7 @@ public abstract class DataSourceUtils {
 			}
 		}
 
+		// 隔离级别
 		// Apply specific isolation level, if any.
 		Integer previousIsolationLevel = null;
 		if (definition != null && definition.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT) {
@@ -205,6 +206,7 @@ public abstract class DataSourceUtils {
 	 * @see #prepareConnectionForTransaction
 	 */
 	public static void resetConnectionAfterTransaction(Connection con, Integer previousIsolationLevel) {
+		// 重置隔离级别
 		Assert.notNull(con, "No Connection specified");
 		try {
 			// Reset transaction isolation to previous value, if changed for the transaction.

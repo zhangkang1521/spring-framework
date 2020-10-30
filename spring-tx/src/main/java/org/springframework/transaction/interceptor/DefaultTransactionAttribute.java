@@ -95,6 +95,7 @@ public class DefaultTransactionAttribute extends DefaultTransactionDefinition im
 	 * <p>This is consistent with TransactionTemplate's default behavior.
 	 */
 	public boolean rollbackOn(Throwable ex) {
+		// 默认运行时异常，Error都回滚
 		return (ex instanceof RuntimeException || ex instanceof Error);
 	}
 

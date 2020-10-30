@@ -55,6 +55,7 @@ public enum Isolation {
 	READ_COMMITTED(TransactionDefinition.ISOLATION_READ_COMMITTED),
 
 	/**
+	 * 默认，可重复读
 	 * A constant indicating that dirty reads and non-repeatable reads are
 	 * prevented; phantom reads can occur. This level prohibits a transaction
 	 * from reading a row with uncommitted changes in it, and it also prohibits

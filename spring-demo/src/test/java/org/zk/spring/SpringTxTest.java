@@ -16,7 +16,7 @@ public class SpringTxTest {
 	}
 
 	@Test
-	public void testTx() {
+	public void testTx() throws Exception {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-tx.xml");
 		AService userJdbcService = ctx.getBean(AService.class);
 		userJdbcService.save();
