@@ -1,11 +1,14 @@
 package org.zk.domain;
 
+import org.springframework.beans.factory.annotation.Value;
+
 /**
  * Created by Administrator on 5/20/2018.
  */
 public class User {
     private Integer id;
 
+    @Value("${test}")
     private String username;
 
     public Integer getId() {

@@ -3,7 +3,6 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="<spring:theme code='styleSheet'/>" type="text/css">
 </head>
 <body>
 hello,jsp, I am ${username}

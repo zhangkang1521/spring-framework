@@ -42,12 +42,7 @@ public class SpringTest {
         FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext("E:/applicationContext.xml");
     }
 
-    @Test
-    public void testAnnotationCtx() {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        User user = (User)ctx.getBean("user1");
-        System.out.println(user);
-    }
+
 
     @Test
     public void testMessage() {

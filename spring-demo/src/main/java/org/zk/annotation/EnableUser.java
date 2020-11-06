@@ -1,7 +1,7 @@
 package org.zk.annotation;
 
 import org.springframework.context.annotation.Import;
-import org.zk.core.MyImportBeanDefinitionRegistrar;
+import org.zk.config.MyImportBeanDefinitionRegistrar;
 
 import java.lang.annotation.*;
 

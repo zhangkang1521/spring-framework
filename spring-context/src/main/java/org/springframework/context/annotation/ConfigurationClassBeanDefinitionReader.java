@@ -117,12 +117,15 @@ class ConfigurationClassBeanDefinitionReader {
 	 * class itself, all its {@link Bean} methods
 	 */
 	private void loadBeanDefinitionsForConfigurationClass(ConfigurationClass configClass) {
+		// @Import导入配置类
 		if (configClass.isImported()) {
 			registerBeanDefinitionForImportedConfigurationClass(configClass);
 		}
+		// @Bean注解的方法
 		for (BeanMethod beanMethod : configClass.getBeanMethods()) {
 			loadBeanDefinitionsForBeanMethod(beanMethod);
 		}
+		// @ImportResource 引入xml
 		loadBeanDefinitionsFromImportedResources(configClass.getImportedResources());
 	}
 
@@ -301,6 +304,7 @@ class ConfigurationClassBeanDefinitionReader {
 			}
 			BeanDefinitionReader reader = readerInstanceCache.get(readerClass);
 			// TODO SPR-6310: qualify relative path locations as done in AbstractContextLoader.modifyLocations
+			// XmlBeanDefinitionReader读取BeanDefinition
 			reader.loadBeanDefinitions(resource);
 		}
 	}

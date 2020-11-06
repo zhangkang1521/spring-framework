@@ -764,6 +764,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 	public String resolveEmbeddedValue(String value) {
 		String result = value;
+		// org.springframework.beans.factory.config.PropertyPlaceholderConfigurer$PlaceholderResolvingStringValueResolver
 		for (StringValueResolver resolver : this.embeddedValueResolvers) {
 			if (result == null) {
 				return null;

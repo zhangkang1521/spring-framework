@@ -104,7 +104,7 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	private final Set<String> activeProfiles = new LinkedHashSet<String>();
+	private final Set<String> activeProfiles = new LinkedHashSet<String>(); // 当前profile
 
 	private final Set<String> defaultProfiles = new LinkedHashSet<String>(getReservedDefaultProfiles());
 
@@ -241,6 +241,7 @@ public abstract class AbstractEnvironment implements ConfigurableEnvironment {
 			if (this.activeProfiles.isEmpty()) {
 				String profiles = getProperty(ACTIVE_PROFILES_PROPERTY_NAME);
 				if (StringUtils.hasText(profiles)) {
+					// 解析profile
 					setActiveProfiles(commaDelimitedListToStringArray(trimAllWhitespace(profiles)));
 				}
 			}

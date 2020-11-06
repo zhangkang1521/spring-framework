@@ -19,6 +19,7 @@ package org.springframework.core.env;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 
 /**
+ * 作为PropertyResolver的子接口，额外提供属性类型转换的功能
  * Configuration interface to be implemented by most if not all {@link PropertyResolver}
  * types. Provides facilities for accessing and customizing the
  * {@link org.springframework.core.convert.ConversionService ConversionService}

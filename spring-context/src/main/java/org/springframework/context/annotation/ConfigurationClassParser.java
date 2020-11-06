@@ -176,6 +176,7 @@ class ConfigurationClassParser {
 		processMemberClasses(metadata);
 
 		// Process any @PropertySource annotations
+		// 引入配置文件
 		AnnotationAttributes propertySource = MetadataUtils.attributesFor(metadata,
 				org.springframework.context.annotation.PropertySource.class);
 		if (propertySource != null) {
@@ -183,6 +184,7 @@ class ConfigurationClassParser {
 		}
 
 		// Process any @ComponentScan annotations
+		// 包扫描
 		AnnotationAttributes componentScan = MetadataUtils.attributesFor(metadata, ComponentScan.class);
 		if (componentScan != null) {
 			// The config class is annotated with @ComponentScan -> perform the scan immediately
@@ -198,6 +200,10 @@ class ConfigurationClassParser {
 		}
 
 		// Process any @Import annotations
+		// @Import 3种方式
+		// 1：引入java配置
+		// 2：实现ImportSelector接口，返回java配置类名
+		// 3：实现ImportBeanDefinitionRegistrar接口，直接注入bean
 		Set<Object> imports = new LinkedHashSet<Object>();
 		Set<String> visited = new LinkedHashSet<String>();
 		collectImports(metadata, imports, visited);
@@ -206,6 +212,7 @@ class ConfigurationClassParser {
 		}
 
 		// Process any @ImportResource annotations
+		// 引入xml
 		if (metadata.isAnnotated(ImportResource.class.getName())) {
 			AnnotationAttributes importResource = MetadataUtils.attributesFor(metadata, ImportResource.class);
 			String[] resources = importResource.getStringArray("value");
@@ -217,6 +224,7 @@ class ConfigurationClassParser {
 		}
 
 		// Process individual @Bean methods
+		// 先解析好，后面会根据BeanMethod注册beanDefinition
 		Set<MethodMetadata> beanMethods = metadata.getAnnotatedMethods(Bean.class.getName());
 		for (MethodMetadata methodMetadata : beanMethods) {
 			configClass.addBeanMethod(new BeanMethod(methodMetadata, configClass));
@@ -385,13 +393,16 @@ class ConfigurationClassParser {
 				for (Object candidate : classesToImport) {
 					Object candidateToCheck = (candidate instanceof Class ? (Class) candidate :
 							this.metadataReaderFactory.getMetadataReader((String) candidate));
+					// ImportSelector
 					if (checkAssignability(ImportSelector.class, candidateToCheck)) {
 						// Candidate class is an ImportSelector -> delegate to it to determine imports
 						Class<?> candidateClass = (candidate instanceof Class ? (Class) candidate :
 								this.resourceLoader.getClassLoader().loadClass((String) candidate));
 						ImportSelector selector = BeanUtils.instantiateClass(candidateClass, ImportSelector.class);
+						// 调用selectImports方法拿到需要import的类名，继续调用processImport处理
 						processImport(configClass, metadata, Arrays.asList(selector.selectImports(metadata)), false);
 					}
+					// ImportBeanDefinitionRegistrar
 					else if (checkAssignability(ImportBeanDefinitionRegistrar.class, candidateToCheck)) {
 						// Candidate class is an ImportBeanDefinitionRegistrar ->
 						// delegate to it to register additional bean definitions
@@ -400,6 +411,7 @@ class ConfigurationClassParser {
 						ImportBeanDefinitionRegistrar registrar =
 								BeanUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class);
 						invokeAwareMethods(registrar);
+						// 调用注册方法
 						registrar.registerBeanDefinitions(metadata, this.registry);
 					}
 					else {

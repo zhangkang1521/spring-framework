@@ -8,15 +8,18 @@ import org.zk.domain.User;
 import org.zk.service.UserService;
 
 @Service
-@Profile("dev")
-public class UserServiceImpl implements UserService {
+@Profile("prod")
+public class UserServiceImpl2 implements UserService {
 
 	private UserDao userDao;
+
+	public UserServiceImpl2() {
+	}
 
 	@Override
 	public User getNewUser() {
 		User user = new User();
-		user.setId(1);
+		user.setId(2);
 		return user;
 	}
 

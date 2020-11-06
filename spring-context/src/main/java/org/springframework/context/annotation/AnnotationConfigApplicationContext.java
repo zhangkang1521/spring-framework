@@ -57,7 +57,10 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
+		// 会添加CommonAnnotationBeanPostProcessor，AutowiredAnnotationBeanPostProcessor，
+		// RequiredAnnotationBeanPostProcessor，ConfigurationClassPostProcessor 4个后置处理器
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+		// mybatis自动扫描dao原理相同
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 

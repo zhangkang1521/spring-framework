@@ -1,4 +1,4 @@
-package org.zk.core;
+package org.zk.config;
 
 import org.springframework.context.annotation.ImportSelector;
 import org.springframework.core.type.AnnotationMetadata;

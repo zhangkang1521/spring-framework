@@ -917,7 +917,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				multipartRequestParsed = (processedRequest != request);
 
 				// Determine handler for the current request.
-				// 根据HandlerMapping找到对应的Handler(HandleMethod或Controller等), 加上拦截器，封装成一个执行链
+				// 根据HandlerMapping找到对应的Handler(HandlerMethod或Controller等), 加上拦截器，封装成一个执行链
 				mappedHandler = getHandler(processedRequest, false);
 				if (mappedHandler == null || mappedHandler.getHandler() == null) {
 					// 没有找到handler，直接返回404

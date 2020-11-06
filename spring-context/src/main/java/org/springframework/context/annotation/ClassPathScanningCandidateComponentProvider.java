@@ -335,6 +335,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 				if (!metadata.isAnnotated(Profile.class.getName())) {
 					return true;
 				}
+				// 符合profile的才接受
 				AnnotationAttributes profile = MetadataUtils.attributesFor(metadata, Profile.class);
 				return this.environment.acceptsProfiles(profile.getStringArray("value"));
 			}

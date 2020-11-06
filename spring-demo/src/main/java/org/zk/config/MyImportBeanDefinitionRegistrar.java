@@ -1,4 +1,4 @@
-package org.zk.core;
+package org.zk.config;
 
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
