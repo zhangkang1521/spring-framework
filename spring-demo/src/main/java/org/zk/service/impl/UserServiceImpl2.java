@@ -8,7 +8,7 @@ import org.zk.domain.User;
 import org.zk.service.UserService;
 
 @Service
-@Profile("prod")
+//@Profile("prod")
 public class UserServiceImpl2 implements UserService {
 
 	private UserDao userDao;

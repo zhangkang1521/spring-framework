@@ -875,6 +875,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				}
 				return null;
 			}
+			// 找到多个bean
 			if (matchingBeans.size() > 1) {
 				String primaryBeanName = determinePrimaryCandidate(matchingBeans, descriptor);
 				if (primaryBeanName == null) {
@@ -944,6 +945,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		for (Map.Entry<String, Object> entry : candidateBeans.entrySet()) {
 			String candidateBeanName = entry.getKey();
 			Object beanInstance = entry.getValue();
+			// primary bean
 			if (isPrimary(candidateBeanName, beanInstance)) {
 				if (primaryBeanName != null) {
 					boolean candidateLocal = containsBeanDefinition(candidateBeanName);
@@ -960,6 +962,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					primaryBeanName = candidateBeanName;
 				}
 			}
+			// bean的名称和依赖属性名一致
 			if (primaryBeanName == null &&
 					(this.resolvableDependencies.values().contains(beanInstance) ||
 							matchesBeanName(candidateBeanName, descriptor.getDependencyName()))) {
