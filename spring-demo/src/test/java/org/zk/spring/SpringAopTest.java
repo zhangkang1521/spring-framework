@@ -40,6 +40,6 @@ public class SpringAopTest {
 		proxyFactoryBean.addAdvisor(sellBeforeAdvisor);
 		MyTarget proxyTarget = (MyTarget) proxyFactoryBean.getObject();
 		proxyTarget.sayHello();
-		proxyTarget.sayWorld();
+//		proxyTarget.sayWorld();
 	}
 }

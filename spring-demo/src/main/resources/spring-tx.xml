@@ -30,18 +30,18 @@
 
     <bean id="aService" class="org.zk.tx.AServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-        <property name="bService" ref="bService"></property>
-        <property name="cService" ref="cService"></property>
+        <!--<property name="bService" ref="bService"></property>-->
+        <!--<property name="cService" ref="cService"></property>-->
     </bean>
 
-    <bean id="bService" class="org.zk.tx.BServiceImpl">
+   <!-- <bean id="bService" class="org.zk.tx.BServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
         <property name="cService" ref="cService"></property>
-    </bean>
+    </bean>-->
 
-    <bean id="cService" class="org.zk.tx.CServiceImpl">
+<!--    <bean id="cService" class="org.zk.tx.CServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
+    </bean>-->
 
 
 

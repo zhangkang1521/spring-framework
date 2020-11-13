@@ -215,6 +215,7 @@ public abstract class AopUtils {
 			introductionAwareMethodMatcher = (IntroductionAwareMethodMatcher) methodMatcher;
 		}
 
+		// 遍历所有接口方法，判断是否需要增强
 		Set<Class> classes = new LinkedHashSet<Class>(ClassUtils.getAllInterfacesForClassAsSet(targetClass));
 		classes.add(targetClass);
 		for (Class<?> clazz : classes) {
@@ -222,6 +223,8 @@ public abstract class AopUtils {
 			for (Method method : methods) {
 				if ((introductionAwareMethodMatcher != null &&
 						introductionAwareMethodMatcher.matches(method, targetClass, hasIntroductions)) ||
+						// @Aspect切面： AspectJExpressionPointCut
+						// 事务： org.springframework.transaction.interceptor.TransactionAttributeSourcePointcut
 						methodMatcher.matches(method, targetClass)) {
 					return true;
 				}
@@ -258,6 +261,7 @@ public abstract class AopUtils {
 			return ((IntroductionAdvisor) advisor).getClassFilter().matches(targetClass);
 		}
 		else if (advisor instanceof PointcutAdvisor) {
+			// 一般为切点
 			PointcutAdvisor pca = (PointcutAdvisor) advisor;
 			return canApply(pca.getPointcut(), targetClass, hasIntroductions);
 		}

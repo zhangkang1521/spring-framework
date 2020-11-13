@@ -140,6 +140,7 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 		Class<?> userClass = ClassUtils.getUserClass(targetClass);
 		// The method may be on an interface, but we need attributes from the target class.
 		// If the target class is null, the method will be unchanged.
+		// 实现类方法上注解
 		Method specificMethod = ClassUtils.getMostSpecificMethod(method, userClass);
 		// If we are dealing with method with generic parameters, find the original method.
 		specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
@@ -151,6 +152,7 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 		}
 
 		// Second try is the transaction attribute on the target class.
+		// 实现类上注解
 		txAtt = findTransactionAttribute(specificMethod.getDeclaringClass());
 		if (txAtt != null) {
 			return txAtt;
@@ -158,11 +160,13 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 
 		if (specificMethod != method) {
 			// Fallback is to look at the original method.
+			// 接口方法上注解
 			txAtt = findTransactionAttribute(method);
 			if (txAtt != null) {
 				return txAtt;
 			}
 			// Last fallback is the class of the original method.
+			// 接口类上注解
 			return findTransactionAttribute(method.getDeclaringClass());
 		}
 		return null;

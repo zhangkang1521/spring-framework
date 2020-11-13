@@ -13,6 +13,5 @@ public class AsyncTest {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		MyTarget myTarget = (MyTarget) ctx.getBean("myTarget");
 		myTarget.sayHello();
-		myTarget.sayWorld();
 	}
 }

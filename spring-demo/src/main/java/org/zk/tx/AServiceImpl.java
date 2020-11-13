@@ -12,10 +12,10 @@ public class AServiceImpl implements AService {
 	private BService bService;
 	private CService cService;
 
-	@Transactional
+
 	public void save() throws Exception {
 		jdbcTemplate.execute("update tb_user set username='a' where id = 1");
-		throw new Exception("ss");
+//		throw new Exception("ss");
 //		String str = jdbcTemplate.queryForObject("select username from tb_user where id = 1", String.class);
 //		System.out.println(str);
 //		if (true)

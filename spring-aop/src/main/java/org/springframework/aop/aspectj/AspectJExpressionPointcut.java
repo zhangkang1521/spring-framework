@@ -18,6 +18,7 @@ package org.springframework.aop.aspectj;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -262,9 +263,10 @@ public class AspectJExpressionPointcut extends AbstractExpressionPointcut
 
 	public boolean matches(Method method, Class<?> targetClass, boolean beanHasIntroductions) {
 		checkReadyToMatch();
+		// method为接口中的方法；targetMethod为实现类中的方法
+		// AspectJ表达式校验实现类方法
 		Method targetMethod = AopUtils.getMostSpecificMethod(method, targetClass);
 		ShadowMatch shadowMatch = getShadowMatch(targetMethod, method);
-
 		// Special handling for this, target, @this, @target, @annotation
 		// in Spring - we can optimize since we know we have exactly this class,
 		// and there will never be matching subclass at runtime.

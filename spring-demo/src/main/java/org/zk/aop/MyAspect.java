@@ -11,7 +11,8 @@ import org.aspectj.lang.annotation.Pointcut;
 @Aspect
 public class MyAspect {
 
-    @Pointcut("execution(public * org.zk.aop.MyTarget.sayH*())")
+//    @Pointcut("execution(public * org.zk.aop.MyTarget.sayH*())")
+    @Pointcut("@annotation(org.zk.aop.DynamicDataSource)")
     public void pointCut1() {
 
     }
