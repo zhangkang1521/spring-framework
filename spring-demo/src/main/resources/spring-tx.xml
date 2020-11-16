@@ -9,35 +9,62 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"  init-method="init" destroy-method="close">
+    <aop:aspectj-autoproxy/>
+
+    <bean class="org.zk.tx.dynamicdatasource.DataSourceAspect"></bean>
+
+    <bean id="dynamicDataSource" class="org.zk.tx.dynamicdatasource.DynamicDataSource">
+        <property name="targetDataSources">
+            <map>
+                <entry key="master" value-ref="masterDataSource"></entry>
+                <entry key="slave" value-ref="slaveDataSource"></entry>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="masterDataSource"></property>
+    </bean>
+
+    <bean id="masterDataSource" class="com.alibaba.druid.pool.DruidDataSource"  init-method="init" destroy-method="close">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
         <property name="url" value="jdbc:mysql://localhost:3306/zk "/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
     </bean>
 
+    <bean id="slaveDataSource" class="com.alibaba.druid.pool.DruidDataSource"  init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://10.113.9.38:3306/finance "/>
+        <property name="username" value="root"/>
+        <property name="password" value="123456"/>
+    </bean>
+
+
+
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dynamicDataSource"></property>
     </bean>
 
     <!-- 注册事务管理类 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dynamicDataSource" />
     </bean>
 
-    <!-- 注册：InfrastructureAdvisorAutoProxyCreator -->
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <!--
+        默认order是Integer.MAX_VALUE
+        注册代理创建器（已有则不创建）：InfrastructureAdvisorAutoProxyCreator
+        注册拦截器：AnnotationTransactionAttributeSource，TransactionInterceptor，BeanFactoryTransactionAttributeSourceAdvisor
+     -->
+    <tx:annotation-driven transaction-manager="transactionManager"  />
 
     <bean id="aService" class="org.zk.tx.AServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-        <!--<property name="bService" ref="bService"></property>-->
+        <property name="bService" ref="bService"></property>
         <!--<property name="cService" ref="cService"></property>-->
     </bean>
 
-   <!-- <bean id="bService" class="org.zk.tx.BServiceImpl">
+    <bean id="bService" class="org.zk.tx.BServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-        <property name="cService" ref="cService"></property>
-    </bean>-->
+        <!--<property name="cService" ref="cService"></property>-->
+    </bean>
 
 <!--    <bean id="cService" class="org.zk.tx.CServiceImpl">
         <property name="jdbcTemplate" ref="jdbcTemplate"></property>
