@@ -5,6 +5,7 @@ import org.springframework.aop.aspectj.AspectJExpressionPointcut;
 import org.springframework.aop.framework.ProxyFactoryBean;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.zk.aop.*;
+import org.zk.aop.introduce.Monitorable;
 
 public class SpringAopTest {
 
@@ -12,6 +13,14 @@ public class SpringAopTest {
 	public void testAop() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-aop.xml");
 		MyTarget myTarget = ctx.getBean(MyTarget.class);
+		myTarget.sayHello();
+	}
+
+	@Test
+	public void testIntroduce() {
+		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-aop.xml");
+		MyTarget myTarget = (MyTarget) ctx.getBean("targetProxy");
+		((Monitorable)myTarget).setMonitorActive(true); // 引介增强添加的方法
 		myTarget.sayHello();
 	}
 

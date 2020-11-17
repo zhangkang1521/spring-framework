@@ -17,6 +17,10 @@
 package org.springframework.transaction;
 
 /**
+ * 事务管理器接口
+ * DataSourceTransactionManager: jdbc mybatis
+ * HibernateTransactionManager: hibernate
+ * JpaTransactionManager: jpa
  * This is the central interface in Spring's transaction infrastructure.
  * Applications can use this directly, but it is not primarily meant as API:
  * Typically, applications will work with either TransactionTemplate or
