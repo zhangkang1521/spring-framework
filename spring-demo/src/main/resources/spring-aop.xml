@@ -8,13 +8,13 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 注册bean后置处理器：AnnotationAwareAspectJAutoProxyCreator -->
-    <!--<aop:aspectj-autoproxy/>-->
+    <aop:aspectj-autoproxy expose-proxy="true"/>
 
     <bean id="myTarget" class="org.zk.aop.MyTargetImpl"></bean>
 
-    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
+    <bean id="myAspect" class="org.zk.aop.MyAspect"></bean>
 
-    <!-- 引介增强，为类新增方法 -->
+    <!-- 引介增强，为类新增方法
     <bean id="pmonitor" class="org.zk.aop.introduce.IntroductionMonitor" />
 
     <bean id="targetProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
@@ -22,7 +22,7 @@
         <property name="target" ref="myTarget"></property>
         <property name="interceptorNames" value="pmonitor"></property>
         <property name="proxyTargetClass" value="true"></property>
-    </bean>
+    </bean> -->
 
 
 </beans>
