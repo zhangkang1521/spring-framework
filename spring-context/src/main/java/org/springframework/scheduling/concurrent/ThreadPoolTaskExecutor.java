@@ -78,7 +78,7 @@ public class ThreadPoolTaskExecutor extends ExecutorConfigurationSupport impleme
 
 	private int queueCapacity = Integer.MAX_VALUE;
 
-	private ThreadPoolExecutor threadPoolExecutor;
+	private ThreadPoolExecutor threadPoolExecutor; // java的线程池
 
 
 	/**

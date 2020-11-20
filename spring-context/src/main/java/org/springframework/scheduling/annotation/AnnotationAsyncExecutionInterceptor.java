@@ -23,6 +23,7 @@ import org.springframework.aop.interceptor.AsyncExecutionInterceptor;
 import org.springframework.core.annotation.AnnotationUtils;
 
 /**
+ * 异步拦截器
  * Specialization of {@link AsyncExecutionInterceptor} that delegates method execution to
  * an {@code Executor} based on the {@link Async} annotation. Specifically designed to
  * support use of {@link Async#value()} executor qualification mechanism introduced in

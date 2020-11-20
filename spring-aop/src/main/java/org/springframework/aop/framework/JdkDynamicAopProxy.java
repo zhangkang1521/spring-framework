@@ -190,7 +190,8 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 
 			// Get the interception chain for this method.
 			// @Aspect切面：AspectJAfterAdvice MethodBeforeAdviceInterceptor
-			// 构建拦截器链 TransactionInterceptor
+			// 事务： TransactionInterceptor
+			// 异步：AnnotationAsyncExecutionInterceptor
 			List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
 
 			// Check whether we have any advice. If we don't, we can fallback on direct

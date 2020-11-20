@@ -26,6 +26,7 @@ import org.springframework.core.task.TaskExecutor;
 import org.springframework.util.Assert;
 
 /**
+ * 异步后置处理器，创建代理
  * Bean post-processor that automatically applies asynchronous invocation
  * behavior to any bean that carries the {@link Async} annotation at class or
  * method-level by adding a corresponding {@link AsyncAnnotationAdvisor} to the
@@ -40,7 +41,7 @@ import org.springframework.util.Assert;
  *
  * <p>Note: The underlying async advisor applies before existing advisors by default,
  * in order to switch to async execution as early as possible in the invocation chain.
- * 异步
+ *
  *
  * @author Mark Fisher
  * @author Juergen Hoeller
@@ -90,6 +91,7 @@ public class AsyncAnnotationBeanPostProcessor extends AbstractAdvisingBeanPostPr
 			advisor.setAsyncAnnotationType(this.asyncAnnotationType);
 		}
 		advisor.setBeanFactory(beanFactory);
+		// 设置Advisor
 		this.advisor = advisor;
 	}
 

@@ -87,7 +87,7 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport
 			throw new IllegalStateException(
 					"No executor specified and no default executor set on AsyncExecutionInterceptor either");
 		}
-		// 异步提交任务
+		// 异步提交任务，注意此处是submit，线程池的异常信息要从Future拿
 		Future<?> result = executor.submit(
 				new Callable<Object>() {
 					public Object call() throws Exception {

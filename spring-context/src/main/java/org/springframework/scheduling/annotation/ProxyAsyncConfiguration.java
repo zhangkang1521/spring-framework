@@ -38,6 +38,7 @@ import org.springframework.util.Assert;
 @Configuration
 public class ProxyAsyncConfiguration extends AbstractAsyncConfiguration {
 
+	// 异步的bean后置处理器
 	@Bean(name = AnnotationConfigUtils.ASYNC_ANNOTATION_PROCESSOR_BEAN_NAME)
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public AsyncAnnotationBeanPostProcessor asyncAdvisor() {

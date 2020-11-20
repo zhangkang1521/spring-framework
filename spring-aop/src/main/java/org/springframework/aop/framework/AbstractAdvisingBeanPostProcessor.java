@@ -82,6 +82,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyConfig
 		return bean;
 	}
 
+	// 后置处理入口
 	public Object postProcessAfterInitialization(Object bean, String beanName) {
 		if (bean instanceof AopInfrastructureBean) {
 			// Ignore AOP infrastructure such as scoped proxies.
@@ -102,6 +103,7 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyConfig
 			}
 		}
 
+		// 是否匹配切点
 		if (isEligible(bean, beanName)) {
 			ProxyFactory proxyFactory = new ProxyFactory(bean);
 			// Copy our properties (proxyTargetClass etc) inherited from ProxyConfig.

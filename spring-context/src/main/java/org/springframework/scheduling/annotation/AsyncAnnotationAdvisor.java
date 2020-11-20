@@ -54,6 +54,8 @@ import org.springframework.util.ClassUtils;
 @SuppressWarnings("serial")
 public class AsyncAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
 
+	// Advisor = Advice + Pointcut
+
 	private Advice advice;
 
 	private Pointcut pointcut;
@@ -63,6 +65,7 @@ public class AsyncAnnotationAdvisor extends AbstractPointcutAdvisor implements B
 	 * Create a new {@code AsyncAnnotationAdvisor} for bean-style configuration.
 	 */
 	public AsyncAnnotationAdvisor() {
+		// 默认的线程池
 		this(new SimpleAsyncTaskExecutor());
 	}
 
@@ -81,6 +84,7 @@ public class AsyncAnnotationAdvisor extends AbstractPointcutAdvisor implements B
 		catch (ClassNotFoundException ex) {
 			// If EJB 3.1 API not present, simply ignore.
 		}
+		// 设置拦截器 AnnotationAsyncExecutionInterceptor
 		this.advice = buildAdvice(executor);
 		this.pointcut = buildPointcut(asyncAnnotationTypes);
 	}
@@ -129,6 +133,7 @@ public class AsyncAnnotationAdvisor extends AbstractPointcutAdvisor implements B
 
 
 	protected Advice buildAdvice(Executor executor) {
+		// 异步的拦截器
 		return new AnnotationAsyncExecutionInterceptor(executor);
 	}
 
@@ -140,7 +145,9 @@ public class AsyncAnnotationAdvisor extends AbstractPointcutAdvisor implements B
 	protected Pointcut buildPointcut(Set<Class<? extends Annotation>> asyncAnnotationTypes) {
 		ComposablePointcut result = null;
 		for (Class<? extends Annotation> asyncAnnotationType : asyncAnnotationTypes) {
+			// 类上有@Async注解
 			Pointcut cpc = new AnnotationMatchingPointcut(asyncAnnotationType, true);
+			// 方法上有@Async注解
 			Pointcut mpc = AnnotationMatchingPointcut.forMethodAnnotation(asyncAnnotationType);
 			if (result == null) {
 				result = new ComposablePointcut(cpc).union(mpc);
