@@ -46,6 +46,7 @@ dependencies {
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.25'
     compile group: 'org.mybatis', name: 'mybatis', version: '3.1.1'
     compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.2.0'
+    compile group: 'org.apache.activemq', name: 'activemq-client', version: '5.13.2'
 
 
 

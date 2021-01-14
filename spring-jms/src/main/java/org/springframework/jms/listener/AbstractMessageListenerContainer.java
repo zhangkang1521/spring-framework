@@ -482,6 +482,7 @@ public abstract class AbstractMessageListenerContainer extends AbstractJmsListen
 		}
 
 		try {
+			// 调用Listener
 			invokeListener(session, message);
 		}
 		catch (JMSException ex) {
@@ -509,12 +510,14 @@ public abstract class AbstractMessageListenerContainer extends AbstractJmsListen
 	 */
 	@SuppressWarnings("rawtypes")
 	protected void invokeListener(Session session, Message message) throws JMSException {
+		// 配置的Listener
 		Object listener = getMessageListener();
 
 		if (listener instanceof SessionAwareMessageListener) {
 			doInvokeListener((SessionAwareMessageListener) listener, session, message);
 		}
 		else if (listener instanceof MessageListener) {
+			// 调用
 			doInvokeListener((MessageListener) listener, message);
 		}
 		else if (listener != null) {

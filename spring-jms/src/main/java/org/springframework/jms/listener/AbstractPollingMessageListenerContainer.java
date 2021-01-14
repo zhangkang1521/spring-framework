@@ -240,6 +240,7 @@ public abstract class AbstractPollingMessageListenerContainer extends AbstractMe
 			TransactionStatus status = this.transactionManager.getTransaction(this.transactionDefinition);
 			boolean messageReceived;
 			try {
+				// 收取消息并调用Listener
 				messageReceived = doReceiveAndExecute(invoker, session, consumer, status);
 			}
 			catch (JMSException ex) {
@@ -307,6 +308,7 @@ public abstract class AbstractPollingMessageListenerContainer extends AbstractMe
 				consumerToUse = createListenerConsumer(sessionToUse);
 				consumerToClose = consumerToUse;
 			}
+			// 调用consumer.receive收消息
 			Message message = receiveMessage(consumerToUse);
 			if (message != null) {
 				if (logger.isDebugEnabled()) {
@@ -322,6 +324,7 @@ public abstract class AbstractPollingMessageListenerContainer extends AbstractMe
 							getConnectionFactory(), new LocallyExposedJmsResourceHolder(sessionToUse));
 				}
 				try {
+					// 调用Listener
 					doExecuteListener(sessionToUse, message);
 				}
 				catch (Throwable ex) {

@@ -176,7 +176,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 
 	private int cacheLevel = CACHE_AUTO;
 
-	private int concurrentConsumers = 1;
+	private int concurrentConsumers = 1; // 默认1个线程进行消费
 
 	private int maxConcurrentConsumers = 1;
 
@@ -522,6 +522,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	@Override
 	protected void doInitialize() throws JMSException {
 		synchronized (this.lifecycleMonitor) {
+			// 初始化调用，启动线程进行消费
 			for (int i = 0; i < this.concurrentConsumers; i++) {
 				scheduleNewInvoker();
 			}
@@ -988,7 +989,8 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 			}
 			boolean messageReceived = false;
 			try {
-				if (maxMessagesPerTask < 0) {
+				if (maxMessagesPerTask < 0) { // maxMessagesPerTask小于0，不限制消息消费数量
+					// 循环receive消息并调用Listener
 					messageReceived = executeOngoingLoop();
 				}
 				else {
@@ -1091,6 +1093,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 						active = false;
 					}
 				}
+				// 调用Listener
 				if (active) {
 					messageReceived = (invokeListener() || messageReceived);
 				}
@@ -1100,6 +1103,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 
 		private boolean invokeListener() throws JMSException {
 			initResourcesIfNecessary();
+			// 收取消息并调用Listener
 			boolean messageReceived = receiveAndExecute(this, this.session, this.consumer);
 			this.lastMessageSucceeded = true;
 			return messageReceived;
