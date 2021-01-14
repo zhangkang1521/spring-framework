@@ -560,8 +560,10 @@ public class JmsTemplate extends JmsDestinationAccessor implements JmsOperations
 			throws JMSException {
 
 		Assert.notNull(messageCreator, "MessageCreator must not be null");
+		// 回调前，创建Producer
 		MessageProducer producer = createProducer(session, destination);
 		try {
+			// 回调
 			Message message = messageCreator.createMessage(session);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Sending created message: " + message);
@@ -574,6 +576,7 @@ public class JmsTemplate extends JmsDestinationAccessor implements JmsOperations
 			}
 		}
 		finally {
+			// 回调后，关闭资源
 			JmsUtils.closeMessageProducer(producer);
 		}
 	}
@@ -618,6 +621,7 @@ public class JmsTemplate extends JmsDestinationAccessor implements JmsOperations
 
 	public void convertAndSend(String destinationName, final Object message) throws JmsException {
 		send(destinationName, new MessageCreator() {
+			// 被回调
 			public Message createMessage(Session session) throws JMSException {
 				return getRequiredMessageConverter().toMessage(message, session);
 			}
