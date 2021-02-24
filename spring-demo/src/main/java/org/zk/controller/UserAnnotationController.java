@@ -42,10 +42,10 @@ public class UserAnnotationController {
 	// json格式：application/json
 	@RequestMapping(value = "/list")
 	@ResponseBody
-	public Result list(User user) {
-//		if (true) {
-//			throw new RuntimeException("ss");
-//		}
+	public Result list(@RequestBody @Validated User user) {
+		if(true) {
+			throw new RuntimeException("xxx");
+		}
 		return new Result();
 	}
 

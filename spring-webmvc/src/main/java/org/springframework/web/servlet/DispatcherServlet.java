@@ -1180,6 +1180,9 @@ public class DispatcherServlet extends FrameworkServlet {
 		// Check registered HandlerExceptionResolvers...
 		ModelAndView exMv = null;
 		// 默认有3个异常解析器，解析到返回值则返回
+		// ExceptionHandlerExceptionResolver => @ExceptionHandler注解的方法处理异常
+		// ResponseStatusExceptionResolver => 异常类有@ResponseStatus注解
+		// DefaultHandlerExceptionResolver => 例如HttpRequestMethodNotSupportedException异常返回405
 		for (HandlerExceptionResolver handlerExceptionResolver : this.handlerExceptionResolvers) {
 			exMv = handlerExceptionResolver.resolveException(request, response, handler, ex);
 			if (exMv != null) {

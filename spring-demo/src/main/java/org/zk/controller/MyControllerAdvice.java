@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.zk.core.Result;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -39,7 +42,25 @@ public class MyControllerAdvice {
 //		return "aa is ok";
 //	}
 
-	// 返回页面视图，@ResponseBody如何区分开来？
+	// 校验异常
+	@ExceptionHandler(value = MethodArgumentNotValidException.class)
+	@ResponseBody
+	public Object methodArgumentNotValidHandler(HttpServletRequest request,
+	                                            MethodArgumentNotValidException exception, HttpServletResponse response, HttpSession session) throws Exception {
+		StringBuilder errMsg = new StringBuilder();
+		for (FieldError error : exception.getBindingResult().getFieldErrors()) {
+			String errorMessage = error.getDefaultMessage();
+			errMsg.append(errorMessage);
+			errMsg.append(";");
+		}
+		Result dto = new Result();
+		dto.setSuccess(false);
+		dto.setMessage(errMsg.toString());
+		return dto;
+	}
+
+
+	// 其他异常
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	public Result handleException(Exception e, HttpServletRequest request){
@@ -61,5 +82,6 @@ public class MyControllerAdvice {
 		}
 		return result;
 	}
+
 
 }
