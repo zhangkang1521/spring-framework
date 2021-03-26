@@ -1,6 +1,10 @@
 buildscript {
 	repositories {
-		maven { url "https://repo.spring.io/plugins-release" }
+//		maven { url "https://repo.spring.io/plugins-release" }
+		maven { url "https://repo.spring.io/plugins-release-local" }
+		maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+		maven{ url 'https://repo.spring.io/xerces-wso2-public-cache'}
+
 	}
 	dependencies {
 		classpath("org.springframework.build.gradle:propdeps-plugin:0.0.7")
@@ -74,7 +78,9 @@ configure(allprojects) { project ->
 	}
 
 	repositories {
-		maven { url "https://repo.spring.io/libs-release" }
+//		maven { url "https://repo.spring.io/libs-release" }
+		maven { url "https://repo.spring.io/libs-milestone" }
+		maven { url "https://repo.spring.io/libs-snapshot" }
 	}
 
 	dependencies {
