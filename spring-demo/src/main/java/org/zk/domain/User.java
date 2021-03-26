@@ -15,11 +15,6 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
-    @Autowired
-    ApplicationContext applicationContext;
-
-    @Autowired
-    Order order;
 
     private Integer id;
 

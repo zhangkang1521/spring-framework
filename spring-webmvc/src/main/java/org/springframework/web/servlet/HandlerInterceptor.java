@@ -96,6 +96,7 @@ public interface HandlerInterceptor {
 	    throws Exception;
 
 	/**
+	 * Controller发生异常不会执行到
 	 * Intercept the execution of a handler. Called after HandlerAdapter actually
 	 * invoked the handler, but before the DispatcherServlet renders the view.
 	 * Can expose additional model objects to the view via the given ModelAndView.
@@ -122,7 +123,7 @@ public interface HandlerInterceptor {
 	 * the view. Will be called on any outcome of handler execution, thus allows
 	 * for proper resource cleanup.
 	 * <p>Note: Will only be called if this interceptor's {@code preHandle}
-	 * method has successfully completed and returned {@code true}!
+	 * method has successfully completed and returned {@code true}! （preHandle返回true才执行，即使Controller也会执行）
 	 * <p>As with the {@code postHandle} method, the method will be invoked on each
 	 * interceptor in the chain in reverse order, so the first interceptor will be
 	 * the last to be invoked.
