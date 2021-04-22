@@ -2,7 +2,10 @@ package org.zk.domain;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -18,11 +21,25 @@ public class User implements Serializable {
 
     private Integer id;
 
-    @NotBlank(message = "用户名不能为空")
+//    @NotBlank(message = "用户名不能为空")
     private String username;
 
-    @Min(value = 18, message = "年龄不能小于18岁")
-    private Integer age;
+    @Autowired
+    @Qualifier("order1")
+    private Order order;
+
+
+    public User() {
+        System.out.println("invoke user()");
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public Integer getId() {
         return id;
@@ -39,14 +56,5 @@ public class User implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
 
 }

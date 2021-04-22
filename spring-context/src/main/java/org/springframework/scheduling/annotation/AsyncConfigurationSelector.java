@@ -37,6 +37,7 @@ public class AsyncConfigurationSelector extends AdviceModeImportSelector<EnableA
 	 * {@code PROXY} and {@code ASPECTJ} values of {@link EnableAsync#mode()}, respectively
 	 */
 	public String[] selectImports(AdviceMode adviceMode) {
+		// 选择导入哪个配置
 		switch (adviceMode) {
 			case PROXY:
 				return new String[] { ProxyAsyncConfiguration.class.getName() };

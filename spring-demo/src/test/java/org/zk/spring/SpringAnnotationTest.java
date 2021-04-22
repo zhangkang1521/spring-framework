@@ -10,12 +10,12 @@ public class SpringAnnotationTest {
 
 	@Test
 	public void testAnnotationCtx() {
+		// 注解启动Spring，使用 ConfigurationClassPostProcessor 后置处理器注册beanDefinition，
+		// 该类使用AnnotatedBeanDefinitionReader读取BeanDefinition
+		// ConfigurationClassBeanDefinitionReader.ConfigurationClassBeanDefinition 继承自 RootBeanDefinition
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-		ApplicationConfig applicationConfig = ctx.getBean(ApplicationConfig.class);
-		System.out.println(applicationConfig);
-//		UserService userService = ctx.getBean(UserService.class);
-//		User user = userService.getNewUser();
-//		System.out.println(userService.getNewUser());
+		User user = ctx.getBean(User.class);
+		System.out.println(user);
 		ctx.close();
 	}
 

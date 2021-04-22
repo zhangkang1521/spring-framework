@@ -54,6 +54,7 @@ import org.springframework.core.io.Resource;
 @SuppressWarnings({"serial", "all"})
 public class XmlBeanFactory extends DefaultListableBeanFactory {
 
+	// xml读取bean配置
 	private final XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(this);
 
 

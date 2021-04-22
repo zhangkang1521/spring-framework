@@ -22,6 +22,7 @@ import java.util.Map;
 import org.springframework.beans.BeansException;
 
 /**
+ * 在BeanFactory基础上增加了按其他条件获取bean的方法
  * Extension of the {@link BeanFactory} interface to be implemented by bean factories
  * that can enumerate all their bean instances, rather than attempting bean lookup
  * by name one by one as requested by clients. BeanFactory implementations that

@@ -19,6 +19,7 @@ package org.springframework.beans.factory.config;
 import org.springframework.util.Assert;
 
 /**
+ * 例如配置<property name="order" ref="order"/>
  * Immutable placeholder class used for a property value object when it's
  * a reference to another bean in the factory, to be resolved at runtime.
  *

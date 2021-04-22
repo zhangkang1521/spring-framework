@@ -913,7 +913,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 		String propertyName = tokens.canonicalName;
 		String actualName = tokens.actualName;
 
-		if (tokens.keys != null) {
+		if (tokens.keys != null) { // false
 			// Apply indexes and map keys: fetch value for all keys but the last one.
 			PropertyTokenHolder getterTokens = new PropertyTokenHolder();
 			getterTokens.canonicalName = tokens.canonicalName;
@@ -1029,9 +1029,11 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 			}
 		}
 
+		// tokens.keys == null
 		else {
 			PropertyDescriptor pd = pv.resolvedDescriptor;
 			if (pd == null || !pd.getWriteMethod().getDeclaringClass().isInstance(this.object)) {
+				// 获取writeMethod
 				pd = getCachedIntrospectionResults().getPropertyDescriptor(actualName);
 				if (pd == null || pd.getWriteMethod() == null) {
 					if (pv.isOptional()) {
@@ -1101,6 +1103,7 @@ public class BeanWrapperImpl extends AbstractPropertyAccessor implements BeanWra
 					}
 					pv.getOriginalPropertyValue().conversionNecessary = (valueToApply != originalValue);
 				}
+				// 从PropertyDescriptor获取writeMethod
 				final Method writeMethod = (pd instanceof GenericTypeAwarePropertyDescriptor ?
 						((GenericTypeAwarePropertyDescriptor) pd).getWriteMethodForActualAccess() :
 						pd.getWriteMethod());

@@ -183,6 +183,7 @@ public class CachedIntrospectionResults {
 		if (results == null) {
 			if (ClassUtils.isCacheSafe(beanClass, CachedIntrospectionResults.class.getClassLoader()) ||
 					isClassLoaderAccepted(beanClass.getClassLoader())) {
+				// 解析get/set方法
 				results = new CachedIntrospectionResults(beanClass);
 				synchronized (classCache) {
 					classCache.put(beanClass, results);
@@ -272,6 +273,7 @@ public class CachedIntrospectionResults {
 					break;
 				}
 			}
+			// java内省获取get/set方法
 			if (beanInfo == null) {
 				// If none of the factories supported the class, fall back to the default
 				beanInfo = (shouldIntrospectorIgnoreBeaninfoClasses ?
@@ -314,6 +316,7 @@ public class CachedIntrospectionResults {
 									"; editor [" + pd.getPropertyEditorClass().getName() + "]" : ""));
 				}
 				pd = buildGenericTypeAwarePropertyDescriptor(beanClass, pd);
+				// 每个属性
 				this.propertyDescriptorCache.put(pd.getName(), pd);
 			}
 		}

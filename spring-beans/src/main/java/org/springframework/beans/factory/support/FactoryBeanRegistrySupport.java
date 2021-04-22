@@ -123,6 +123,7 @@ public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanReg
 			}
 		}
 		else {
+			// 调用getObject
 			Object object = doGetObjectFromFactoryBean(factory, beanName);
 			if (object != null && shouldPostProcess) {
 				try {
@@ -163,7 +164,8 @@ public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanReg
 				}
 			}
 			else {
-				object = factory.getObject(); // 这里拿到真正的实例了
+				// 调用FactoryBean的getObject方法创建bean
+				object = factory.getObject();
 			}
 		}
 		catch (FactoryBeanNotInitializedException ex) {

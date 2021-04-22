@@ -98,6 +98,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		this.readerContext = readerContext;
 		logger.debug("Loading bean definitions");
 		Element root = doc.getDocumentElement();
+		// 注册
 		doRegisterBeanDefinitions(root);
 	}
 
@@ -125,6 +126,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * Register each bean definition within the given root {@code <beans/>} element.
 	 */
 	protected void doRegisterBeanDefinitions(Element root) {
+		// -Dspring.profiles.active=dev 与 <beans profile="dev"> 匹配
 		String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
 		if (StringUtils.hasText(profileSpec)) {
 			String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
@@ -144,6 +146,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		this.delegate = createDelegate(this.readerContext, root, parent);
 
 		preProcessXml(root);
+		// 解析xml到BeanDefinition
 		parseBeanDefinitions(root, this.delegate);
 		postProcessXml(root);
 
@@ -210,7 +213,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 			processBeanDefinition(ele, delegate);
 		}
 		else if (delegate.nodeNameEquals(ele, NESTED_BEANS_ELEMENT)) {
-			// recurse
+			// <beans>...</beans> 递归调用
 			doRegisterBeanDefinitions(ele);
 		}
 	}
@@ -316,12 +319,13 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * and registering it with the registry.
 	 */
 	protected void processBeanDefinition(Element ele, BeanDefinitionParserDelegate delegate) {
-		// 解析Element到BeanDefinition
+		// 解析Element到BeanDefinition，实现使用GenericBeanDefinition
 		BeanDefinitionHolder bdHolder = delegate.parseBeanDefinitionElement(ele);
 		if (bdHolder != null) {
 			// 针对默认标签中的自定义标签
 			bdHolder = delegate.decorateBeanDefinitionIfRequired(ele, bdHolder);
 			try {
+				// 注册
 				// Register the final decorated instance.
 				BeanDefinitionReaderUtils.registerBeanDefinition(bdHolder, getReaderContext().getRegistry());
 			}

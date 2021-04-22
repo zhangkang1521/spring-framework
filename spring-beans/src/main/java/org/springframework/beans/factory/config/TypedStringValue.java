@@ -22,6 +22,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
+ * 例如<property name="id" value="100"></property>
  * Holder for a typed String value. Can be added to bean definitions
  * in order to explicitly specify a target type for a String value,
  * for example for collection elements.

@@ -23,26 +23,15 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = (User)ctx.getBean("user0");
+        User user = (User)ctx.getBean("user");
         System.out.println(user);
         ctx.close();
     }
 
     @Test
-    public void testXmlBeanFactory() throws Exception {
-        Resource resource = new ClassPathResource("applicationContext.xml");
-        BeanFactory beanFactory = new XmlBeanFactory(resource);
-        User user = (User)beanFactory.getBean("user");
-        System.out.println(user.getUsername());
-    }
-
-
-    @Test
     public void testFileSystemCtx() {
         FileSystemXmlApplicationContext ctx = new FileSystemXmlApplicationContext("E:/applicationContext.xml");
     }
-
-
 
     @Test
     public void testMessage() {

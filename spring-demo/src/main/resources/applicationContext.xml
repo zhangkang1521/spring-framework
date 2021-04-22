@@ -8,11 +8,21 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 单例bean,spring容器启动时即初始化 -->
-    <bean id="user0" class="org.zk.domain.User" lazy-init="true">
+    <bean id="user" class="org.zk.domain.User" autowire="byType">
         <property name="id" value="100"/>
+        <!--<property name="order" ref="order"></property>-->
     </bean>
 
-    <!--<bean class="org.zk.domain.Order"></bean>-->
+    <bean id="order1" class="org.zk.domain.Order">
+        <property name="id" value="1"/>
+    </bean>
+
+    <bean id="order2" class="org.zk.domain.Order">
+        <property name="id" value="2"/>
+    </bean>
+
+    <!--<bean id="user" class="org.zk.core.UserFactoryBean"></bean>-->
+
 
 
     <!-- 容器后处理器，用于容器启动后，对bean的属性进行处理，比如配置文件占位符替换 -->
@@ -43,13 +53,10 @@
 
     <!-- @PostConstruct @PreDestroy @Resource 注解处理 -->
     <!--<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
-
     <!-- @Autowired @Inject @Value 注解处理 -->
     <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
-
     <!-- @Required 注解处理 -->
     <!--<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>-->
-
     <!-- @Configuration注解 -->
     <!--<bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>-->
 

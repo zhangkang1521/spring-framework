@@ -103,7 +103,7 @@ class BeanDefinitionValueResolver {
 	public Object resolveValueIfNecessary(Object argName, Object value) {
 		// We must check each value to see whether it requires a runtime reference
 		// to another bean to be resolved.
-		if (value instanceof RuntimeBeanReference) { // 依赖一个bean
+		if (value instanceof RuntimeBeanReference) { // 依赖一个bean，调用getBean
 			RuntimeBeanReference ref = (RuntimeBeanReference) value;
 			return resolveReference(argName, ref);
 		}
@@ -180,7 +180,7 @@ class BeanDefinitionValueResolver {
 			}
 			return copy;
 		}
-		else if (value instanceof TypedStringValue) {
+		else if (value instanceof TypedStringValue) { // String,可能要转换成Integer等
 			// Convert value to target type here.
 			TypedStringValue typedStringValue = (TypedStringValue) value;
 			Object valueObject = evaluate(typedStringValue);

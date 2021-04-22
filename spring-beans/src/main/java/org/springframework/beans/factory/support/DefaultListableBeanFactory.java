@@ -64,6 +64,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * Bean加载核心类
  * Default implementation of the
  * {@link org.springframework.beans.factory.ListableBeanFactory} and
  * {@link BeanDefinitionRegistry} interfaces: a full-fledged bean factory
@@ -132,8 +133,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/** Map from dependency type to corresponding autowired value */
 	private final Map<Class<?>, Object> resolvableDependencies = new HashMap<Class<?>, Object>(16);
 
-	/** Map of bean definition objects, keyed by bean name */
-	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64); // 所有的beanDefinition会注册到这里
+	/** 重要，所有的beanDefinition会注册到这里 Map of bean definition objects, keyed by bean name  */
+	private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<String, BeanDefinition>(64);
 
 	/** Map of singleton and non-singleton bean names, keyed by dependency type */
 	private final Map<Class<?>, String[]> allBeanNamesByType = new ConcurrentHashMap<Class<?>, String[]>(64);

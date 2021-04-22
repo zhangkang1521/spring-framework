@@ -19,6 +19,7 @@ package org.springframework.beans.factory;
 import org.springframework.beans.BeansException;
 
 /**
+ * Bean工厂，存储所有Bean
  * The root interface for accessing a Spring bean container.
  * This is the basic client view of a bean container;
  * further interfaces such as {@link ListableBeanFactory} and

@@ -157,6 +157,7 @@ class ConfigurationClassBeanDefinitionReader {
 		ConfigurationClass configClass = beanMethod.getConfigurationClass();
 		MethodMetadata metadata = beanMethod.getMetadata();
 
+		//
 		ConfigurationClassBeanDefinition beanDef = new ConfigurationClassBeanDefinition(configClass);
 		beanDef.setResource(configClass.getResource());
 		beanDef.setSource(this.sourceExtractor.extractSource(metadata, configClass.getResource()));

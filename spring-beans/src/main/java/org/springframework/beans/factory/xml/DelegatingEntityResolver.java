@@ -82,7 +82,8 @@ public class DelegatingEntityResolver implements EntityResolver {
 				return this.dtdResolver.resolveEntity(publicId, systemId);
 			}
 			else if (systemId.endsWith(XSD_SUFFIX)) {
-				// PluggableSchemaResolver 通过META-INF/spring.schemas找
+				// PluggableSchemaResolver 通过META-INF/spring.schemas存储的映射关系找到xsd文件
+				// http\://www.springframework.org/schema/beans/spring-beans.xsd=org/springframework/beans/factory/xml/spring-beans-3.2.xsd
 				return this.schemaResolver.resolveEntity(publicId, systemId);
 			}
 		}

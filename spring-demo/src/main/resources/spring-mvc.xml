@@ -74,21 +74,21 @@
     <!--</bean>-->
 
     <!-- 拦截器，自定义标签解析查看spring-mvc包下spring.handlers-->
-    <mvc:interceptors>
+    <!--<mvc:interceptors>-->
         <!--<mvc:interceptor>-->
             <!--<mvc:mapping path="/**"/>-->
             <!--<mvc:exclude-mapping path="/login/**"/>-->
             <!--<bean class="org.zk.controller.LoginInterceptor" />-->
         <!--</mvc:interceptor>-->
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="org.zk.interceptor.AInterceptor"></bean>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean class="org.zk.interceptor.BInterceptor"></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<bean class="org.zk.interceptor.AInterceptor"></bean>-->
+        <!--</mvc:interceptor>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<bean class="org.zk.interceptor.BInterceptor"></bean>-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 
     <!-- 静态资源访问，注入SimpleUrlHandlerMapping，将mapping映射到ResourceHttpRequestHandler-->

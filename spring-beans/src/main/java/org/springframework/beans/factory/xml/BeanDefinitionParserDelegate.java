@@ -470,6 +470,7 @@ public class BeanDefinitionParserDelegate {
 			checkNameUniqueness(beanName, aliases, ele); // 名称重复则报错
 		}
 
+		// 解析
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
 		if (beanDefinition != null) {
 			if (!StringUtils.hasText(beanName)) { // 没有设置id,alias,则自动生成一个名字
@@ -547,17 +548,20 @@ public class BeanDefinitionParserDelegate {
 			if (ele.hasAttribute(PARENT_ATTRIBUTE)) {
 				parent = ele.getAttribute(PARENT_ATTRIBUTE);
 			}
+			// 创建GenericBeanDefinition
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd); // 获取属性, lazy-init scope 等
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 
-			parseMetaElements(ele, bd); // 不知道有什么用
+			parseMetaElements(ele, bd);
 			parseLookupOverrideSubElements(ele, bd.getMethodOverrides()); // lookup-method
 			parseReplacedMethodSubElements(ele, bd.getMethodOverrides()); // replaced-method
 
-			parseConstructorArgElements(ele, bd); // 构造函数
-			parsePropertyElements(ele, bd); // eg: <property name="username" value="zk"/>
+			// 构造函数
+			parseConstructorArgElements(ele, bd);
+			// property属性，例如：<property name="username" value="zk"/>
+			parsePropertyElements(ele, bd);
 			parseQualifierElements(ele, bd);
 
 			bd.setResource(this.readerContext.getResource());

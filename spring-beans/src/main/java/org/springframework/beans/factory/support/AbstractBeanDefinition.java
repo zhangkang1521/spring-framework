@@ -135,17 +135,17 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	public static final String INFER_METHOD = "(inferred)";
 
 
-	private volatile Object beanClass;
+	private volatile Object beanClass; // String或者类
 
 	private String scope = SCOPE_DEFAULT;
 
-	private boolean singleton = true;
+	private boolean singleton = true; // 是否单例,默认是
 
 	private boolean prototype = false;
 
 	private boolean abstractFlag = false;
 
-	private boolean lazyInit = false; // 默认值
+	private boolean lazyInit = false; // 是否懒加载，默认false
 
 	private int autowireMode = AUTOWIRE_NO;
 
@@ -382,6 +382,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 		if (beanClassObject == null) {
 			throw new IllegalStateException("No bean class specified on bean definition");
 		}
+		// 解析xml时存储的是String，在哪一步解析了
 		if (!(beanClassObject instanceof Class)) {
 			throw new IllegalStateException(
 					"Bean class name [" + beanClassObject + "] has not been resolved into an actual Class");
