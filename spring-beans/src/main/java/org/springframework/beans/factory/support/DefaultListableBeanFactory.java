@@ -790,9 +790,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		// 如果是@Value，如@Value("${jdbc.username}")，这里value获取到的值就是${jdbc.username}
 		// 如果是@Autowired，获取到value为空
 		Object value = getAutowireCandidateResolver().getSuggestedValue(descriptor);
-		if (value != null) { // @Value
+		// @Value的情况处理
+		if (value != null) {
 			if (value instanceof String) {
 				// 获取到${jdbc.username}对应配置文件中的值
+				// 如果没有解析到配置文件的值，检查是否有PropertySourcesPlaceholderConfigurer
 				String strVal = resolveEmbeddedValue((String) value);
 				BeanDefinition bd = (beanName != null && containsBean(beanName) ? getMergedBeanDefinition(beanName) : null);
 				value = evaluateBeanDefinitionString(strVal, bd);

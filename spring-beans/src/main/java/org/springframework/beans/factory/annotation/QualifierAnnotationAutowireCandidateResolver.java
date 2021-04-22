@@ -42,6 +42,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * autowired查找候选bean时调用
  * {@link AutowireCandidateResolver} implementation that matches bean definition qualifiers
  * against {@link Qualifier qualifier annotations} on the field or parameter to be autowired.
  * Also supports suggested expression values through a {@link Value value} annotation.
@@ -57,6 +58,7 @@ import org.springframework.util.StringUtils;
  */
 public class QualifierAnnotationAutowireCandidateResolver implements AutowireCandidateResolver, BeanFactoryAware {
 
+	// 支持Spring的Qualifier和javax.inject.Qualifier
 	private final Set<Class<? extends Annotation>> qualifierTypes = new LinkedHashSet<Class<? extends Annotation>>();
 
 	private Class<? extends Annotation> valueAnnotationType = Value.class;
@@ -135,6 +137,7 @@ public class QualifierAnnotationAutowireCandidateResolver implements AutowireCan
 
 
 	/**
+	 * autowired查找候选bean时调用
 	 * Determine whether the provided bean definition is an autowire candidate.
 	 * <p>To be considered a candidate the bean's <em>autowire-candidate</em>
 	 * attribute must not have been set to 'false'. Also, if an annotation on
@@ -180,7 +183,9 @@ public class QualifierAnnotationAutowireCandidateResolver implements AutowireCan
 			Class<? extends Annotation> type = annotation.annotationType();
 			boolean checkMeta = true;
 			boolean fallbackToMeta = false;
+			// 判断是否Qualifier注解
 			if (isQualifier(type)) {
+				// 是否满足
 				if (!checkQualifier(bdHolder, annotation, typeConverter)) {
 					fallbackToMeta = true;
 				}
@@ -273,7 +278,7 @@ public class QualifierAnnotationAutowireCandidateResolver implements AutowireCan
 		}
 		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String attributeName = entry.getKey();
-			Object expectedValue = entry.getValue();
+			Object expectedValue = entry.getValue(); // 取@Qualifier的value值
 			Object actualValue = null;
 			// Check qualifier first
 			if (qualifier != null) {
@@ -283,6 +288,7 @@ public class QualifierAnnotationAutowireCandidateResolver implements AutowireCan
 				// Fall back on bean definition attribute
 				actualValue = bd.getAttribute(attributeName);
 			}
+			// 这里检查beanName是否一致
 			if (actualValue == null && attributeName.equals(AutowireCandidateQualifier.VALUE_KEY) &&
 					expectedValue instanceof String && bdHolder.matchesName((String) expectedValue)) {
 				// Fall back on bean name (or alias) match
@@ -299,7 +305,7 @@ public class QualifierAnnotationAutowireCandidateResolver implements AutowireCan
 				return false;
 			}
 		}
-		return true;
+		return true; // 符合@Quanlifier指定的名称
 	}
 
 	protected RootBeanDefinition getResolvedDecoratedDefinition(RootBeanDefinition rbd) {
@@ -323,12 +329,15 @@ public class QualifierAnnotationAutowireCandidateResolver implements AutowireCan
 
 
 	/**
+	 * 获取@Value注解的value值
 	 * Determine whether the given dependency carries a value annotation.
 	 * @see Value
 	 */
 	public Object getSuggestedValue(DependencyDescriptor descriptor) {
+		// 注解在字段上
 		Object value = findValue(descriptor.getAnnotations());
 		if (value == null) {
+			// 注解在方法上
 			MethodParameter methodParam = descriptor.getMethodParameter();
 			if (methodParam != null) {
 				value = findValue(methodParam.getMethodAnnotations());
