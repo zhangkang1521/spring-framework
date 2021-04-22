@@ -42,7 +42,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * autowired查找候选bean时调用
+ * 1.autowired查找候选bean时用@Qualifier限定指定名称的bean
+ * 2.获取@Value注解的value值
  * {@link AutowireCandidateResolver} implementation that matches bean definition qualifiers
  * against {@link Qualifier qualifier annotations} on the field or parameter to be autowired.
  * Also supports suggested expression values through a {@link Value value} annotation.
