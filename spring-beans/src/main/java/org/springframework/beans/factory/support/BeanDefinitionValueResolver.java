@@ -183,6 +183,7 @@ class BeanDefinitionValueResolver {
 		else if (value instanceof TypedStringValue) { // String,可能要转换成Integer等
 			// Convert value to target type here.
 			TypedStringValue typedStringValue = (TypedStringValue) value;
+			// 使用SpringEL表达式解析
 			Object valueObject = evaluate(typedStringValue);
 			try {
 				Class<?> resolvedTargetType = resolveTargetType(typedStringValue);
@@ -211,6 +212,7 @@ class BeanDefinitionValueResolver {
 	 * @return the resolved value
 	 */
 	protected Object evaluate(TypedStringValue value) {
+		// spel解析
 		Object result = this.beanFactory.evaluateBeanDefinitionString(value.getValue(), this.beanDefinition);
 		if (!ObjectUtils.nullSafeEquals(result, value.getValue())) {
 			value.setDynamic();

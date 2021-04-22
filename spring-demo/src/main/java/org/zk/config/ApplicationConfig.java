@@ -21,7 +21,7 @@ import java.util.concurrent.Executor;
 //@Import(MyImportSelector.class)
 //@Import(MyImportBeanDefinitionRegistrar.class)
 //@ComponentScan(basePackages = "org.zk.aop")
-//@PropertySource("classpath:app.properties")
+@PropertySource("classpath:jdbc.properties")
 //@EnableAsync
 public class ApplicationConfig {
 
@@ -30,24 +30,27 @@ public class ApplicationConfig {
 
 	// 命令参数(getProperties) > 环境变量(getEnv) > properties 文件
 
-//	private String test;
+//	@Value("${jdbc.username}")
+	private String test;
 
-//	@Value("${test}")
-//	public void setTest(String test) {
-//		this.test = test;
-//	}
+	@Value("#{user.username}")
+	public void setTest(String test) {
+		this.test = test;
+	}
 
 	// 容器后处理器，处理占位符
-//	@Bean
-//	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-//		return new PropertySourcesPlaceholderConfigurer();
-//	}
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 
 
 	// 使用 -Dspring.profiles.active=dev指定profile
 	@Bean
 	public User user() {
-		return new User();
+		User user = new User();
+		user.setUsername("zk");
+		return user;
 	}
 
 //	@Bean(name = "order1")
@@ -57,12 +60,12 @@ public class ApplicationConfig {
 //		return order1;
 //	}
 
-	@Bean(name = "order1")
-	public Order order2() {
-		Order order1 = new Order();
-		order1.setId(2);
-		return order1;
-	}
+//	@Bean(name = "order2")
+//	public Order order2() {
+//		Order order1 = new Order();
+//		order1.setId(2);
+//		return order1;
+//	}
 
 //	@Bean
 //	public User user0() {

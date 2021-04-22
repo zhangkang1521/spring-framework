@@ -1325,6 +1325,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			return value;
 		}
 		Scope scope = (beanDefinition != null ? getRegisteredScope(beanDefinition.getScope()) : null);
+		// spel解析
 		return this.beanExpressionResolver.evaluate(value, new BeanExpressionContext(this, scope));
 	}
 

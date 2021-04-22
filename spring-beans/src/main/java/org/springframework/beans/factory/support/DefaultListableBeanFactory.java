@@ -797,6 +797,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				// 如果没有解析到配置文件的值，检查是否有PropertySourcesPlaceholderConfigurer
 				String strVal = resolveEmbeddedValue((String) value);
 				BeanDefinition bd = (beanName != null && containsBean(beanName) ? getMergedBeanDefinition(beanName) : null);
+				// @Value("#{user.username}")这种情况 SpEL表达式解析
 				value = evaluateBeanDefinitionString(strVal, bd);
 			}
 			TypeConverter converter = (typeConverter != null ? typeConverter : getTypeConverter());

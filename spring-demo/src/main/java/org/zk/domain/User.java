@@ -24,8 +24,6 @@ public class User implements Serializable {
 //    @NotBlank(message = "用户名不能为空")
     private String username;
 
-    @Autowired
-    @Qualifier("order1")
     private Order order;
 
 

@@ -8,18 +8,18 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 单例bean,spring容器启动时即初始化 -->
-    <bean id="user" class="org.zk.domain.User" autowire="byType">
-        <property name="id" value="100"/>
+    <bean id="user" class="org.zk.domain.User">
+        <property name="id" value="#{order1.id}"/>
         <!--<property name="order" ref="order"></property>-->
     </bean>
 
     <bean id="order1" class="org.zk.domain.Order">
-        <property name="id" value="1"/>
+        <property name="id" value="100"/>
     </bean>
 
-    <bean id="order2" class="org.zk.domain.Order">
-        <property name="id" value="2"/>
-    </bean>
+    <!--<bean id="order2" class="org.zk.domain.Order">-->
+        <!--<property name="id" value="2"/>-->
+    <!--</bean>-->
 
     <!--<bean id="user" class="org.zk.core.UserFactoryBean"></bean>-->
 
