@@ -30,10 +30,10 @@ public class ApplicationConfig {
 
 	// 命令参数(getProperties) > 环境变量(getEnv) > properties 文件
 
-//	@Value("${jdbc.username}")
 	private String test;
 
-	@Value("#{user.username}")
+	@Value("${jdbc.username}")
+//	@Value("#{user.username}")
 	public void setTest(String test) {
 		this.test = test;
 	}
@@ -46,12 +46,12 @@ public class ApplicationConfig {
 
 
 	// 使用 -Dspring.profiles.active=dev指定profile
-	@Bean
-	public User user() {
-		User user = new User();
-		user.setUsername("zk");
-		return user;
-	}
+	// @Bean
+//	public User user() {
+//		User user = new User();
+//		user.setUsername("zk");
+//		return user;
+//	}
 
 //	@Bean(name = "order1")
 //	public Order order1() {

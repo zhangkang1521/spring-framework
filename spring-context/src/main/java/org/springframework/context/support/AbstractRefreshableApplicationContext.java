@@ -68,7 +68,7 @@ public abstract class AbstractRefreshableApplicationContext extends AbstractAppl
 
 	private Boolean allowCircularReferences;
 
-	/** Bean factory for this context */
+	/** 重要：容器 Bean factory for this context */
 	private DefaultListableBeanFactory beanFactory;
 
 	/** Synchronization monitor for the internal BeanFactory */

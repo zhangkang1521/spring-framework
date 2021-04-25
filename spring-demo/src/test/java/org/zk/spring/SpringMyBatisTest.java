@@ -11,14 +11,14 @@ import static org.junit.Assert.*;
 public class SpringMyBatisTest {
 
 	@Test
-	public void testRead() {
+	public void testDao() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-mybatis.xml");
 		UserDao userDao = ctx.getBean(UserDao.class);
 		User user = userDao.findById(1);
 	}
 
 	@Test
-	public void testUpdate() {
+	public void testService() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-mybatis.xml");
 		UserService userService = ctx.getBean(UserService.class);
 		userService.update();

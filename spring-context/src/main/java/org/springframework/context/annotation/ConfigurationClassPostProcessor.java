@@ -209,6 +209,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 * Derive further bean definitions from the configuration classes in the registry.
 	 */
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+		// 容器注册后处理入口
 		// ImportAware接口支持
 		RootBeanDefinition iabpp = new RootBeanDefinition(ImportAwareBeanPostProcessor.class);
 		iabpp.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);

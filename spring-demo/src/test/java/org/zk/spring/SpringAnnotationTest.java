@@ -15,7 +15,7 @@ public class SpringAnnotationTest {
 		// ConfigurationClassBeanDefinitionReader.ConfigurationClassBeanDefinition 继承自 RootBeanDefinition
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(ApplicationConfig.class);
 		User user = ctx.getBean(User.class);
-		System.out.println(user);
+		System.out.println(user.getUsername());
 		ctx.close();
 	}
 

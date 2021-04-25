@@ -1166,10 +1166,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			pvs = newPvs; //
 		}
 
+		// @Resource 使用 CommonAnnotationBeanPostProcessor
+		// @Autowired @Value @Inject 使用 AutowiredAnnotationBeanPostProcessor
 		boolean hasInstAwareBpps = hasInstantiationAwareBeanPostProcessors();
 		boolean needsDepCheck = (mbd.getDependencyCheck() != RootBeanDefinition.DEPENDENCY_CHECK_NONE);
 
-		// @Resource @Autowired @Value 依赖注入
 		if (hasInstAwareBpps || needsDepCheck) {
 			PropertyDescriptor[] filteredPds = filterPropertyDescriptorsForDependencyCheck(bw, mbd.allowCaching);
 			if (hasInstAwareBpps) {
@@ -1412,7 +1413,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 		}
 
-		if (pvs instanceof MutablePropertyValues) { // 恩，走这里
+		if (pvs instanceof MutablePropertyValues) { // 默认实现是MutablePropertyValues
 			mpvs = (MutablePropertyValues) pvs;
 			if (mpvs.isConverted()) { // false
 				// Shortcut: use the pre-converted values as-is.

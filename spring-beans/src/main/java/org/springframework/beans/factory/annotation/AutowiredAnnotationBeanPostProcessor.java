@@ -62,6 +62,7 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * 核心方法 postProcessPropertyValues
  * {@link org.springframework.beans.factory.config.BeanPostProcessor} implementation
  * that autowires annotated fields, setter methods and arbitrary config methods.
  * Such members to be injected are detected through a Java 5 annotation: by default,
@@ -576,6 +577,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 						MethodParameter methodParam = new MethodParameter(method, i);
 						GenericTypeResolver.resolveParameterType(methodParam, bean.getClass());
 						descriptors[i] = new DependencyDescriptor(methodParam, this.required);
+						//
 						arguments[i] = beanFactory.resolveDependency(
 								descriptors[i], beanName, autowiredBeanNames, typeConverter);
 						if (arguments[i] == null && !this.required) {

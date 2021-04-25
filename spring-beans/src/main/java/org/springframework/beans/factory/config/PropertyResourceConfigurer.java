@@ -74,6 +74,7 @@ public abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport
 	 * @throws BeanInitializationException if any properties cannot be loaded
 	 */
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+		// 容器后处理器入口
 		try {
 			Properties mergedProps = mergeProperties();
 

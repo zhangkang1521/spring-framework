@@ -781,12 +781,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			return new DependencyProviderFactory().createDependencyProvider(descriptor, beanName);
 		}
 		else {
+			// 一般走这里
 			return doResolveDependency(descriptor, descriptor.getDependencyType(), beanName, autowiredBeanNames, typeConverter);
 		}
 	}
 
 	protected Object doResolveDependency(DependencyDescriptor descriptor, Class<?> type, String beanName,
 			Set<String> autowiredBeanNames, TypeConverter typeConverter) throws BeansException {
+		// QualifierAnnotationAutowireCandidateResolver 容器初始化时设置的
 		// 如果是@Value，如@Value("${jdbc.username}")，这里value获取到的值就是${jdbc.username}
 		// 如果是@Autowired，获取到value为空
 		Object value = getAutowireCandidateResolver().getSuggestedValue(descriptor);
@@ -806,6 +808,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 					converter.convertIfNecessary(value, type, descriptor.getMethodParameter()));
 		}
 
+		// @Autowired处理，一般是单个对象
 		if (type.isArray()) {
 			Class<?> componentType = type.getComponentType();
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, componentType, descriptor);
@@ -914,7 +917,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 */
 	protected Map<String, Object> findAutowireCandidates(
 			String beanName, Class<?> requiredType, DependencyDescriptor descriptor) {
-
+		// @Autowired查询类一致的
 		String[] candidateNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 				this, requiredType, true, descriptor.isEager());
 		Map<String, Object> result = new LinkedHashMap<String, Object>(candidateNames.length);
@@ -930,8 +933,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				}
 			}
 		}
-		// 应用中的依赖查找 getBean
+		// 上一步已经找出来了beanName，这里获取bean
 		for (String candidateName : candidateNames) {
+			// isAutowireCandidate方法会根据@Quanlifier过滤
 			if (!candidateName.equals(beanName) && isAutowireCandidate(candidateName, descriptor)) {
 				result.put(candidateName, getBean(candidateName));
 			}

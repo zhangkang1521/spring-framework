@@ -334,8 +334,9 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 	 * @see org.springframework.util.PathMatcher
 	 */
 	protected Resource[] findPathMatchingResources(String locationPattern) throws IOException {
-		String rootDirPath = determineRootDir(locationPattern);
-		String subPattern = locationPattern.substring(rootDirPath.length());
+		String rootDirPath = determineRootDir(locationPattern); // 例如：classpath*:example/scannable/
+		String subPattern = locationPattern.substring(rootDirPath.length()); // 例如：**/*.class
+		// 这里获取到目录
 		Resource[] rootDirResources = getResources(rootDirPath);
 		Set<Resource> result = new LinkedHashSet<Resource>(16);
 		for (Resource rootDirResource : rootDirResources) {
@@ -615,6 +616,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 			logger.debug("Searching directory [" + dir.getAbsolutePath() +
 					"] for files matching pattern [" + fullPattern + "]");
 		}
+		// 列出目录下所有文件
 		File[] dirContents = dir.listFiles();
 		if (dirContents == null) {
 			if (logger.isWarnEnabled()) {
@@ -632,6 +634,7 @@ public class PathMatchingResourcePatternResolver implements ResourcePatternResol
 					}
 				}
 				else {
+					// 目录递归
 					doRetrieveMatchingFiles(fullPattern, content, result);
 				}
 			}

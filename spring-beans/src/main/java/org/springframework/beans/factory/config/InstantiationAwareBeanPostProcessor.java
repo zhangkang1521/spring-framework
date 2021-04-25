@@ -87,7 +87,7 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException;
 
 	/**
-	 * <p>属性值处理，依赖注入时调用</p>
+	 * <p>依赖注入，属性设置前调用，@Autowired原理</p>
 	 * Post-process the given property values before the factory applies them
 	 * to the given bean. Allows for checking whether all dependencies have been
 	 * satisfied, for example based on a "Required" annotation on bean property setters.

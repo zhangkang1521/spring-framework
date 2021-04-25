@@ -452,7 +452,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			// 创建BeanFactory, loadBeanDefinition
+			// 1.重要 创建BeanFactory, loadBeanDefinition
 			// 返回的是DefaultListableBeanFactory
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
@@ -465,11 +465,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
-				// 回调容器注册后处理器，容器后处理器
+				// 2.重要 回调容器注册后处理器，容器后处理器
+				// 容器注册后处理器：ConfigurationClassPostProcessor MapperScannerConfigurer
+				// 容器后处理器：PropertyPlaceholderConfigurer
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
-				// 注册Bean后处理器
+				// 3.重要 注册Bean后处理器
+				// 典型应用：AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -488,7 +491,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				registerListeners();
 
 				// Instantiate all remaining (non-lazy-init) singletons.
-				// 实例化所有的单例（非懒加载）的bean
+				// 4.重要 实例化所有的单例（非懒加载）的bean
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
@@ -659,10 +662,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// 回调容器注册方法
 				postProcessor.postProcessBeanDefinitionRegistry(registry);
 			}
-			invokeBeanFactoryPostProcessors(registryPostProcessors, beanFactory);
+			invokeBeanFactoryPostProcessors(registryPostProcessors, beanFactory); // 硬编码的
 			// 回调容器后处理器
 			invokeBeanFactoryPostProcessors(registryPostProcessorBeans, beanFactory);
-			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
+			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory); // 硬编码的
 			processedBeans.addAll(beanMap.keySet());
 		}
 		else {
@@ -683,7 +686,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		List<String> nonOrderedPostProcessorNames = new ArrayList<String>();
 		// 按优先级排列后调用
 		for (String ppName : postProcessorNames) {
-			if (processedBeans.contains(ppName)) {
+			if (processedBeans.contains(ppName)) { // 上一步容器注册后处理器已经处理过了
 				// skip - already processed in first phase above
 			}
 			else if (isTypeMatch(ppName, PriorityOrdered.class)) {
