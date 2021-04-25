@@ -210,7 +210,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 */
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
 		// 容器注册后处理入口
-		// ImportAware接口支持
+
+		// ImportAware接口支持，和@Import配合使用，示例：AbstractAsyncConfiguration
 		RootBeanDefinition iabpp = new RootBeanDefinition(ImportAwareBeanPostProcessor.class);
 		iabpp.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 		registry.registerBeanDefinition(IMPORT_AWARE_PROCESSOR_BEAN_NAME, iabpp);
@@ -246,6 +247,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			// Simply call processConfigurationClasses lazily at this point then.
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
+		// @Congiguration需要增强
 		enhanceConfigurationClasses(beanFactory);
 	}
 
@@ -257,7 +259,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		Set<BeanDefinitionHolder> configCandidates = new LinkedHashSet<BeanDefinitionHolder>();
 		for (String beanName : registry.getBeanDefinitionNames()) {
 			BeanDefinition beanDef = registry.getBeanDefinition(beanName);
-			// @Configuration 或 @Component @Bean 注解
+			// @Configuration full 需要增强
+			// @Component或者有@Bean注解的方法 lite
 			if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}
@@ -286,8 +289,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
+				// 配置注解解析
 				if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
-					// 配置注解解析
 					parser.parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());
 				}
 				else {
@@ -358,6 +361,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			// nothing to enhance -> return immediately
 			return;
 		}
+		// 增强，手动调用@Bean注解的方法会返回容器中的Bean，不会调用真实方法
 		ConfigurationClassEnhancer enhancer = new ConfigurationClassEnhancer(beanFactory);
 		for (Map.Entry<String, AbstractBeanDefinition> entry : configBeanDefs.entrySet()) {
 			AbstractBeanDefinition beanDef = entry.getValue();

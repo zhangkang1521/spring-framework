@@ -58,6 +58,7 @@ abstract class ConfigurationClassUtils {
 	public static boolean checkConfigurationClassCandidate(BeanDefinition beanDef, MetadataReaderFactory metadataReaderFactory) {
 		AnnotationMetadata metadata = null;
 
+		// 读取注解信息
 		// Check already loaded Class if present...
 		// since we possibly can't even load the class file for this Class.
 		if (beanDef instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) beanDef).hasBeanClass()) {
@@ -81,10 +82,12 @@ abstract class ConfigurationClassUtils {
 		}
 
 		if (metadata != null) {
+			// 有@Congiguration
 			if (isFullConfigurationCandidate(metadata)) {
 				beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 				return true;
 			}
+			// 有@Component或@Bean注解的方法
 			else if (isLiteConfigurationCandidate(metadata)) {
 				beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 				return true;

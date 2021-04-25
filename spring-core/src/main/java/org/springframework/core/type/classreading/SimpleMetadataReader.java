@@ -60,6 +60,7 @@ final class SimpleMetadataReader implements MetadataReader {
 			is.close();
 		}
 
+		// 使用ASM
 		AnnotationMetadataReadingVisitor visitor = new AnnotationMetadataReadingVisitor(classLoader);
 		classReader.accept(visitor, ClassReader.SKIP_DEBUG);
 

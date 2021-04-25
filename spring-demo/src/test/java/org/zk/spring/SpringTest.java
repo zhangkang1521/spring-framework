@@ -23,7 +23,7 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = (User)ctx.getBean("user");
+        User user = (User)ctx.getBean("user1");
         System.out.println(user);
         ctx.close();
     }

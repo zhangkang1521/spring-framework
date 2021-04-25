@@ -42,7 +42,7 @@ import org.springframework.beans.BeansException;
 public interface BeanPostProcessor {
 
 	/**
-	 * bean初始化前调用
+	 * bean初始化前调用，例如：org.springframework.context.annotation.ConfigurationClassPostProcessor.ImportAwareBeanPostProcessor
 	 * Apply this BeanPostProcessor to the given new bean instance <i>before</i> any bean
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.
