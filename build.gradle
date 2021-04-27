@@ -296,6 +296,7 @@ project("spring-demo") {
 		compile(project(":spring-web"))
 		compile(project(":spring-jdbc"))
 		compile(project(":spring-jms"))
+		compile(project(":spring-orm-hibernate4"))
 	}
 }
 
