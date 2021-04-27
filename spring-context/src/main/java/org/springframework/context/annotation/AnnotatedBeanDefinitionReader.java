@@ -81,6 +81,7 @@ public class AnnotatedBeanDefinitionReader {
 		Assert.notNull(environment, "Environment must not be null");
 		this.registry = registry;
 		this.environment = environment;
+		// 注解配置支持
 		AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry);
 	}
 

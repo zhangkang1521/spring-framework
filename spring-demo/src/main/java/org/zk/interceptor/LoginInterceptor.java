@@ -1,4 +1,4 @@
-package org.zk.controller;
+package org.zk.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;

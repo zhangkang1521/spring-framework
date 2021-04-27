@@ -7,7 +7,7 @@ import org.zk.dao.UserDao;
 import org.zk.domain.User;
 import org.zk.service.UserService;
 
-@Service
+//@Service
 //@Profile("prod")
 public class UserServiceImpl2 implements UserService {
 

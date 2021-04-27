@@ -195,7 +195,7 @@ public class AnnotationConfigUtils {
 			BeanDefinitionRegistry registry, Object source) {
 
 		Set<BeanDefinitionHolder> beanDefs = new LinkedHashSet<BeanDefinitionHolder>(4);
-		// 此处相当于<context:annotation-config/>
+		// 使用<context:component-scan/>或<context:annotation-config/>会自动注入以下注解支持后置处理器
 
 		// 支持@Configuration注解
 		if (!registry.containsBeanDefinition(CONFIGURATION_ANNOTATION_PROCESSOR_BEAN_NAME)) {

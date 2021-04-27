@@ -140,7 +140,7 @@ public abstract class PropertiesLoaderSupport {
 	protected Properties mergeProperties() throws IOException {
 		Properties result = new Properties();
 
-		if (this.localOverride) {
+		if (this.localOverride) { // false
 			// Load properties from file upfront, to let local properties override.
 			loadProperties(result);
 		}

@@ -23,10 +23,18 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-        User user = (User)ctx.getBean("user1");
-        System.out.println(user);
+//        User user = (User)ctx.getBean("user0");
+//        System.out.println(user);
         ctx.close();
     }
+
+    @Test
+    public void testXmlWithAnnotation() {
+        ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-annotation.xml");
+        ctx.close();
+    }
+
+
 
     @Test
     public void testFileSystemCtx() {
