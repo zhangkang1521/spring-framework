@@ -13,7 +13,7 @@
     </root>
 
     <!-- hibernate sql -->
-    <logger name="org.hibernate.SQL" level="debug"/>
+    <logger name="org.hibernate.SQL" level="debug"/> <!-- 实际类为：SqlStatementLogger-->
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"/>
 
     <!-- jpa事务 -->

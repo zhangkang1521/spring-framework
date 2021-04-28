@@ -24,6 +24,7 @@ repositories {
 
 configurations.all {
     exclude group: "commons-logging", module: "commons-logging"
+    exclude group: "log4j", module: "log4j"
 }
 
 dependencies {
@@ -49,11 +50,6 @@ dependencies {
     compile group: 'org.apache.activemq', name: 'activemq-client', version: '5.13.2'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '4.2.8.Final'
     compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.2.8.Final'
-
-
-
-
-
-
+    compile group: 'org.springframework.data', name: 'spring-data-jpa', version: '1.6.2.RELEASE'
 
 }

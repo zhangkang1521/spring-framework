@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,6 +22,7 @@ import java.util.Properties;
 @Configuration
 @ComponentScan("org.zk.service")
 @EnableTransactionManagement
+@EnableJpaRepositories("org.zk.repo")
 public class JpaConfig {
 
 	public static final Logger log = LoggerFactory.getLogger(JpaConfig.class);

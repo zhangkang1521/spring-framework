@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.zk.dao.UserDao;
 import org.zk.domain.User;
 import org.zk.entity.UserEntity;
+import org.zk.repo.UserRepo;
 import org.zk.service.UserService;
 
 import javax.persistence.EntityManager;
@@ -26,11 +27,14 @@ public class UserServiceImpl implements UserService {
 //	@Autowired
 	private EntityManager entityManager;
 
+	@Autowired
+	private UserRepo userRepo;
+
 
 //	@Transactional
 	public UserEntity find(int id) {
-		entityManager.find(UserEntity.class, id);
-		return entityManager.find(UserEntity.class, id+1);
+		return userRepo.findTopByUsername("11");
+//		return entityManager.find(UserEntity.class, id+1);
 	}
 
 	@Override
