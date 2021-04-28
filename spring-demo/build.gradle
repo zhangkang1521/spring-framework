@@ -48,6 +48,8 @@ dependencies {
     compile group: 'org.mybatis', name: 'mybatis-spring', version: '1.2.0'
     compile group: 'org.apache.activemq', name: 'activemq-client', version: '5.13.2'
     compile group: 'org.hibernate', name: 'hibernate-core', version: '4.2.8.Final'
+    compile group: 'org.hibernate', name: 'hibernate-entitymanager', version: '4.2.8.Final'
+
 
 
 

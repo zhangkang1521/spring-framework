@@ -206,6 +206,7 @@ public abstract class SharedEntityManagerCreator {
 						"use Spring transactions or EJB CMT instead");
 			}
 
+			// 获取事务中的EntityManager，如果有事务能获取到，没有事务则返回null
 			// Determine current EntityManager: either the transactional one
 			// managed by the factory or a temporary one for the given invocation.
 			EntityManager target =
@@ -226,6 +227,7 @@ public abstract class SharedEntityManagerCreator {
 				// Still perform unwrap call on target EntityManager.
 			}
 
+			// 创建新的EntityManager
 			// Regular EntityManager operations.
 			boolean isNewEm = false;
 			if (target == null) {
@@ -236,8 +238,10 @@ public abstract class SharedEntityManagerCreator {
 				isNewEm = true;
 			}
 
+			// @PersistContext 注入的EntityManager会执行此代理
 			// Invoke method on current EntityManager.
 			try {
+				logger.info("使用entityManager " + target);
 				Object result = method.invoke(target, args);
 				if (result instanceof Query) {
 					Query query = (Query) result;

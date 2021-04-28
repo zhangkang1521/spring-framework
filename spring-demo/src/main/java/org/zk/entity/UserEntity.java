@@ -1,4 +1,4 @@
-package org.zk.domain;
+package org.zk.entity;
 
 import javax.persistence.*;
 

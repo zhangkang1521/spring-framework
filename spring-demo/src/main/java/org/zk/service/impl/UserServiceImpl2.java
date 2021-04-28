@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zk.dao.UserDao;
 import org.zk.domain.User;
+import org.zk.entity.UserEntity;
 import org.zk.service.UserService;
 
 //@Service
@@ -28,6 +29,11 @@ public class UserServiceImpl2 implements UserService {
 	public void update() {
 		userDao.update(1, "yyy");
 		throw new RuntimeException("xx");
+	}
+
+	@Override
+	public UserEntity find(int id) {
+		return null;
 	}
 
 	public void setUserDao(UserDao userDao) {

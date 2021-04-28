@@ -8,11 +8,18 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="info">
         <appender-ref ref="CONSOLE"/>
     </root>
 
+    <!-- hibernate sql -->
     <logger name="org.hibernate.SQL" level="debug"/>
     <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"/>
+
+    <!-- jpa事务 -->
+    <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="debug"/>
+    <logger name="org.hibernate.engine.jdbc.internal.LogicalConnectionImpl" level="debug"/>
+    <logger name="org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction" level="debug"/>
+
 
 </configuration>

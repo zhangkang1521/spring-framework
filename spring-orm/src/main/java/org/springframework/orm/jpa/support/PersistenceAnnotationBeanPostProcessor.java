@@ -336,7 +336,7 @@ public class PersistenceAnnotationBeanPostProcessor
 
 	public PropertyValues postProcessPropertyValues(
 			PropertyValues pvs, PropertyDescriptor[] pds, Object bean, String beanName) throws BeansException {
-
+		// 入口
 		InjectionMetadata metadata = findPersistenceMetadata(beanName, bean.getClass(), pvs);
 		try {
 			metadata.inject(bean, beanName, pvs);
@@ -633,6 +633,8 @@ public class PersistenceAnnotationBeanPostProcessor
 		 */
 		@Override
 		protected Object getResourceToInject(Object target, String requestingBeanName) {
+			// @PersistenceContext 注入 EntityManager，type是TRANSACTION
+			// @PersistenceUnit 注入 EntityManagerFactory, type是null
 			// Resolves to EntityManagerFactory or EntityManager.
 			if (this.type != null) {
 				return (this.type == PersistenceContextType.EXTENDED ?
@@ -640,6 +642,7 @@ public class PersistenceAnnotationBeanPostProcessor
 						resolveEntityManager(requestingBeanName));
 			}
 			else {
+				// 此处返回的就是是JpaConfig配置的
 				// OK, so we need an EntityManagerFactory...
 				return resolveEntityManagerFactory(requestingBeanName);
 			}
@@ -666,6 +669,8 @@ public class PersistenceAnnotationBeanPostProcessor
 					// Need to search for EntityManagerFactory beans.
 					emf = findEntityManagerFactory(this.unitName, requestingBeanName);
 				}
+
+				// 多线程引用的EntityManager虽然是同一个代理类，但该代理类内部针对不同线程会创建不同的EntityManager实例
 				// Inject a shared transactional EntityManager proxy.
 				if (emf instanceof EntityManagerFactoryInfo &&
 						((EntityManagerFactoryInfo) emf).getEntityManagerInterface() != null) {

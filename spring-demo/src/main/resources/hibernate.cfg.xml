@@ -12,7 +12,7 @@
         <property name="connection.password">123456</property>
         <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
 
-        <mapping class="org.zk.domain.UserEntity"/>
+        <mapping class="org.zk.entity.UserEntity"/>
     </session-factory>
 
 </hibernate-configuration>

@@ -3,7 +3,7 @@ package org.zk.spring;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.zk.domain.UserEntity;
+import org.zk.entity.UserEntity;
 
 public class SpringHibernateTest {
 
