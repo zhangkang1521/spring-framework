@@ -106,6 +106,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 						aspectNames.add(beanName);
 						AspectMetadata amd = new AspectMetadata(beanType, beanName);
 						if (amd.getAjType().getPerClause().getKind() == PerClauseKind.SINGLETON) {
+							// 这个factory用于调用切面方法时获取切面的实例
 							MetadataAwareAspectInstanceFactory factory =
 									new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
 							// 获取增强方法

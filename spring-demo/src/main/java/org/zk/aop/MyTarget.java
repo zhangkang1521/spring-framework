@@ -12,7 +12,7 @@ public interface MyTarget {
 
 
     // @DynamicDataSource 实现类拿不到接口方法的注解，故切面无效
-    Future sayHello();
+    void sayHello();
 
     void sayWorld();
 

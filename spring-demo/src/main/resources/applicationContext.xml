@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 单例bean,spring容器启动时即初始化 -->
-    <bean id="user0" class="org.zk.domain.User">
+    <bean id="user" class="org.zk.domain.User">
         <property name="id" value="100"/>
         <property name="username" value="zk"/>
         <!--<property name="order" ref="order"></property>-->
@@ -47,7 +47,7 @@
 
 
     <!-- bean后置处理器，初始化前后调用-->
-    <!--<bean class="org.zk.core.MyBeanPostProcessor"></bean>-->
+    <bean class="org.zk.core.MyBeanPostProcessor"></bean>
 
     <!-- 实例化处理.构造方法调用前后 -->
     <!--<bean class="org.zk.core.MyInstantiationAwareBeanPostProcessors"></bean>-->

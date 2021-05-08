@@ -13,7 +13,7 @@ public class SpringAopTest {
 	public void testAop() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-aop.xml");
 		MyTarget myTarget = ctx.getBean(MyTarget.class);
-		myTarget.sayHello();
+		myTarget.sayWorld();
 	}
 
 	@Test

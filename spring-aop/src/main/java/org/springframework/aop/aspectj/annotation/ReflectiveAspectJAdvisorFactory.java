@@ -222,6 +222,7 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 		// 根据不同的注解生成不同的增强器
 		switch (aspectJAnnotation.getAnnotationType()) {
 			case AtBefore:
+				// 这个类没有实现MethodInterceptor接口
 				springAdvice = new AspectJMethodBeforeAdvice(candidateAdviceMethod, ajexp, aif);
 				break;
 			case AtAfter:

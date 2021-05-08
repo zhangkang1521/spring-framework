@@ -23,15 +23,20 @@ public class UserServiceImpl implements UserService {
 
 
 
-	@PersistenceContext
+//	@PersistenceContext
 //	@Autowired
 	private EntityManager entityManager;
 
-	@Autowired
+//	@Autowired
 	private UserRepo userRepo;
 
 
-//	@Transactional
+	@Autowired
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
+	}
+
+	//	@Transactional
 	public UserEntity find(int id) {
 //		return userRepo.findTopByUsername("11");
 		return entityManager.find(UserEntity.class, id+1);
@@ -45,13 +50,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
 	public void update() {
 		userDao.update(1, "yyy");
-		throw new RuntimeException("xx");
 	}
 
-	public void setUserDao(UserDao userDao) {
-		this.userDao = userDao;
-	}
+
 }

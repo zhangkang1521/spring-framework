@@ -16,13 +16,13 @@ public class AsyncTest {
 	public void testAsync() {
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AsyncConfig.class);
 		MyTarget myTarget = ctx.getBean(MyTarget.class);
-		Future future = myTarget.sayHello();
-		try {
-			System.out.println(future.get());
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		} catch (ExecutionException e) {
-			e.printStackTrace();
-		}
+//		Future future = myTarget.sayHello();
+//		try {
+//			System.out.println(future.get());
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		} catch (ExecutionException e) {
+//			e.printStackTrace();
+//		}
 	}
 }

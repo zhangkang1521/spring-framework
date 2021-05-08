@@ -19,7 +19,7 @@ public class MyBeanPostProcessor implements BeanPostProcessor, Ordered {
 
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         System.out.println("*** bean初始化后置处理" + beanName);
-        return bean;
+        return null;
     }
 
     @Override

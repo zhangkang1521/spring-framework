@@ -269,6 +269,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 	}
 
 	public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
+		// 构造方法前调用，返回空，待看
 		Object cacheKey = getCacheKey(beanClass, beanName);
 
 		if (beanName == null || !this.targetSourcedBeans.containsKey(beanName)) {
