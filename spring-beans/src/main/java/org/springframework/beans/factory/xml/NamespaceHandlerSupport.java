@@ -44,6 +44,7 @@ import org.springframework.beans.factory.config.BeanDefinitionHolder;
 public abstract class NamespaceHandlerSupport implements NamespaceHandler {
 
 	/**
+	 * 例如component-scan -> ComponentScanBeanDefinitionParser
 	 * Stores the {@link BeanDefinitionParser} implementations keyed by the
 	 * local name of the {@link Element Elements} they handle.
 	 */

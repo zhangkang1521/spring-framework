@@ -337,6 +337,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		}
 		// 符合条件，mybatis-spring的ClassPathMapperScanner接受所有class
 		for (TypeFilter tf : this.includeFilters) {
+			// 匹配
 			if (tf.match(metadataReader, this.metadataReaderFactory)) {
 				AnnotationMetadata metadata = metadataReader.getAnnotationMetadata();
 				if (!metadata.isAnnotated(Profile.class.getName())) {

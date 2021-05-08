@@ -75,7 +75,7 @@ public interface FactoryBean<T> {
 	 * Return the type of object that this FactoryBean creates,
 	 * or {@code null} if not known in advance.
 	 * <p>This allows one to check for specific types of beans without
-	 * instantiating objects, for example on autowiring.
+	 * instantiating objects, for example on autowiring. 注入MapperFactoryBean用到
 	 * <p>In the case of implementations that are creating a singleton object,
 	 * this method should try to avoid singleton creation as far as possible;
 	 * it should rather estimate the type in advance.

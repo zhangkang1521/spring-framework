@@ -477,6 +477,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		Class<?> typeToMatch = (targetType != null ? targetType : Object.class);
 
 		// Check manually registered singletons.
+		// 此时单例中还没有
 		Object beanInstance = getSingleton(beanName, false);
 		if (beanInstance != null) {
 			if (beanInstance instanceof FactoryBean) {
@@ -528,6 +529,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				return false;
 			}
 
+			// autowire MapperFactoryBean的情况
 			// Check bean class whether we're dealing with a FactoryBean.
 			if (FactoryBean.class.isAssignableFrom(beanType)) {
 				if (!BeanFactoryUtils.isFactoryDereference(name)) {
@@ -1382,6 +1384,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			return null;
 		}
 		try {
+			// 这里获取的是FactoryBean的实例，不会经过getObject方法
 			FactoryBean<?> factoryBean = doGetBean(FACTORY_BEAN_PREFIX + beanName, FactoryBean.class, null, true);
 			return getTypeForFactoryBean(factoryBean);
 		}
