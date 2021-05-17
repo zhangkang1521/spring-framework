@@ -18,34 +18,57 @@
 
     <!-- FactoryBean接口获取sqlSessionFactory -->
     <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--<property name="configLocation" value="classpath:mybatis.xml"/>-->
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations" value="classpath:mappers/*.xml"></property>
+        <property name="configuration">
+            <bean class="org.apache.ibatis.session.Configuration">
+                <property name="mapUnderscoreToCamelCase" value="true"/>
+                <property name="localCacheScope" value="STATEMENT"/>
+            </bean>
+        </property>
     </bean>
 
-    <!-- FactoryBean接口获取接口代理 -->
-    <!--<bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
-        <!--<property name="mapperInterface" value="org.zk.dao.UserDao"/>-->
-        <!--<property name="sqlSessionFactory" ref="sessionFactory"/>-->
-    <!--</bean>-->
+    <!-- FactoryBean接口获取接口代理，isSingleton=true，保证应用中只有1个UserDao -->
+    <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="mapperInterface" value="org.zk.dao.UserDao"/>
+        <property name="sqlSessionFactory" ref="sessionFactory"/>
+    </bean>
 
     <!-- 自动注册指定包下Dao -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+   <!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="org.zk.dao" />
         <property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
+    </bean>-->
+
+    <!--<context:component-scan base-package="org.zk.service"/>-->
+    <bean id="userService" class="org.zk.service.impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"></property>
     </bean>
 
-    <context:component-scan base-package="org.zk.service"/>
-    <!--<bean id="userService" class="org.zk.service.impl.UserServiceImpl">-->
-        <!--<property name="userDao" ref="userDao"></property>-->
-    <!--</bean>-->
+    <!-- 事务管理类 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
 
-    <!-- 注册事务管理类 -->
-    <!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-        <!--<property name="dataSource" ref="dataSource" />-->
-    <!--</bean>-->
 
-    <!-- 注册：InfrastructureAdvisorAutoProxyCreator -->
-    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+
+
+    <!--
+        TxNamespaceHandler
+         InfrastructureAdvisorAutoProxyCreator 创建代理，优先级低于AnnotationAwareAspectJAutoProxyCreator
+         BeanFactoryTransactionAttributeSourceAdvisor 增强
+         AnnotationTransactionAttributeSource 获取@Transactional注解属性，判断是否需要增强
+         TransactionInterceptor 方法拦截器
+      -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- 注册bean后置处理器：AnnotationAwareAspectJAutoProxyCreator -->
+    <!--<aop:aspectj-autoproxy expose-proxy="true"/>-->
+
+    <!--<bean id="myTarget" class="org.zk.aop.MyTargetImpl"></bean>-->
+
+    <!--<bean id="myAspect" class="org.zk.aop.MyAspect"></bean>-->
 
 </beans>
 

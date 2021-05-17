@@ -734,7 +734,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			}
 			return;
 		}
-
+		// 提交
 		processCommit(defStatus);
 	}
 
@@ -750,6 +750,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			try {
 				prepareForCommit(status);
 				triggerBeforeCommit(status);
+				// 线程绑定的连接清除
 				triggerBeforeCompletion(status);
 				beforeCompletionInvoked = true;
 				boolean globalRollbackOnly = false;
@@ -766,6 +767,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 					if (status.isDebug()) {
 						logger.debug("Initiating transaction commit");
 					}
+					// 提交
 					doCommit(status);
 				}
 				// Throw UnexpectedRollbackException if we have a global rollback-only
@@ -816,6 +818,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 		}
 		finally {
+			// 关闭数据库连接
 			cleanupAfterCompletion(status);
 		}
 	}

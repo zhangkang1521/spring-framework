@@ -62,7 +62,7 @@ public abstract class AopConfigUtils {
 	static {
 		APC_PRIORITY_LIST.add(InfrastructureAdvisorAutoProxyCreator.class);
 		APC_PRIORITY_LIST.add(AspectJAwareAdvisorAutoProxyCreator.class);
-		APC_PRIORITY_LIST.add(AnnotationAwareAspectJAutoProxyCreator.class);
+		APC_PRIORITY_LIST.add(AnnotationAwareAspectJAutoProxyCreator.class); // 优先级最高
 	}
 
 
@@ -108,6 +108,7 @@ public abstract class AopConfigUtils {
 	private static BeanDefinition registerOrEscalateApcAsRequired(Class cls, BeanDefinitionRegistry registry, Object source) {
 		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
 		// 例如 <aop:aspectj-autoproxy/> <tx:annotation-driven> 同时配置，保证只有1个代理创建器
+		// 优先级 AnnotationAwareAspectJAutoProxyCreator > InfrastructureAdvisorAutoProxyCreator
 		if (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) {
 			BeanDefinition apcDefinition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);
 			if (!cls.getName().equals(apcDefinition.getBeanClassName())) {

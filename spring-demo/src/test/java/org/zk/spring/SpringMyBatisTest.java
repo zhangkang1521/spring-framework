@@ -13,7 +13,8 @@ public class SpringMyBatisTest {
 	@Test
 	public void testDao() {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-mybatis.xml");
-		UserDao userDao = ctx.getBean(UserDao.class);
+		UserDao userDao = (UserDao)ctx.getBean("userDao");
+		UserDao userDao2 = (UserDao)ctx.getBean("userDao");
 		User user = userDao.findById(1);
 	}
 

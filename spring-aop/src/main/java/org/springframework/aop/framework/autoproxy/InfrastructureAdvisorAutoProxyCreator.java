@@ -41,6 +41,7 @@ public class InfrastructureAdvisorAutoProxyCreator extends AbstractAdvisorAutoPr
 
 	@Override
 	protected boolean isEligibleAdvisorBean(String beanName) {
+		// 会忽略应用程序定义的Advisor
 		return (this.beanFactory.containsBeanDefinition(beanName) &&
 				this.beanFactory.getBeanDefinition(beanName).getRole() == BeanDefinition.ROLE_INFRASTRUCTURE);
 	}

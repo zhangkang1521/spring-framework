@@ -172,6 +172,7 @@ public class AspectJExpressionPointcut extends AbstractExpressionPointcut
 
 	public MethodMatcher getMethodMatcher() {
 		checkReadyToMatch();
+		// 这个类实现了Pointcut接口，也实现了MethodMatcher接口
 		return this;
 	}
 

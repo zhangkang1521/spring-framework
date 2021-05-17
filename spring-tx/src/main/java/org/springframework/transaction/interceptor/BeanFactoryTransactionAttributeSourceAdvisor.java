@@ -21,6 +21,7 @@ import org.springframework.aop.Pointcut;
 import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 
 /**
+ * <tx:annotation-driven transaction-manager="transactionManager" /> 自动注入
  * Advisor driven by a {@link TransactionAttributeSource}, used to include
  * a transaction advice bean for methods that are transactional.
  *
@@ -33,7 +34,7 @@ import org.springframework.aop.support.AbstractBeanFactoryPointcutAdvisor;
 @SuppressWarnings("serial")
 public class BeanFactoryTransactionAttributeSourceAdvisor extends AbstractBeanFactoryPointcutAdvisor {
 
-	private TransactionAttributeSource transactionAttributeSource;
+	private TransactionAttributeSource transactionAttributeSource; // 解析标签时注入的，提供@Transactional标签的属性
 
 	private final TransactionAttributeSourcePointcut pointcut = new TransactionAttributeSourcePointcut() {
 		@Override

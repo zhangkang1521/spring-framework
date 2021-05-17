@@ -42,11 +42,11 @@ import org.springframework.util.Assert;
 @SuppressWarnings("serial")
 public abstract class AbstractBeanFactoryPointcutAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
 
-	private String adviceBeanName;
+	private String adviceBeanName; // 解析标签时TransactionInterceptor的beanName
 
 	private BeanFactory beanFactory;
 
-	private transient volatile Advice advice;
+	private transient volatile Advice advice; // 即解析标签时的 TransactionInterceptor
 
 	private transient volatile Object adviceMonitor = new Object();
 

@@ -10,6 +10,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.zk.config.ApplicationConfig;
+import org.zk.core.UserFactoryBean;
 import org.zk.domain.User;
 
 import java.util.Locale;
@@ -23,8 +24,9 @@ public class SpringTest {
     @Test
     public void testClassPathCtx() {
         ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
-         User user = (User)ctx.getBean("user");
-//        System.out.println(user);
+        User user = (User)ctx.getBean("user");
+        User user2 = (User)ctx.getBean("user");
+        System.out.println(user);
         ctx.close();
     }
 

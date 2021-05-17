@@ -1470,6 +1470,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			return beanInstance;
 		}
 
+		// FactoryBean创建实例的缓存
 		Object object = null;
 		if (mbd == null) {
 			object = getCachedObjectForFactoryBean(beanName);

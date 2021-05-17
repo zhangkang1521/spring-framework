@@ -82,7 +82,7 @@ public class BeanFactoryAdvisorRetrievalHelper {
 
 		List<Advisor> advisors = new LinkedList<Advisor>();
 		for (String name : advisorNames) {
-			if (isEligibleBean(name)) {
+			if (isEligibleBean(name)) { // InfrastructureAdvisorAutoProxyCreator 会过滤应用程序定义的Advisor
 				if (this.beanFactory.isCurrentlyInCreation(name)) {
 					if (logger.isDebugEnabled()) {
 						logger.debug("Skipping currently created advisor '" + name + "'");

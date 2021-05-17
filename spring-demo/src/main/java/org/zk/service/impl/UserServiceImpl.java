@@ -21,8 +21,6 @@ public class UserServiceImpl implements UserService {
 
 	private UserDao userDao;
 
-
-
 //	@PersistenceContext
 //	@Autowired
 	private EntityManager entityManager;
@@ -50,8 +48,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public void update() {
-		userDao.update(1, "yyy");
+		userDao.update(1, "zk2");
+		userDao.update(1, "zk3");
+//		 throw new RuntimeException("xxx");
 	}
 
 

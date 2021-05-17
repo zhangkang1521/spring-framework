@@ -96,6 +96,7 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 		}
 		else {
 			// We need to work it out.
+			// 找@Transactional注解
 			TransactionAttribute txAtt = computeTransactionAttribute(method, targetClass);
 			// Put it in the cache.
 			if (txAtt == null) {

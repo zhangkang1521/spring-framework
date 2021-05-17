@@ -1456,6 +1456,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 						!PropertyAccessorUtils.isNestedOrIndexedProperty(propertyName);
 				if (convertible) {
 					// 转换到正确的类型
+					// 例如classpath:mappers/*.xml 会使用ResourceArrayPropertyEditor转换成Resource数组
 					convertedValue = convertForProperty(resolvedValue, propertyName, bw, converter);
 				}
 				// Possibly store converted value in merged bean definition,

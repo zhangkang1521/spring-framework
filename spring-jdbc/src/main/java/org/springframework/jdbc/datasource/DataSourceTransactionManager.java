@@ -264,6 +264,7 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 
 	@Override
 	protected void doCommit(DefaultTransactionStatus status) {
+		// 提交
 		DataSourceTransactionObject txObject = (DataSourceTransactionObject) status.getTransaction();
 		Connection con = txObject.getConnectionHolder().getConnection();
 		if (status.isDebug()) {

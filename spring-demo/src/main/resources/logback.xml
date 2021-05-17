@@ -21,7 +21,12 @@
     <logger name="org.hibernate.engine.jdbc.internal.LogicalConnectionImpl" level="debug"/>
     <logger name="org.hibernate.engine.transaction.internal.jdbc.JdbcTransaction" level="debug"/>
 
+    <!-- 数据源事务 -->
+    <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="debug"/>
+
+
     <logger name="org.springframework" level="debug"></logger>
+    <logger name="org.zk" level="debug"></logger>
 
 
 </configuration>

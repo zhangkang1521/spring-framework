@@ -116,8 +116,11 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 			if (!parserContext.getRegistry().containsBeanDefinition(txAdvisorBeanName)) {
 				Object eleSource = parserContext.extractSource(element);
 
+				// 这里注册的3个BeanDefinition很重要
+				// BeanFactoryTransactionAttributeSourceAdvisor AnnotationTransactionAttributeSource TransactionInterceptor
+
 				// Create the TransactionAttributeSource definition.
-				// 1.创建AnnotationTransactionAttributeSource的BeanDefinition
+				// 1.创建 AnnotationTransactionAttributeSource 的BeanDefinition 事务注解解析
 				RootBeanDefinition sourceDef = new RootBeanDefinition(
 						"org.springframework.transaction.annotation.AnnotationTransactionAttributeSource");
 				sourceDef.setSource(eleSource);
@@ -129,16 +132,20 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 				RootBeanDefinition interceptorDef = new RootBeanDefinition(TransactionInterceptor.class);
 				interceptorDef.setSource(eleSource);
 				interceptorDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
-				registerTransactionManager(element, interceptorDef); // 事务管理器设值
-				interceptorDef.getPropertyValues().add("transactionAttributeSource", new RuntimeBeanReference(sourceName)); //1
+				// 放入事务管理器
+				registerTransactionManager(element, interceptorDef);
+				// 放入 AnnotationTransactionAttributeSource
+				interceptorDef.getPropertyValues().add("transactionAttributeSource", new RuntimeBeanReference(sourceName));
 				String interceptorName = parserContext.getReaderContext().registerWithGeneratedName(interceptorDef);
 
 				// Create the TransactionAttributeSourceAdvisor definition.
-				// 3.创建BeanFactoryTransactionAttributeSourceAdvisor的BeanDefinition
+				// 3.创建 BeanFactoryTransactionAttributeSourceAdvisor 的BeanDefinition
 				RootBeanDefinition advisorDef = new RootBeanDefinition(BeanFactoryTransactionAttributeSourceAdvisor.class);
 				advisorDef.setSource(eleSource);
 				advisorDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+				// 放入 TransactionAttributeSource
 				advisorDef.getPropertyValues().add("transactionAttributeSource", new RuntimeBeanReference(sourceName)); // 1
+				// 放入 TransactionInterceptor
 				advisorDef.getPropertyValues().add("adviceBeanName", interceptorName); // 2
 				if (element.hasAttribute("order")) {
 					advisorDef.getPropertyValues().add("order", element.getAttribute("order"));

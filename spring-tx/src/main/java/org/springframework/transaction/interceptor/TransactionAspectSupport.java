@@ -263,12 +263,14 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			}
 			catch (Throwable ex) {
 				// target invocation exception
+				// 回滚事务
 				completeTransactionAfterThrowing(txInfo, ex);
 				throw ex;
 			}
 			finally {
 				cleanupTransactionInfo(txInfo);
 			}
+			// 提交事务
 			commitTransactionAfterReturning(txInfo);
 			return retVal;
 		}

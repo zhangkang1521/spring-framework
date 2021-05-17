@@ -209,6 +209,7 @@ public abstract class AopUtils {
 			return false;
 		}
 
+		// MethodMatcher都是Pointcut自身
 		MethodMatcher methodMatcher = pc.getMethodMatcher();
 		IntroductionAwareMethodMatcher introductionAwareMethodMatcher = null;
 		if (methodMatcher instanceof IntroductionAwareMethodMatcher) {
@@ -223,8 +224,8 @@ public abstract class AopUtils {
 			for (Method method : methods) {
 				if ((introductionAwareMethodMatcher != null &&
 						introductionAwareMethodMatcher.matches(method, targetClass, hasIntroductions)) ||
-						// @Aspect切面： AspectJExpressionPointCut
-						// 事务： org.springframework.transaction.interceptor.TransactionAttributeSourcePointcut
+						// @Aspect切面： AspectJExpressionPointCut 切点表达式符合
+						// 事务： TransactionAttributeSourcePointcut 有@Transactional注解
 						methodMatcher.matches(method, targetClass)) {
 					return true;
 				}
@@ -258,10 +259,13 @@ public abstract class AopUtils {
 	 */
 	public static boolean canApply(Advisor advisor, Class<?> targetClass, boolean hasIntroductions) {
 		if (advisor instanceof IntroductionAdvisor) {
+			// 引介增强
 			return ((IntroductionAdvisor) advisor).getClassFilter().matches(targetClass);
 		}
 		else if (advisor instanceof PointcutAdvisor) {
-			// 一般为切点
+			// 一般为切点，使用Advisor的Pointcut判断是否满足条件
+			// InstantiationModelAwarePointcutAdvisorImpl返回 AspectJExpressionPointcut
+			// BeanFactoryTransactionAttributeSourceAdvisor返回 TransactionAttributeSourcePointcut
 			PointcutAdvisor pca = (PointcutAdvisor) advisor;
 			return canApply(pca.getPointcut(), targetClass, hasIntroductions);
 		}
@@ -285,6 +289,7 @@ public abstract class AopUtils {
 		}
 		List<Advisor> eligibleAdvisors = new LinkedList<Advisor>();
 		for (Advisor candidate : candidateAdvisors) {
+			// 引介增强
 			if (candidate instanceof IntroductionAdvisor && canApply(candidate, clazz)) {
 				eligibleAdvisors.add(candidate);
 			}
@@ -295,6 +300,7 @@ public abstract class AopUtils {
 				// already processed
 				continue;
 			}
+			// 一般情况走这里
 			if (canApply(candidate, clazz, hasIntroductions)) {
 				eligibleAdvisors.add(candidate);
 			}

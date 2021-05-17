@@ -42,6 +42,7 @@ import org.springframework.beans.factory.FactoryBeanNotInitializedException;
  */
 public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanRegistry {
 
+	// FactoryBean创建的bean缓存
 	/** Cache of singleton objects created by FactoryBeans: FactoryBean name --> object */
 	private final Map<String, Object> factoryBeanObjectCache = new ConcurrentHashMap<String, Object>(16);
 
@@ -95,6 +96,7 @@ public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanReg
 	 * @see org.springframework.beans.factory.FactoryBean#getObject()
 	 */
 	protected Object getObjectFromFactoryBean(FactoryBean<?> factory, String beanName, boolean shouldPostProcess) {
+		// getObject创建的对象会被缓存
 		if (factory.isSingleton() && containsSingleton(beanName)) {
 			synchronized (getSingletonMutex()) {
 				Object object = this.factoryBeanObjectCache.get(beanName);

@@ -77,6 +77,7 @@ public abstract class TransactionSynchronizationManager {
 
 	private static final Log logger = LogFactory.getLog(TransactionSynchronizationManager.class);
 
+	/** 线程绑定 dataSource -> ConnectionHolder */
 	private static final ThreadLocal<Map<Object, Object>> resources =
 			new NamedThreadLocal<Map<Object, Object>>("Transactional resources");
 

@@ -102,6 +102,7 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	 */
 	protected List<Advisor> findCandidateAdvisors() {
 		// 找到实现Advisor接口的增强器
+		// AnnotationAwareAspectJAutoProxyCreator重写该方法，获取@Aspect注解类的增强
 		return this.advisorRetrievalHelper.findAdvisorBeans();
 	}
 
