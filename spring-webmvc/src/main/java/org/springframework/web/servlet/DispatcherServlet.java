@@ -548,7 +548,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		if (this.detectAllHandlerMappings) { // 默认true
 			// Find all HandlerMappings in the ApplicationContext, including ancestor contexts.
-			// 拿到配置文件中的所有HandlerMapping
+			// 拿到容器中的所有HandlerMapping
 			Map<String, HandlerMapping> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, true, false);
 			if (!matchingBeans.isEmpty()) {
@@ -567,6 +567,7 @@ public class DispatcherServlet extends FrameworkServlet {
 			}
 		}
 
+		// 容器中没有，读取DispatcherServlet.properties 配置文件中的HandlerMappings
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
 		if (this.handlerMappings == null) { // 默认2个
@@ -1022,7 +1023,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Did the handler return a view to render?
 		if (mv != null && !mv.wasCleared()) { // 如果@ResponseBody，mv是空的
-			// 视图渲染
+			// 视图解析并渲染
 			render(mv, request, response);
 			if (errorView) {
 				WebUtils.clearErrorRequestAttributes(request);

@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class MyControllerAdvice {
 
 	private static Logger logger = LoggerFactory.getLogger(MyControllerAdvice.class);

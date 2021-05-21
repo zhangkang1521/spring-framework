@@ -21,6 +21,7 @@ import org.springframework.web.context.request.WebRequestInterceptor;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 /**
+ * 拦截器信息
  * Holds information about a HandlerInterceptor mapped to a path into the application.
  * Provides a method to match a request path to the mapped path patterns.
  *

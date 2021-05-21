@@ -8,10 +8,11 @@
     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <!-- DispatcherServlet会创建一个容器，其父容器是ContextLoaderListener创建的 -->
 
     <!-- 1.最简单的情况，url到controller的映射自己配置 -->
     <!--<bean id="userController" class="org.zk.controller.UserSimpleController"/>-->
-    <!--<bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
+    <!--<bean id="simpleUrlHandlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">-->
         <!--<property name="mappings">-->
             <!--<props>-->
                 <!--<prop key="/user/hello">userController</prop>-->
@@ -24,27 +25,26 @@
 
     <!-- 3.使用注解，向容器中注入RequestMappingHandlerMapping，RequestMappingHandlerAdapter等bean -->
     <mvc:annotation-driven />
-
-    <context:component-scan base-package="org.zk.controller"/>
-    <!--<bean id="userAnnotationController" class="org.zk.controller.UserAnnotationController"/>-->
+    <!--<context:component-scan base-package="org.zk.controller"/>-->
+    <bean id="userAnnotationController" class="org.zk.controller.UserAnnotationController"/>
     <!--<bean id="myControllerAdvice" class="org.zk.controller.MyControllerAdvice"/>-->
 
     <!-- 自定义参数解析，SpringBoot会自动初始化DefaultFormattingConversionService -->
-    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-        <property name="converters">
-            <list>
-                <!-- 只会覆盖 String到Date的Convert，默认String到Date的Convert需要@DateTimeFormater注解 -->
-                <bean class="org.zk.web.MyDateConvert"></bean>
-            </list>
-        </property>
-    </bean>
+    <!--<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">-->
+        <!--<property name="converters">-->
+            <!--<list>-->
+                <!--&lt;!&ndash; 只会覆盖 String到Date的Convert，默认String到Date的Convert需要@DateTimeFormater注解 &ndash;&gt;-->
+                <!--<bean class="org.zk.web.MyDateConvert"></bean>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
 
 
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-    </bean>
+    <!--<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">-->
+    <!--</bean>-->
 
     <!-- jsp视图解析器，视图名称(String)到视图(View)的转换 -->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="order" value="1"/>
         <property name="prefix" value="/WEB-INF/view/jsp/"/>
         <property name="suffix" value=".jsp"/>
@@ -95,13 +95,13 @@
     <!--<mvc:resources mapping="/static/**" location="/static/"/>-->
 
     <!-- 注入SimpleUrlHandlerMapping，将/**映射到DefaultServletHttpRequestHandler，其中使用defaultServlet进行静态资源访问 -->
-    <mvc:default-servlet-handler/>
+    <!--<mvc:default-servlet-handler/>-->
 
     <!-- 对于不需要后台处理的简单页面，针对固定path返回固定view，ParameterizableViewController -->
     <!--<mvc:view-controller path="/hi" view-name="hello"/>-->
 
     <!-- 文件上传 -->
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+    <!--<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>-->
 
 
     <!-- 国际化 -->

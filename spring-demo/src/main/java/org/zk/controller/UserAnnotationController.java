@@ -3,8 +3,12 @@ package org.zk.controller;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -43,7 +47,9 @@ import java.util.*;
  */
 @RequestMapping("/user")
 @Controller
-public class UserAnnotationController {
+public class UserAnnotationController implements ApplicationContextAware {
+
+	ApplicationContext applicationContext;
 
 
 	private static Logger log = LoggerFactory.getLogger(UserAnnotationController.class);
@@ -55,9 +61,9 @@ public class UserAnnotationController {
 	@RequestMapping(value = "/list")
 	@ResponseBody
 	public Result list(User user) {
-		if(true) {
-			throw new RuntimeException("xxx");
-		}
+//		if(true) {
+//			throw new RuntimeException("xxx");
+//		}
 		return new Result();
 	}
 
@@ -86,6 +92,11 @@ public class UserAnnotationController {
 		// Resource resource = new ClassPathResource("jdbc.properties");
 
 		return "ok";
+	}
+
+	@Override
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		this.applicationContext = applicationContext;
 	}
 
 //

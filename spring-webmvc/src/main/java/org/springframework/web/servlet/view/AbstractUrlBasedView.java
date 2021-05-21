@@ -29,6 +29,7 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public abstract class AbstractUrlBasedView extends AbstractView implements InitializingBean {
 
+	/** 视图的位置 */
 	private String url;
 
 

@@ -309,7 +309,7 @@ public class ContextLoader {
 				}
 			}
 
-			// 将容器设置到ServletContext中，DispatchServlet中会把他设置为父容器
+			// 将容器设置到ServletContext中，DispatcherServlet 中会把他设置为父容器
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
 			ClassLoader ccl = Thread.currentThread().getContextClassLoader();

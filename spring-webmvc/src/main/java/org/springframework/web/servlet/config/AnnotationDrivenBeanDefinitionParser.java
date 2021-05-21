@@ -150,8 +150,10 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		CompositeComponentDefinition compDefinition = new CompositeComponentDefinition(element.getTagName(), source);
 		parserContext.pushContainingComponent(compDefinition);
 
+		// 1注册 ContentNegotiationManager
 		RuntimeBeanReference contentNegotiationManager = getContentNegotiationManager(element, source, parserContext);
 
+		// 2注册 RequestMappingHandlerMapping
 		RootBeanDefinition handlerMappingDef = new RootBeanDefinition(RequestMappingHandlerMapping.class);
 		handlerMappingDef.setSource(source);
 		handlerMappingDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -164,9 +166,11 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		}
 
 		configurePathMatchingProperties(handlerMappingDef, element, parserContext);
-
+		// 3注册 FormattingConversionService
 		RuntimeBeanReference conversionService = getConversionService(element, source, parserContext);
+		// 4注册 LocalValidatorFactoryBean
 		RuntimeBeanReference validator = getValidator(element, source, parserContext);
+		// MessageCodesResolver，配置了返回
 		RuntimeBeanReference messageCodesResolver = getMessageCodesResolver(element);
 
 		RootBeanDefinition bindingDef = new RootBeanDefinition(ConfigurableWebBindingInitializer.class);
@@ -184,13 +188,13 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		ManagedList<?> callableInterceptors = getCallableInterceptors(element, source, parserContext);
 		ManagedList<?> deferredResultInterceptors = getDeferredResultInterceptors(element, source, parserContext);
 
+		// 5注册 RequestMappingHandlerAdapter
 		RootBeanDefinition handlerAdapterDef = new RootBeanDefinition(RequestMappingHandlerAdapter.class);
 		handlerAdapterDef.setSource(source);
 		handlerAdapterDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
 		handlerAdapterDef.getPropertyValues().add("contentNegotiationManager", contentNegotiationManager);
 		handlerAdapterDef.getPropertyValues().add("webBindingInitializer", bindingDef);
-		// 初始化RequestMappingHandlerAdapter的messageConverters
-		handlerAdapterDef.getPropertyValues().add("messageConverters", messageConverters);
+		handlerAdapterDef.getPropertyValues().add("messageConverters", messageConverters); //
 		if (element.hasAttribute("ignoreDefaultModelOnRedirect")) {
 			Boolean ignoreDefaultModel = Boolean.valueOf(element.getAttribute("ignoreDefaultModelOnRedirect"));
 			handlerAdapterDef.getPropertyValues().add("ignoreDefaultModelOnRedirect", ignoreDefaultModel);
@@ -211,6 +215,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		handlerAdapterDef.getPropertyValues().add("deferredResultInterceptors", deferredResultInterceptors);
 		String handlerAdapterName = parserContext.getReaderContext().registerWithGeneratedName(handlerAdapterDef);
 
+		// 6注册 MappedInterceptor
 		RootBeanDefinition csInterceptorDef = new RootBeanDefinition(ConversionServiceExposingInterceptor.class);
 		csInterceptorDef.setSource(source);
 		csInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(0, conversionService);
@@ -221,6 +226,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		mappedCsInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(1, csInterceptorDef);
 		String mappedInterceptorName = parserContext.getReaderContext().registerWithGeneratedName(mappedCsInterceptorDef);
 
+		// 7注册 ExceptionHandlerExceptionResolver
 		RootBeanDefinition exceptionHandlerExceptionResolver = new RootBeanDefinition(ExceptionHandlerExceptionResolver.class);
 		exceptionHandlerExceptionResolver.setSource(source);
 		exceptionHandlerExceptionResolver.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -230,6 +236,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		String methodExceptionResolverName =
 				parserContext.getReaderContext().registerWithGeneratedName(exceptionHandlerExceptionResolver);
 
+		// 8注册 ResponseStatusExceptionResolver
 		RootBeanDefinition responseStatusExceptionResolver = new RootBeanDefinition(ResponseStatusExceptionResolver.class);
 		responseStatusExceptionResolver.setSource(source);
 		responseStatusExceptionResolver.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -237,6 +244,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		String responseStatusExceptionResolverName =
 				parserContext.getReaderContext().registerWithGeneratedName(responseStatusExceptionResolver);
 
+		// 9注册 DefaultHandlerExceptionResolver
 		RootBeanDefinition defaultExceptionResolver = new RootBeanDefinition(DefaultHandlerExceptionResolver.class);
 		defaultExceptionResolver.setSource(source);
 		defaultExceptionResolver.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -251,6 +259,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		parserContext.registerComponent(new BeanComponentDefinition(defaultExceptionResolver, defaultExceptionResolverName));
 		parserContext.registerComponent(new BeanComponentDefinition(mappedCsInterceptorDef, mappedInterceptorName));
 
+		// 10-12 BeanNameUrlHandlerMapping HttpRequestHandlerAdapter SimpleControllerHandlerAdapter
 		// Ensure BeanNameUrlHandlerMapping (SPR-8289) and default HandlerAdapters are not "turned off"
 		MvcNamespaceUtils.registerDefaultComponents(parserContext, source);
 
@@ -268,6 +277,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 			RootBeanDefinition conversionDef = new RootBeanDefinition(FormattingConversionServiceFactoryBean.class);
 			conversionDef.setSource(source);
 			conversionDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
+			// 注册 FormattingConversionService
 			String conversionName = parserContext.getReaderContext().registerWithGeneratedName(conversionDef);
 			parserContext.registerComponent(new BeanComponentDefinition(conversionDef, conversionName));
 			conversionServiceRef = new RuntimeBeanReference(conversionName);
@@ -305,6 +315,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 			factoryBeanDef.getPropertyValues().add("mediaTypes", getDefaultMediaTypes());
 
 			String beanName = "mvcContentNegotiationManager";
+			// 注册 ContentNegotiationManager
 			parserContext.getReaderContext().getRegistry().registerBeanDefinition(beanName , factoryBeanDef);
 			parserContext.registerComponent(new BeanComponentDefinition(factoryBeanDef, beanName));
 			contentNegotiationManagerRef = new RuntimeBeanReference(beanName);

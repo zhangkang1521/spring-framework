@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class BeanNameController extends AbstractController {
 
 
-//	@Override
+	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		return new ModelAndView("hello", "username", "beanName test");
 	}

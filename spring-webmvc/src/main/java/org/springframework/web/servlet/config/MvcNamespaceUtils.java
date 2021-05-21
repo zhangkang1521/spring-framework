@@ -51,8 +51,11 @@ abstract class MvcNamespaceUtils {
 
 
 	public static void registerDefaultComponents(ParserContext parserContext, Object source) {
+		// 注册 BeanNameUrlHandlerMapping
 		registerBeanNameUrlHandlerMapping(parserContext, source);
+		// 注册 HttpRequestHandlerAdapter
 		registerHttpRequestHandlerAdapter(parserContext, source);
+		// 注册 SimpleControllerHandlerAdapter
 		registerSimpleControllerHandlerAdapter(parserContext, source);
 	}
 
