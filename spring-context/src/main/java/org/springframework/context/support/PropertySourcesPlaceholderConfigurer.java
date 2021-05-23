@@ -76,7 +76,6 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	 */
 	public static final String ENVIRONMENT_PROPERTIES_PROPERTY_SOURCE_NAME = "environmentProperties";
 
-
 	private MutablePropertySources propertySources;
 
 	private Environment environment;
@@ -121,8 +120,9 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	 */
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		if (this.propertySources == null) {
+		if (this.propertySources == null) { // true
 			this.propertySources = new MutablePropertySources();
+			// 系统属性和环境变量
 			if (this.environment != null) {
 				this.propertySources.addLast(
 					new PropertySource<Environment>(ENVIRONMENT_PROPERTIES_PROPERTY_SOURCE_NAME, this.environment) {
@@ -133,10 +133,11 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 					}
 				);
 			}
+			// 配置文件
 			try {
 				PropertySource<?> localPropertySource =
 					new PropertiesPropertySource(LOCAL_PROPERTIES_PROPERTY_SOURCE_NAME, mergeProperties());
-				if (this.localOverride) {
+				if (this.localOverride) { // 默认false，系统属性和环境变量优先
 					this.propertySources.addFirst(localPropertySource);
 				}
 				else {
@@ -158,12 +159,14 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess,
 			final ConfigurablePropertyResolver propertyResolver) throws BeansException {
 
+		// 注意valueResolver
 		propertyResolver.setPlaceholderPrefix(this.placeholderPrefix);
 		propertyResolver.setPlaceholderSuffix(this.placeholderSuffix);
 		propertyResolver.setValueSeparator(this.valueSeparator);
 
 		StringValueResolver valueResolver = new StringValueResolver() {
 			public String resolveStringValue(String strVal) {
+				// 默认false
 				String resolved = ignoreUnresolvablePlaceholders ?
 						propertyResolver.resolvePlaceholders(strVal) :
 						propertyResolver.resolveRequiredPlaceholders(strVal);

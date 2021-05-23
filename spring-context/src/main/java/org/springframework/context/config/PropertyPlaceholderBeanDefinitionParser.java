@@ -36,6 +36,7 @@ class PropertyPlaceholderBeanDefinitionParser extends AbstractPropertyLoadingBea
 	private static final String SYSTEM_PROPERTIES_MODE_ATTRIB = "system-properties-mode";
 	private static final String SYSTEM_PROPERTIES_MODE_DEFAULT = "ENVIRONMENT";
 
+	// 默认注入PropertySourcesPlaceholderConfigurer
 	@Override
 	protected Class<?> getBeanClass(Element element) {
 		// As of Spring 3.1, the default value of system-properties-mode has changed from

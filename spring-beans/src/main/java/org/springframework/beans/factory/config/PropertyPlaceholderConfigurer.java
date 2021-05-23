@@ -155,12 +155,15 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	 */
 	protected String resolvePlaceholder(String placeholder, Properties props, int systemPropertiesMode) {
 		String propVal = null;
+		// 系统属性覆盖配置文件，默认false
 		if (systemPropertiesMode == SYSTEM_PROPERTIES_MODE_OVERRIDE) {
 			propVal = resolveSystemProperty(placeholder);
 		}
+		// 从配置文件中获取
 		if (propVal == null) {
 			propVal = resolvePlaceholder(placeholder, props);
 		}
+		// 从系统属性中获取
 		if (propVal == null && systemPropertiesMode == SYSTEM_PROPERTIES_MODE_FALLBACK) {
 			propVal = resolveSystemProperty(placeholder);
 		}
@@ -217,7 +220,7 @@ public class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport 
 	@Override
 	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess, Properties props)
 			throws BeansException {
-
+		// 注意resolver
 		StringValueResolver valueResolver = new PlaceholderResolvingStringValueResolver(props);
 		doProcessProperties(beanFactoryToProcess, valueResolver);
 	}

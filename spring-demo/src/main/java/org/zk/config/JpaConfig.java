@@ -19,10 +19,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 
-@Configuration
-@ComponentScan("org.zk.service")
-@EnableTransactionManagement
-@EnableJpaRepositories("org.zk.repo")
+//@Configuration
+//@ComponentScan("org.zk.service")
+//@EnableTransactionManagement
+//@EnableJpaRepositories("org.zk.repo")
 public class JpaConfig {
 
 	public static final Logger log = LoggerFactory.getLogger(JpaConfig.class);

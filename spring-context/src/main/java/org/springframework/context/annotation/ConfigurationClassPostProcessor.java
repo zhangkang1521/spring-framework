@@ -247,7 +247,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			// Simply call processConfigurationClasses lazily at this point then.
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
-		// @Congiguration需要增强
+		// @Configuration需要增强
 		enhanceConfigurationClasses(beanFactory);
 	}
 
@@ -259,8 +259,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		Set<BeanDefinitionHolder> configCandidates = new LinkedHashSet<BeanDefinitionHolder>();
 		for (String beanName : registry.getBeanDefinitionNames()) {
 			BeanDefinition beanDef = registry.getBeanDefinition(beanName);
-			// @Configuration full 需要增强
-			// @Component或者有@Bean注解的方法 lite
+			// 情况1：@Configuration full 需要增强
+			// 情况2：@Component或者有@Bean注解的方法 lite
 			if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}
@@ -289,7 +289,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
-				// 配置注解解析
+				// 重要：配置注解解析
 				if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
 					parser.parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());
 				}
@@ -303,6 +303,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		}
 		parser.validate();
 
+		// 将解析好的PropertySource放入environment中
 		// Handle any @PropertySource annotations
 		Stack<PropertySource<?>> parsedPropertySources = parser.getPropertySources();
 		if (!parsedPropertySources.isEmpty()) {

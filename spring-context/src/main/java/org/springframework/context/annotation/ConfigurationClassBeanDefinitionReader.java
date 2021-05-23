@@ -167,6 +167,7 @@ class ConfigurationClassBeanDefinitionReader {
 			beanDef.setFactoryMethodName(metadata.getMethodName());
 		}
 		else {
+			// 实例化类的时候使用factory-method
 			// instance @Bean method
 			beanDef.setFactoryBeanName(configClass.getBeanName());
 			beanDef.setUniqueFactoryMethodName(metadata.getMethodName());

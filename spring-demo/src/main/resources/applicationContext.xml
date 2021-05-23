@@ -8,11 +8,11 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 单例bean,spring容器启动时即初始化 -->
-    <!--<bean id="user" class="org.zk.domain.User">-->
-        <!--<property name="id" value="100"/>-->
-        <!--<property name="username" value="zk"/>-->
-        <!--&lt;!&ndash;<property name="order" ref="order"></property>&ndash;&gt;-->
-    <!--</bean>-->
+    <bean id="user" class="org.zk.domain.User">
+        <property name="id" value="100"/>
+        <!--<property name="username" value="${jdbc.username}"/>-->
+        <!--<property name="order" ref="order"></property>-->
+    </bean>
 
 
 
@@ -24,7 +24,7 @@
     <!--</bean>-->
 
     <!-- FactoryBean.getObject方法获取bean，例如mybatis的SqlSessionFactoryBean MapperFactoryBean-->
-    <bean id="user" class="org.zk.core.UserFactoryBean"></bean>
+    <!--<bean id="user" class="org.zk.core.UserFactoryBean"></bean>-->
 
     <!-- factory-method获取bean -->
     <!--<bean class="org.zk.core.UserFactory" factory-method="user"></bean>-->
@@ -35,14 +35,20 @@
     <!-- 容器注册后处理器，用于注册bean到容器中，比如mybatis的Mapper自动注册 -->
     <!--<bean class="org.zk.core.MyBeanDefinitionRegistryPostProcessor"/>-->
 
-    <!-- 容器后处理器，替换bean的占位符 -->
-    <!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="locations">-->
-            <!--<array>-->
-                <!--<value>classpath:jdbc.properties</value>-->
-            <!--</array>-->
-        <!--</property>-->
-    <!--</bean>-->
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+
+
+    <!-- 注入 PropertySourcesPlaceholderConfigurer，默认系统属性优先于用户配置 -->
+    <!--<context:property-placeholder location="classpath:jdbc.properties"/>-->
+
+    <!-- 容器后处理器，替换bean的占位符，默认用户配置优先于系统属性 -->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <value>classpath:jdbc.properties</value>
+            </array>
+        </property>
+    </bean>
 
 
 

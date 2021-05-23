@@ -66,7 +66,7 @@ class ComponentScanAnnotationParser {
 
 
 	public Set<BeanDefinitionHolder> parse(AnnotationAttributes componentScan, final String declaringClass) {
-		// 包扫描
+		// 包扫描 类似 ComponentScanBeanDefinitionParser xml中的<component:scan/>
 		ClassPathBeanDefinitionScanner scanner =
 				new ClassPathBeanDefinitionScanner(this.registry, componentScan.getBoolean("useDefaultFilters"));
 

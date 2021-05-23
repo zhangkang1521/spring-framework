@@ -165,6 +165,7 @@ class ConfigurationClassParser {
 		}
 		while (metadata != null);
 
+		// 配置类本身也会当做1个Bean进行注册
 		this.configurationClasses.add(configClass);
 	}
 
@@ -176,7 +177,7 @@ class ConfigurationClassParser {
 		processMemberClasses(metadata);
 
 		// Process any @PropertySource annotations
-		// 引入配置文件
+		// 引入配置文件，将配置文件加载到 ResourcePropertySource
 		AnnotationAttributes propertySource = MetadataUtils.attributesFor(metadata,
 				org.springframework.context.annotation.PropertySource.class);
 		if (propertySource != null) {
@@ -326,7 +327,7 @@ class ConfigurationClassParser {
 	private void collectImports(AnnotationMetadata metadata, Set<Object> imports, Set<String> visited) throws IOException {
 		String className = metadata.getClassName();
 		if (visited.add(className)) {
-			if (metadata instanceof StandardAnnotationMetadata) {
+			if (metadata instanceof StandardAnnotationMetadata) { // false
 				StandardAnnotationMetadata stdMetadata = (StandardAnnotationMetadata) metadata;
 				for (Annotation ann : stdMetadata.getIntrospectedClass().getAnnotations()) {
 					if (!ann.annotationType().getName().startsWith("java") && !(ann instanceof Import)) {
@@ -372,7 +373,7 @@ class ConfigurationClassParser {
 								}
 							}
 							if (!alreadyThereAsClass) {
-								imports.add(importedClassName);
+								imports.add(importedClassName); // 加入需要import的类名
 							}
 						}
 					}
@@ -393,6 +394,7 @@ class ConfigurationClassParser {
 				for (Object candidate : classesToImport) {
 					Object candidateToCheck = (candidate instanceof Class ? (Class) candidate :
 							this.metadataReaderFactory.getMetadataReader((String) candidate));
+					// 处理@Import注解的3种情况
 					// ImportSelector
 					if (checkAssignability(ImportSelector.class, candidateToCheck)) {
 						// Candidate class is an ImportSelector -> delegate to it to determine imports

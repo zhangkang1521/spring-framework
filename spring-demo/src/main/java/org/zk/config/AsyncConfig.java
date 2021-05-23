@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadFactory;
 
-@Configuration
-@EnableAsync
-@ComponentScan("org.zk.aop")
+//@Configuration
+//@EnableAsync
+//@ComponentScan("org.zk.aop")
 public class AsyncConfig implements AsyncConfigurer {
 
 	@Override

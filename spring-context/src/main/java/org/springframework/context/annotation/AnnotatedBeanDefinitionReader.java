@@ -32,6 +32,7 @@ import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.util.Assert;
 
 /**
+ * 注册注解常用后置处理器；注册配置类到容器
  * Convenient adapter for programmatic registration of annotated bean classes.
  * This is an alternative to {@link ClassPathBeanDefinitionScanner}, applying
  * the same resolution of annotations but for explicitly registered classes only.
@@ -81,7 +82,7 @@ public class AnnotatedBeanDefinitionReader {
 		Assert.notNull(environment, "Environment must not be null");
 		this.registry = registry;
 		this.environment = environment;
-		// 注解配置支持
+		// 注册常用注解配置处理器
 		AnnotationConfigUtils.registerAnnotationConfigProcessors(this.registry);
 	}
 
@@ -161,7 +162,7 @@ public class AnnotatedBeanDefinitionReader {
 		}
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
-		// 注册到容器
+		// 注册启动配置类到容器
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
 	}
 

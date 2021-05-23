@@ -90,7 +90,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 
 	private ResourceLoader resourceLoader;
 
-	private boolean refreshed = false;
+	private boolean refreshed = false; // 只允许刷新一次
 
 
 	/**
@@ -242,6 +242,7 @@ public class GenericApplicationContext extends AbstractApplicationContext implem
 			throw new IllegalStateException(
 					"GenericApplicationContext does not support multiple refresh attempts: just call 'refresh' once");
 		}
+		// 构造函数中已经赋值好了
 		this.beanFactory.setSerializationId(getId());
 		this.refreshed = true;
 	}

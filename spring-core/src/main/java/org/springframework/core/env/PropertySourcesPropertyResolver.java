@@ -71,6 +71,7 @@ public class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
 	}
 
 	protected <T> T getProperty(String key, Class<T> targetValueType, boolean resolveNestedPlaceholders) {
+		// 优先从系统属性，环境变量，自定义配置文件中获取
 		boolean debugEnabled = logger.isDebugEnabled();
 		if (logger.isTraceEnabled()) {
 			logger.trace(String.format("getProperty(\"%s\", %s)", key, targetValueType.getSimpleName()));

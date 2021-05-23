@@ -170,9 +170,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	private MethodOverrides methodOverrides = new MethodOverrides(); // lookup-method, replaced-method
 
-	private String factoryBeanName;
+	private String factoryBeanName; // 实例化@Bean用到，存储Configuration注解的类的beanName
 
-	private String factoryMethodName;
+	private String factoryMethodName; // 实例化@Bean用到，存储@Bean注解的方法名
 
 	private String initMethodName;
 

@@ -331,7 +331,7 @@ import org.springframework.stereotype.Component;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Component
+@Component // Configuration会被当成一个bean
 public @interface Configuration {
 
 	/**

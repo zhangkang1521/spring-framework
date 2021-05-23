@@ -21,12 +21,12 @@ public class SpringAnnotationTest {
 
 	@Test
 	public void testEnv() {
-		// -Dtest=fromVM
+		// 系统属性 -Dtest=fromVM
 		System.out.println(System.getProperty("test"));
 		// 系统属性
 		System.out.println(System.getProperty("user.dir"));
 		// 环境变量
-		System.out.println(System.getenv("test"));
+		System.out.println(System.getenv("M2_HOME"));
 
 //		System.getenv().forEach((k, v) -> {
 //			System.out.println(k + " => " + v);

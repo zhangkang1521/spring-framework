@@ -11,7 +11,7 @@
         1.扫描指定包下@Component注解的类，注册为BeanDefinition；
         2.注入5个注解处理器
      -->
-    <context:component-scan base-package="org.zk.service"/>
+    <!--<context:component-scan base-package="org.zk.service"/>-->
 
     <!-- 自动注入以下5个注解处理器 -->
     <!--<context:annotation-config/>-->
@@ -20,7 +20,7 @@
     <!--<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>-->
 
     <!-- @Autowired @Inject @Value 注解处理 postProcessPropertyValues -->
-    <!--<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>-->
+    <bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 
     <!-- @Required 注解处理 postProcessPropertyValues -->
     <!--<bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>-->
@@ -30,9 +30,9 @@
         postProcessBeanDefinitionRegistry 容器注册后处理
         会自动注册一个org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareProcessor
     -->
-    <!--<bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>-->
+    <bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>
 
-    <!--<bean class="org.zk.config.ApplicationConfig"></bean>-->
+    <bean class="org.zk.config.ApplicationConfig"></bean>
 
 
 

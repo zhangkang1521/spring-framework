@@ -31,6 +31,7 @@ import org.springframework.context.annotation.ComponentScanBeanDefinitionParser;
 public class ContextNamespaceHandler extends NamespaceHandlerSupport {
 
 	public void init() {
+		// 配置文件
 		registerBeanDefinitionParser("property-placeholder", new PropertyPlaceholderBeanDefinitionParser());
 		registerBeanDefinitionParser("property-override", new PropertyOverrideBeanDefinitionParser());
 		// 注解配置支持
