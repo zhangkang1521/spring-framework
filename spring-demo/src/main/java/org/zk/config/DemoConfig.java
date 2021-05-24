@@ -1,20 +1,8 @@
 package org.zk.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
-import org.springframework.context.annotation.*;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.core.env.Environment;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Component;
-import org.zk.annotation.EnableUser;
-import org.zk.domain.Order;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.zk.domain.User;
-
-import java.util.concurrent.Executor;
 
 // 引入properties配置文件，放入environment中
 //@PropertySource("classpath:jdbc.properties")
@@ -35,7 +23,7 @@ import java.util.concurrent.Executor;
 // 包扫描
 //@ComponentScan(basePackages = "org.zk.aop")
 @Configuration
-public class ApplicationConfig {
+public class DemoConfig {
 
 
 	// 命令参数(getProperties) > 环境变量(getEnv) > properties 文件

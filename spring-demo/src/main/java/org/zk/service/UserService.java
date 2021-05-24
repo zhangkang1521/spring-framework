@@ -12,5 +12,5 @@ public interface UserService {
 
    void update();
 
-   UserEntity find(int id);
+   User find(int id);
 }

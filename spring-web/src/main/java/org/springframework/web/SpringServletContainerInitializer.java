@@ -29,6 +29,7 @@ import javax.servlet.annotation.HandlesTypes;
 import org.springframework.core.annotation.AnnotationAwareOrderComparator;
 
 /**
+ * 用于替代web.xml配置，实现了Servlet的ServletContainerInitializer接口
  * Servlet 3.0 {@link ServletContainerInitializer} designed to support code-based
  * configuration of the servlet container using Spring's {@link WebApplicationInitializer}
  * SPI as opposed to (or possibly in combination with) the traditional

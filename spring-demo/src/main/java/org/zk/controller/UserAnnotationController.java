@@ -25,6 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zk.core.Result;
 import org.zk.domain.User;
+import org.zk.entity.UserEntity;
+import org.zk.service.UserService;
 import org.zk.web.JxlsExcelView;
 
 import javax.servlet.ServletContext;
@@ -51,6 +53,9 @@ public class UserAnnotationController implements ApplicationContextAware {
 
 	ApplicationContext applicationContext;
 
+	@Autowired
+	private UserService userService;
+
 
 	private static Logger log = LoggerFactory.getLogger(UserAnnotationController.class);
 
@@ -72,7 +77,9 @@ public class UserAnnotationController implements ApplicationContextAware {
 
 
 	@RequestMapping("/hello")
-	public String hello() {
+	public String hello(Model model) {
+		User user = userService.find(1);
+		model.addAttribute("username", user.getUsername());
 		return "hello";
 	}
 

@@ -3,12 +3,7 @@ package org.zk.spring;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.zk.aop.MyTarget;
-import org.zk.config.ApplicationConfig;
 import org.zk.config.AsyncConfig;
-import org.zk.domain.User;
-
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 public class AsyncTest {
 

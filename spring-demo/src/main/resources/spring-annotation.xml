@@ -32,7 +32,7 @@
     -->
     <bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>
 
-    <bean class="org.zk.config.ApplicationConfig"></bean>
+    <bean class="org.zk.config.AppConfig"></bean>
 
 
 

@@ -1,16 +1,9 @@
 package org.zk.spring;
 
 import org.junit.Test;
-import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
-import org.zk.config.ApplicationConfig;
-import org.zk.core.UserFactoryBean;
 import org.zk.domain.User;
 
 import java.util.Locale;

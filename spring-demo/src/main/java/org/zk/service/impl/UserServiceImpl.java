@@ -35,9 +35,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	//	@Transactional
-	public UserEntity find(int id) {
-//		return userRepo.findTopByUsername("11");
-		return entityManager.find(UserEntity.class, id+1);
+	public User find(int id) {
+		return userDao.findById(1);
+		// return userRepo.findTopByUsername("11");
+		// return entityManager.find(UserEntity.class, id+1);
 	}
 
 	@Override
