@@ -117,7 +117,7 @@ class ConfigurationClassBeanDefinitionReader {
 	 * class itself, all its {@link Bean} methods
 	 */
 	private void loadBeanDefinitionsForConfigurationClass(ConfigurationClass configClass) {
-		// @Import导入配置类
+		// @Import导入配置类，内部配置类也走这里
 		if (configClass.isImported()) {
 			registerBeanDefinitionForImportedConfigurationClass(configClass);
 		}

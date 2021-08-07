@@ -64,7 +64,7 @@ class InterceptorsBeanDefinitionParser implements BeanDefinitionParser {
 			mappedInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(0, includePatterns);
 			mappedInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(1, excludePatterns);
 			mappedInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(2, interceptorBean);
-
+			// 注册MappedInterceptor
 			String beanName = parserContext.getReaderContext().registerWithGeneratedName(mappedInterceptorDef);
 			parserContext.registerComponent(new BeanComponentDefinition(mappedInterceptorDef, beanName));
 		}

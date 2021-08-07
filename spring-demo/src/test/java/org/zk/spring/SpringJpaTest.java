@@ -3,6 +3,7 @@ package org.zk.spring;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.zk.config.JpaConfig;
+import org.zk.domain.User;
 import org.zk.entity.UserEntity;
 import org.zk.repo.UserRepo;
 import org.zk.service.UserService;
@@ -26,7 +27,7 @@ public class SpringJpaTest {
 		// 是因为EntityManagerBeanDefinitionRegistrarPostProcessor注入了SharedEntityManagerCreator factory-method:createSharedEntityManager
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(JpaConfig.class);
 		UserService userService = ctx.getBean(UserService.class);
-		UserEntity user = userService.find(1);
+		User user = userService.find(1);
 		System.out.println(user);
 	}
 

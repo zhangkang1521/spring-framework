@@ -118,6 +118,7 @@ class ComponentScanAnnotationParser {
 			basePackages.add(ClassUtils.getPackageName(clazz));
 		}
 
+		// 如果没有指定basePackage，则basePackage为标志该注解类的包
 		if (basePackages.isEmpty()) {
 			basePackages.add(ClassUtils.getPackageName(declaringClass));
 		}

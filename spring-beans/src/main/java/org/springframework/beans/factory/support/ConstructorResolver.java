@@ -744,6 +744,7 @@ class ConstructorResolver {
 				}
 				try {
 					MethodParameter param = MethodParameter.forMethodOrConstructor(methodOrCtor, paramIndex);
+					// 解析注解方法参数的依赖
 					Object autowiredArgument = resolveAutowiredArgument(param, beanName, autowiredBeanNames, converter);
 					args.rawArguments[paramIndex] = autowiredArgument;
 					args.arguments[paramIndex] = autowiredArgument;

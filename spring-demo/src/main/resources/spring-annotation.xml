@@ -41,7 +41,7 @@
 
 
     <!-- 数据校验 -->
-    <!--<bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor"/>-->
+    <bean class="org.springframework.validation.beanvalidation.BeanValidationPostProcessor"/>
     <!--<bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>-->
     <!--<bean class="org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor"/>-->
     <!--<bean class="org.springframework.scheduling.annotation.AsyncAnnotationBeanPostProcessor"/>-->

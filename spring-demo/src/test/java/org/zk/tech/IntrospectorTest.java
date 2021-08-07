@@ -26,4 +26,14 @@ public class IntrospectorTest {
 		}
 		System.out.println(user.getId());
 	}
+
+	@Test
+	public void test2() throws Exception {
+		// spring-boot 配置spring.beaninfo.ignore为true
+		BeanInfo beanInfo = Introspector.getBeanInfo(Child.class);
+		BeanInfo beanInfo2 = Introspector.getBeanInfo(Child.class, Introspector.IGNORE_ALL_BEANINFO);
+		System.out.println(beanInfo);
+	}
+
+
 }

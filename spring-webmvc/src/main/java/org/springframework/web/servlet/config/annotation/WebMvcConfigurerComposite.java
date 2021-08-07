@@ -29,6 +29,7 @@ import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 
 /**
+ * 组合多个Mvc配置，用户配置会实现WebMvcConfigurer接口，本类的构造方法会自动注入
  * A {@link WebMvcConfigurer} that delegates to one or more others.
  *
  * @author Rossen Stoyanchev
@@ -40,6 +41,7 @@ class WebMvcConfigurerComposite implements WebMvcConfigurer {
 
 
 	public void addWebMvcConfigurers(List<WebMvcConfigurer> configurers) {
+		// 支持多份mvc配置
 		if (!CollectionUtils.isEmpty(configurers)) {
 			this.delegates.addAll(configurers);
 		}

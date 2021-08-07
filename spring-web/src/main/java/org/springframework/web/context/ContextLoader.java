@@ -289,7 +289,7 @@ public class ContextLoader {
 		try {
 			// Store context in local instance variable, to guarantee that
 			// it is available on ServletContext shutdown.
-			if (this.context == null) {
+			if (this.context == null) { // 注解配置会在SpringServletContainerInitializer进行创建
 				// 创建spring容器
 				this.context = createWebApplicationContext(servletContext);
 			}

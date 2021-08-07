@@ -25,6 +25,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.util.Assert;
 
 /**
+ * <mvc:annotation/> 标签会自动注入该拦截器
  * Interceptor that places the configured {@link ConversionService} in request scope
  * so it's available during request processing. The request attribute name is
  * "org.springframework.core.convert.ConversionService", the value of

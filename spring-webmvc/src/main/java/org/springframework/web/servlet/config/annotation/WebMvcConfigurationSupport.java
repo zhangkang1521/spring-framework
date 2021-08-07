@@ -195,6 +195,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	public RequestMappingHandlerMapping requestMappingHandlerMapping() {
 		RequestMappingHandlerMapping handlerMapping = new RequestMappingHandlerMapping();
 		handlerMapping.setOrder(0);
+		// 设置拦截器
 		handlerMapping.setInterceptors(getInterceptors());
 		handlerMapping.setContentNegotiationManager(mvcContentNegotiationManager());
 
@@ -228,6 +229,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	protected final Object[] getInterceptors() {
 		if (this.interceptors == null) {
 			InterceptorRegistry registry = new InterceptorRegistry();
+			// 会回调到用户的方法
 			addInterceptors(registry);
 			registry.addInterceptor(new ConversionServiceExposingInterceptor(mvcConversionService()));
 			this.interceptors = registry.getInterceptors();
@@ -273,6 +275,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	 */
 	@Bean
 	public PathMatcher mvcPathMatcher() {
+		// 支持用户自定义
 		PathMatcher pathMatcher = getPathMatchConfigurer().getPathMatcher();
 		return (pathMatcher != null ? pathMatcher : new AntPathMatcher());
 	}
@@ -286,6 +289,7 @@ public class WebMvcConfigurationSupport implements ApplicationContextAware, Serv
 	 */
 	@Bean
 	public UrlPathHelper mvcUrlPathHelper() {
+		// 支持用户自定义
 		UrlPathHelper pathHelper = getPathMatchConfigurer().getUrlPathHelper();
 		return (pathHelper != null ? pathHelper : new UrlPathHelper());
 	}

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -55,6 +56,9 @@ public class UserAnnotationController implements ApplicationContextAware {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private Environment environment;
 
 
 	private static Logger log = LoggerFactory.getLogger(UserAnnotationController.class);

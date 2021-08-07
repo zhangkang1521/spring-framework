@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +19,13 @@ import javax.sql.DataSource;
 import java.beans.PropertyEditor;
 
 
-@Configuration
-@MapperScan("org.zk.dao")
-@ComponentScan("org.zk.service")
+//@Configuration
+//@MapperScan("org.zk.dao")
+//@ComponentScan("org.zk.service")
 public class AppConfig {
+
+	@Value("classpath:mappers/*.xml")
+	private Resource[] mapperResources;
 
 	@Bean
 	public DataSource dataSource() {
@@ -38,10 +42,10 @@ public class AppConfig {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		// 配置文件string会自动转换到Resource[]
-		PropertyEditor editor = new ResourceArrayPropertyEditor();
-		editor.setAsText("classpath:mappers/*.xml");
-		Resource[] resources = (Resource[]) editor.getValue();
-		sqlSessionFactoryBean.setMapperLocations(resources);
+//		PropertyEditor editor = new ResourceArrayPropertyEditor();
+//		editor.setAsText("classpath:mappers/*.xml");
+//		Resource[] resources = (Resource[]) editor.getValue();
+		sqlSessionFactoryBean.setMapperLocations(mapperResources);
 		return sqlSessionFactoryBean.getObject();
 	}
 

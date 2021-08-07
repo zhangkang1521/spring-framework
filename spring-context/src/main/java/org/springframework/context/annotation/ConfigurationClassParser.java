@@ -327,13 +327,15 @@ class ConfigurationClassParser {
 	private void collectImports(AnnotationMetadata metadata, Set<Object> imports, Set<String> visited) throws IOException {
 		String className = metadata.getClassName();
 		if (visited.add(className)) {
-			if (metadata instanceof StandardAnnotationMetadata) { // false
+			if (metadata instanceof StandardAnnotationMetadata) { // 反射的
 				StandardAnnotationMetadata stdMetadata = (StandardAnnotationMetadata) metadata;
 				for (Annotation ann : stdMetadata.getIntrospectedClass().getAnnotations()) {
 					if (!ann.annotationType().getName().startsWith("java") && !(ann instanceof Import)) {
+						// 递归，例如 EnableAsync
 						collectImports(new StandardAnnotationMetadata(ann.annotationType()), imports, visited);
 					}
 				}
+				// 包含@Import注解
 				Map<String, Object> attributes = stdMetadata.getAnnotationAttributes(Import.class.getName(), false);
 				if (attributes != null) {
 					Class<?>[] value = (Class<?>[]) attributes.get("value");

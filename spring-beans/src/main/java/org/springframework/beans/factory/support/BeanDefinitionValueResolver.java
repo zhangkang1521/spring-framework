@@ -116,7 +116,7 @@ class BeanDefinitionValueResolver {
 			}
 			return refName;
 		}
-		else if (value instanceof BeanDefinitionHolder) {
+		else if (value instanceof BeanDefinitionHolder) { // 内嵌bean
 			// Resolve BeanDefinitionHolder: contains BeanDefinition with name and aliases.
 			BeanDefinitionHolder bdHolder = (BeanDefinitionHolder) value;
 			return resolveInnerBean(argName, bdHolder.getBeanName(), bdHolder.getBeanDefinition());

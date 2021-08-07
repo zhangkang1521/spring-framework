@@ -77,6 +77,7 @@ class SimpleCommandLineArgsParser {
 				commandLineArgs.addOptionArg(optionName, optionValue);
 			}
 			else {
+				// 不是以--开头的就是NonOptionArg
 				commandLineArgs.addNonOptionArg(arg);
 			}
 		}

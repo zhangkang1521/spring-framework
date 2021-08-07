@@ -9,8 +9,6 @@ import org.zk.domain.User;
 public class UserFactoryBean implements FactoryBean<User> {
 
     public User getObject() throws Exception {
-        // 每次getBean都会调用，单例中存的是UserFactoryBean
-        // 所以Mybatis的SqlSessionFactoryBean将构建SqlSessionFactory放到初始化方法中
         return new User();
     }
 

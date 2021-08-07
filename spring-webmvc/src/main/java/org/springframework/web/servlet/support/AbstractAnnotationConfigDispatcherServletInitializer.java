@@ -47,6 +47,7 @@ public abstract class AbstractAnnotationConfigDispatcherServletInitializer
 	 */
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
+		// 父容器配置类
 		Class<?>[] configClasses = getRootConfigClasses();
 		if (!ObjectUtils.isEmpty(configClasses)) {
 			AnnotationConfigWebApplicationContext rootAppContext = new AnnotationConfigWebApplicationContext();
@@ -66,6 +67,7 @@ public abstract class AbstractAnnotationConfigDispatcherServletInitializer
 	@Override
 	protected WebApplicationContext createServletApplicationContext() {
 		AnnotationConfigWebApplicationContext servletAppContext = new AnnotationConfigWebApplicationContext();
+		// 获取spring-mvc配置类
 		Class<?>[] configClasses = getServletConfigClasses();
 		if (!ObjectUtils.isEmpty(configClasses)) {
 			servletAppContext.register(configClasses);

@@ -107,6 +107,7 @@ public class HttpPutFormContentFilter extends OncePerRequestFilter {
 
 	private static class HttpPutFormContentRequestWrapper extends HttpServletRequestWrapper {
 
+		// 存储body中的参数
 		private MultiValueMap<String, String> formParameters;
 
 		public HttpPutFormContentRequestWrapper(HttpServletRequest request, MultiValueMap<String, String> parameters) {
@@ -151,6 +152,7 @@ public class HttpPutFormContentFilter extends OncePerRequestFilter {
 				return formValues.toArray(new String[formValues.size()]);
 			}
 			else {
+				// 合并url和body中参数
 				List<String> result = new ArrayList<String>();
 				result.addAll(Arrays.asList(queryStringValues));
 				result.addAll(formValues);

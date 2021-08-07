@@ -40,6 +40,7 @@ import org.springframework.web.servlet.HandlerExceptionResolver;
 @Configuration
 public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
 
+	// 组合多份mvc配置
 	private final WebMvcConfigurerComposite configurers = new WebMvcConfigurerComposite();
 
 

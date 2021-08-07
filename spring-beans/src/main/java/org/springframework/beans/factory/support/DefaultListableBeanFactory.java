@@ -773,6 +773,8 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	// Dependency resolution functionality
 	//---------------------------------------------------------------------
 
+	// 1. @Autowired 走这里
+	// 2. 配置类方法参数依赖 走这里
 	public Object resolveDependency(DependencyDescriptor descriptor, String beanName,
 			Set<String> autowiredBeanNames, TypeConverter typeConverter) throws BeansException {
 

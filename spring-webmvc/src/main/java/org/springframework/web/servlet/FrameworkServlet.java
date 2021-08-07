@@ -489,12 +489,12 @@ public abstract class FrameworkServlet extends HttpServletBean {
 	 * @see #setContextConfigLocation
 	 */
 	protected WebApplicationContext initWebApplicationContext() {
-		// ContextListener中创建的
+		// ContextLoaderListener 中创建的
 		WebApplicationContext rootContext =
 				WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		WebApplicationContext wac = null;
 
-		if (this.webApplicationContext != null) { // false
+		if (this.webApplicationContext != null) { // xml配置：false, 全注解配置：true
 			// A context instance was injected at construction time -> use it
 			wac = this.webApplicationContext;
 			if (wac instanceof ConfigurableWebApplicationContext) {

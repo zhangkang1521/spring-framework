@@ -1,7 +1,12 @@
 package org.zk.config;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.*;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.zk.annotation.EnableUser;
+import org.zk.core.UserFactoryBean;
+import org.zk.domain.Order;
 import org.zk.domain.User;
 
 // 引入properties配置文件，放入environment中
@@ -21,7 +26,8 @@ import org.zk.domain.User;
 //@EnableAsync
 
 // 包扫描
-//@ComponentScan(basePackages = "org.zk.aop")
+@ComponentScan
+//@EnableUser("test")
 @Configuration
 public class DemoConfig {
 
@@ -42,16 +48,15 @@ public class DemoConfig {
 //	}
 
 
-	@Bean
-	public User user() {
-		User user = new User();
-		user.setUsername("zk1");
-		return user;
-	}
-
-
+//	@Bean
+//	public User user() throws Exception {
+//		User user = new User();
+//		return user;
+//	}
+//
+//
 //	@Bean(name = "order2")
-//	public Order order2() {
+//	public Order order2(User user) {
 //		Order order1 = new Order();
 //		order1.setId(2);
 //		return order1;

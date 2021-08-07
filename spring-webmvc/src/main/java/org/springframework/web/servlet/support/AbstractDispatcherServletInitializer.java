@@ -63,8 +63,10 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
+		// 注册ContextLoaderListener到web容器
 		super.onStartup(servletContext);
 
+		// 注册DispatcherServlet到web容器中
 		registerDispatcherServlet(servletContext);
 	}
 
@@ -82,11 +84,13 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 		String servletName = getServletName();
 		Assert.hasLength(servletName, "getServletName() may not return empty or null");
 
+		// 创建spring-mvc容器
 		WebApplicationContext servletAppContext = createServletApplicationContext();
 		Assert.notNull(servletAppContext,
 				"createServletApplicationContext() did not return an application " +
 				"context for servlet [" + servletName + "]");
 
+		// 注册DispatcherServlet
 		DispatcherServlet dispatcherServlet = new DispatcherServlet(servletAppContext);
 		ServletRegistration.Dynamic registration = servletContext.addServlet(servletName, dispatcherServlet);
 		Assert.notNull(registration,
@@ -94,7 +98,7 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 				"Check if there is another servlet registered under the same name.");
 
 		registration.setLoadOnStartup(1);
-		registration.addMapping(getServletMappings());
+		registration.addMapping(getServletMappings()); // 配置类提供
 		registration.setAsyncSupported(isAsyncSupported());
 
 		Filter[] filters = getServletFilters();

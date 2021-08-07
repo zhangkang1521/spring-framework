@@ -108,7 +108,7 @@ import org.springframework.core.annotation.AnnotationAwareOrderComparator;
  * @see #onStartup(Set, ServletContext)
  * @see WebApplicationInitializer
  */
-@HandlesTypes(WebApplicationInitializer.class)
+@HandlesTypes(WebApplicationInitializer.class) // 将这个接口的实现类都放入onStartup第一个参数中
 public class SpringServletContainerInitializer implements ServletContainerInitializer {
 
 	/**
@@ -170,7 +170,7 @@ public class SpringServletContainerInitializer implements ServletContainerInitia
 
 		AnnotationAwareOrderComparator.sort(initializers);
 		servletContext.log("Spring WebApplicationInitializers detected on classpath: " + initializers);
-
+		// 调用
 		for (WebApplicationInitializer initializer : initializers) {
 			initializer.onStartup(servletContext);
 		}

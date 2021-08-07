@@ -215,7 +215,7 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		handlerAdapterDef.getPropertyValues().add("deferredResultInterceptors", deferredResultInterceptors);
 		String handlerAdapterName = parserContext.getReaderContext().registerWithGeneratedName(handlerAdapterDef);
 
-		// 6注册 MappedInterceptor
+		// 6注册 ConversionServiceExposingInterceptor
 		RootBeanDefinition csInterceptorDef = new RootBeanDefinition(ConversionServiceExposingInterceptor.class);
 		csInterceptorDef.setSource(source);
 		csInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(0, conversionService);

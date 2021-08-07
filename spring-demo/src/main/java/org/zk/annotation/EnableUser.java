@@ -10,4 +10,5 @@ import java.lang.annotation.*;
 @Documented
 @Import(MyImportBeanDefinitionRegistrar.class) // 导入配置
 public @interface EnableUser {
+	String value();
 }

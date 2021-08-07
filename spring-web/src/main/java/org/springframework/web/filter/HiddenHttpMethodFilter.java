@@ -68,6 +68,7 @@ public class HiddenHttpMethodFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 
 		String paramValue = request.getParameter(this.methodParam);
+		// 针对POST表单，将_method参数作为method，
 		if ("POST".equals(request.getMethod()) && StringUtils.hasLength(paramValue)) {
 			String method = paramValue.toUpperCase(Locale.ENGLISH);
 			HttpServletRequest wrapper = new HttpMethodRequestWrapper(request, method);
