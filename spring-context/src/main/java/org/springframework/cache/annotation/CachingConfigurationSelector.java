@@ -42,6 +42,7 @@ public class CachingConfigurationSelector extends AdviceModeImportSelector<Enabl
 	public String[] selectImports(AdviceMode adviceMode) {
 		switch (adviceMode) {
 			case PROXY:
+				// 缓存
 				return new String[] { AutoProxyRegistrar.class.getName(), ProxyCachingConfiguration.class.getName() };
 			case ASPECTJ:
 				return new String[] { AnnotationConfigUtils.CACHE_ASPECT_CONFIGURATION_CLASS_NAME };

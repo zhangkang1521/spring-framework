@@ -26,6 +26,7 @@ import java.lang.annotation.Target;
 import org.springframework.cache.Cache;
 
 /**
+ * 更新缓存，真实方法永远会调用
  * Annotation indicating that a method (or all methods on a class) trigger(s)
  * a {@link Cache#put(Object, Object)} operation. As opposed to {@link Cacheable} annotation,
  * this annotation does not cause the target method to be skipped - rather it

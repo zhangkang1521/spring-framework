@@ -200,16 +200,18 @@ public abstract class CacheAspectSupport implements InitializingBean {
 			Object retVal;
 			Map<CacheOperationContext, Object> updates = inspectCacheUpdates(ops.get(UPDATE));
 			if (status != null) {
-				if (status.updateRequired) {
+				if (status.updateRequired) { // 需执行真实方法
 					updates.putAll(status.cacheUpdates);
 				}
 				// return cached object
-				else {
+				else { // 返回缓存中的数据，不再执行真实方法
 					return status.retVal;
 				}
 			}
+			// 执行真实的方法
 			retVal = invoker.invoke();
 			inspectAfterCacheEvicts(ops.get(EVICT), retVal);
+			// 更新缓存
 			if (!updates.isEmpty()) {
 				update(updates, retVal);
 			}
@@ -348,6 +350,7 @@ public abstract class CacheAspectSupport implements InitializingBean {
 			CacheOperationContext operationContext = entry.getKey();
 			if (operationContext.canPutToCache(retVal)) {
 				for (Cache cache : operationContext.getCaches()) {
+					// 放入缓存
 					cache.put(entry.getValue(), retVal);
 				}
 			}

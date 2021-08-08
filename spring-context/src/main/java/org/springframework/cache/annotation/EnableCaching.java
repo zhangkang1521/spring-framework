@@ -144,7 +144,7 @@ import org.springframework.core.Ordered;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(CachingConfigurationSelector.class)
+@Import(CachingConfigurationSelector.class) // 缓存配置
 public @interface EnableCaching {
 
 	/**

@@ -45,6 +45,7 @@ public class SpringCacheAnnotationParser implements CacheAnnotationParser, Seria
 	public Collection<CacheOperation> parseCacheAnnotations(AnnotatedElement ae) {
 		Collection<CacheOperation> ops = null;
 
+		// 缓存操作
 		Collection<Cacheable> cacheables = getAnnotations(ae, Cacheable.class);
 		if (cacheables != null) {
 			ops = lazyInit(ops);

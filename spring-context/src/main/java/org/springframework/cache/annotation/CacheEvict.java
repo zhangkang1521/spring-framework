@@ -24,6 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 清除缓存
  * Annotation indicating that a method (or all methods on a class) trigger(s)
  * a cache invalidate operation.
  *
@@ -61,7 +62,7 @@ public @interface CacheEvict {
 	 * <p>Note that setting this parameter to {@code true} and specifying a {@link #key()}
 	 * is not allowed.
 	 */
-	boolean allEntries() default false;
+	boolean allEntries() default false; // 是否清除所有缓存
 
 	/**
 	 * Whether the eviction should occur after the method is successfully invoked (default)

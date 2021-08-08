@@ -24,6 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 缓存没有则调用真实方法，并将返回值缓存
  * Annotation indicating that a method (or all the methods on a class) can be cached.
  *
  * <p>The method arguments and signature are used for computing the key while the
@@ -50,13 +51,13 @@ public @interface Cacheable {
 	 * Spring Expression Language (SpEL) attribute for computing the key dynamically.
 	 * <p>Default is "", meaning all method parameters are considered as a key.
 	 */
-	String key() default "";
+	String key() default ""; // 支持el表达式
 
 	/**
 	 * Spring Expression Language (SpEL) attribute used for conditioning the method caching.
 	 * <p>Default is "", meaning the method is always cached.
 	 */
-	String condition() default "";
+	String condition() default ""; // 满足条件缓存
 
 	/**
 	 * Spring Expression Language (SpEL) attribute used to veto method caching.
@@ -65,5 +66,5 @@ public @interface Cacheable {
 	 * meaning that caching is never vetoed.
 	 * @since 3.2
 	 */
-	String unless() default "";
+	String unless() default ""; // 否决
 }

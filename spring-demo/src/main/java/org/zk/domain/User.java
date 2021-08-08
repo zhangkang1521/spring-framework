@@ -30,7 +30,7 @@ public class User implements Serializable {
 
 
     public User() {
-        System.out.println("invoke user()");
+       // System.out.println("invoke user()");
     }
 
     public Order getOrder() {

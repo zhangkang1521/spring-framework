@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Role;
 
 /**
+ * 缓存配置，和spring事务配置类似
  * {@code @Configuration} class that registers the Spring infrastructure beans necessary
  * to enable proxy-based annotation-driven cache management.
  *
@@ -37,28 +38,31 @@ import org.springframework.context.annotation.Role;
 @Configuration
 public class ProxyCachingConfiguration extends AbstractCachingConfiguration {
 
+	// 增强器，实现了Advisor
 	@Bean(name = AnnotationConfigUtils.CACHE_ADVISOR_BEAN_NAME)
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public BeanFactoryCacheOperationSourceAdvisor cacheAdvisor() {
 		BeanFactoryCacheOperationSourceAdvisor advisor =
 				new BeanFactoryCacheOperationSourceAdvisor();
-		advisor.setCacheOperationSource(cacheOperationSource());
-		advisor.setAdvice(cacheInterceptor());
+		advisor.setCacheOperationSource(cacheOperationSource()); // 缓存注解解析
+		advisor.setAdvice(cacheInterceptor()); // 拦截器
 		advisor.setOrder(this.enableCaching.<Integer>getNumber("order"));
 		return advisor;
 	}
 
+	// 缓存注解解析，读取@Cacheable等
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public CacheOperationSource cacheOperationSource() {
 		return new AnnotationCacheOperationSource();
 	}
 
+	// 方法拦截器，实现了MethodInterceptor
 	@Bean
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public CacheInterceptor cacheInterceptor() {
 		CacheInterceptor interceptor = new CacheInterceptor();
-		interceptor.setCacheOperationSources(cacheOperationSource());
+		interceptor.setCacheOperationSources(cacheOperationSource()); // 缓存注解解析
 		if (this.cacheManager != null) {
 			interceptor.setCacheManager(this.cacheManager);
 		}

@@ -48,7 +48,7 @@ public class AnnotationCacheOperationSource extends AbstractFallbackCacheOperati
 
 	private final boolean publicMethodsOnly;
 
-	private final Set<CacheAnnotationParser> annotationParsers;
+	private final Set<CacheAnnotationParser> annotationParsers; // 解析缓存操作注解
 
 
 	/**

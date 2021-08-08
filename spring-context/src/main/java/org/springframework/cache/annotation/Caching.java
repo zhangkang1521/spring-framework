@@ -19,6 +19,7 @@ package org.springframework.cache.annotation;
 import java.lang.annotation.*;
 
 /**
+ * 组合缓存
  * Group annotation for multiple cache annotations (of different or the same type).
  *
  * @author Costin Leau
