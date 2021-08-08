@@ -69,7 +69,7 @@ public class UserAnnotationController implements ApplicationContextAware {
 	// json格式：application/json
 	@RequestMapping(value = "/list")
 	@ResponseBody
-	public Result list(User user) {
+	public Result list(@Validated User user) {
 //		if(true) {
 //			throw new RuntimeException("xxx");
 //		}

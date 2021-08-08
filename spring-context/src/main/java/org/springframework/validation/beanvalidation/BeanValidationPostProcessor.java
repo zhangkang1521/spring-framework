@@ -29,6 +29,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 /**
+ * spring管理的bean进行校验，默认初始化前校验
  * Simple {@link BeanPostProcessor} that checks JSR-303 constraint annotations
  * in Spring-managed beans, throwing an initialization exception in case of
  * constraint violations right before calling the bean's init method (if any).
@@ -74,13 +75,14 @@ public class BeanValidationPostProcessor implements BeanPostProcessor, Initializ
 
 	public void afterPropertiesSet() {
 		if (this.validator == null) {
+			// hibernateValidator实现类
 			this.validator = Validation.buildDefaultValidatorFactory().getValidator();
 		}
 	}
 
 
 	public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
-		if (!this.afterInitialization) {
+		if (!this.afterInitialization) { // 默认初始化前校验
 			doValidate(bean);
 		}
 		return bean;

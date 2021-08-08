@@ -21,8 +21,8 @@ public class User implements Serializable {
 
     private Integer id;
 
-//    @NotBlank(message = "用户名不能为空")
-    @Value("${M2_HOME}")
+    @NotBlank(message = "用户名不能为空")
+//    @Value("${M2_HOME}")
     private String username;
 
 //    @Autowired

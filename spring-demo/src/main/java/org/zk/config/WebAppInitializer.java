@@ -5,7 +5,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 /**
  * servlet3会自动执行 SpringServletContainerInitializer，该类会执行WebApplicationInitializer的方法
  */
-public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class WebAppInitializer /*extends AbstractAnnotationConfigDispatcherServletInitializer*/ {
 
 	protected Class<?>[] getRootConfigClasses() {
 		// 父容器

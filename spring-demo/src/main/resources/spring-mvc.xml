@@ -74,13 +74,13 @@
     <!--</bean>-->
 
     <!-- 拦截器，注入 MappedInterceptor-->
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/login/**"/>
-            <bean class="org.zk.web.interceptor.LoginInterceptor" />
-        </mvc:interceptor>
-    </mvc:interceptors>
+    <!--<mvc:interceptors>-->
+        <!--<mvc:interceptor>-->
+            <!--<mvc:mapping path="/**"/>-->
+            <!--<mvc:exclude-mapping path="/login/**"/>-->
+            <!--<bean class="org.zk.web.interceptor.LoginInterceptor" />-->
+        <!--</mvc:interceptor>-->
+    <!--</mvc:interceptors>-->
 
 
     <!-- 静态资源访问，注入SimpleUrlHandlerMapping，将mapping映射到ResourceHttpRequestHandler-->
