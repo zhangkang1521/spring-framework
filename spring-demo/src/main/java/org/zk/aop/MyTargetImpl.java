@@ -40,7 +40,6 @@ public class MyTargetImpl implements MyTarget {
         // ((MyTarget)AopContext.currentProxy()).sayWorld();
     }
 
-    @Override
 //    @DynamicDataSource
     public void sayWorld() {
         System.out.println(Thread.currentThread() + " world");

@@ -13,27 +13,27 @@ public class MyAspect {
 
     public static final Logger log = LoggerFactory.getLogger(MyAspect.class);
 
-    @Pointcut("execution(public * org.zk.aop.MyTarget.sayH*())")
+    @Pointcut("execution(public * org.zk.aop.MyTargetImpl.say*())")
 //    @Pointcut("@annotation(org.zk.aop.DynamicDataSource)")
     public void pointCut1() {
 
     }
 
-    @Pointcut("execution(public * org.zk.aop.MyTarget.xxx())")
-//    @Pointcut("@annotation(org.zk.aop.DynamicDataSource)")
-    public void pointCut2() {
-
-    }
+//    @Pointcut("execution(public * org.zk.aop.MyTarget.xxx())")
+////    @Pointcut("@annotation(org.zk.aop.DynamicDataSource)")
+//    public void pointCut2() {
+//
+//    }
 
     @Before("pointCut1()")
     public void before() {
         log.info("=== before ===");
     }
 
-    @After("pointCut2()")
-    public void after() {
-        log.info("=== after ===");
-    }
+//    @After("pointCut2()")
+//    public void after() {
+//        log.info("=== after ===");
+//    }
 
 //    @Around("pointCut1()")
 //    public Object around(ProceedingJoinPoint joinPoint) throws Throwable {

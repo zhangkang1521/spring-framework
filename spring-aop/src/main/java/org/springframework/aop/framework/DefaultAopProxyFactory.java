@@ -50,6 +50,7 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 
 
 	public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException {
+		// config.getTargetSource().getTarget() instanceof MyTargetImpl
 		// cglib动态代理: 使用优化策略（一般不用） 或者 配置proxy-target-class = true 或者 没有实现接口
 		if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) {
 			Class targetClass = config.getTargetClass();

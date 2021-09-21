@@ -53,7 +53,7 @@ public class CglibTest {
 
         @Override
         public int accept(Method method) {
-            return 1;
+            return 0;
         }
     }
 
