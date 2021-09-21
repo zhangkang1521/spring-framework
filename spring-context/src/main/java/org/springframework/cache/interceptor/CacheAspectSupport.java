@@ -161,6 +161,7 @@ public abstract class CacheAspectSupport implements InitializingBean {
 		Set<String> cacheNames = operation.getCacheNames();
 		Collection<Cache> caches = new ArrayList<Cache>(cacheNames.size());
 		for (String cacheName : cacheNames) {
+			// 找到正确的cache
 			Cache cache = this.cacheManager.getCache(cacheName);
 			if (cache == null) {
 				throw new IllegalArgumentException("Cannot find cache named '" + cacheName + "' for " + operation);

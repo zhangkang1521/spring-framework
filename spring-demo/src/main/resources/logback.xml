@@ -26,6 +26,7 @@
 
 
     <logger name="org.springframework" level="debug"></logger>
+    <logger name="org.springframework.cache" level="trace"></logger>
     <logger name="org.zk" level="debug"></logger>
 
 

@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import org.zk.domain.User;
 import org.zk.service.CacheDemoService;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class CacheDemoServiceImpl implements CacheDemoService {
 
@@ -17,6 +21,13 @@ public class CacheDemoServiceImpl implements CacheDemoService {
 		user.setId(id);
 		user.setUsername("zk" + id);
 		return user;
+	}
+
+	@Override
+	@Cacheable(value = "my-user", key = "#p0")
+	public List<User> findByIdIn(List<Integer> userIds) {
+		System.out.println("findByUserIdIn" + userIds);
+		return Arrays.asList(new User(), new User());
 	}
 
 	@CachePut(value = "my-user", key = "#user.id")
