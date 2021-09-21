@@ -153,8 +153,11 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 	 */
 	@Override
 	public void afterPropertiesSet() {
+		// 父类验证connectionFactory必须存在
 		super.afterPropertiesSet();
+		// 子类验证destination必须存在
 		validateConfiguration();
+		// 启动线程进行消费
 		initialize();
 	}
 
@@ -508,6 +511,7 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 	protected final boolean rescheduleTaskIfNecessary(Object task) {
 		if (this.running) {
 			try {
+				// 将任务放入Executor中
 				doRescheduleTask(task);
 			}
 			catch (RuntimeException ex) {

@@ -659,8 +659,9 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	 * invokers for this listener container.
 	 */
 	private void scheduleNewInvoker() {
+		// 这个invoker实现了Runnable接口，死循环消费消息
 		AsyncMessageListenerInvoker invoker = new AsyncMessageListenerInvoker();
-		if (rescheduleTaskIfNecessary(invoker)) {
+		if (rescheduleTaskIfNecessary(invoker)) { // 将invoker放入Executor中执行
 			// This should always be true, since we're only calling this when active.
 			this.scheduledInvokers.add(invoker);
 		}
