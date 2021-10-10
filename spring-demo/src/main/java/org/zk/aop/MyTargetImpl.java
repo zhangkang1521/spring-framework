@@ -26,6 +26,8 @@ public class MyTargetImpl implements MyTarget {
     public void sayHello() {
 //
         log.info("sayHello invoke");
+//        this.sayWorld();
+        ((MyTarget)AopContext.currentProxy()).sayWorld();
 //        System.out.println(Thread.currentThread() + " hello");
 //        try {
 //            Thread.sleep(5000);
@@ -42,7 +44,7 @@ public class MyTargetImpl implements MyTarget {
 
 //    @DynamicDataSource
     public void sayWorld() {
-        System.out.println(Thread.currentThread() + " world");
+        log.info("sayWorld invoke");
     }
 
 

@@ -9,6 +9,8 @@ import org.zk.core.UserFactoryBean;
 import org.zk.domain.Order;
 import org.zk.domain.User;
 
+import java.util.Map;
+
 // 引入properties配置文件，放入environment中
 //@PropertySource("classpath:jdbc.properties")
 
@@ -26,14 +28,16 @@ import org.zk.domain.User;
 //@EnableAsync
 
 // 包扫描
-@ComponentScan
+//@ComponentScan
 //@EnableUser("test")
 @Configuration
+@PropertySource("classpath:jdbc.properties")
 public class DemoConfig {
 
 
 	// 命令参数(getProperties) > 环境变量(getEnv) > properties 文件
 	private String test;
+	private Map<String, String> map;
 
 //	@Value("${jdbc.username}")
 //	@Value("#{user.username}")
@@ -41,11 +45,15 @@ public class DemoConfig {
 		this.test = test;
 	}
 
+	public void setMap(Map<String, String> map) {
+		this.map = map;
+	}
+
 	// 容器后处理器，处理占位符，PropertyPlaceholderConfigurer不行，这个类不会从environment中读取配置
-//	@Bean
-//	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-//		return new PropertySourcesPlaceholderConfigurer();
-//	}
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 
 
 //	@Bean

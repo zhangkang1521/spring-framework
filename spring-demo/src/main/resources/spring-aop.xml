@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 注册bean后置处理器：AnnotationAwareAspectJAutoProxyCreator -->
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <aop:aspectj-autoproxy proxy-target-class="false" expose-proxy="true"/>
 
     <bean id="myTarget" class="org.zk.aop.MyTargetImpl"></bean>
 

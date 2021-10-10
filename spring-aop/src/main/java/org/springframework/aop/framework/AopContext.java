@@ -59,6 +59,7 @@ public abstract class AopContext {
 	 * AOP framework has not been configured to expose the proxy
 	 */
 	public static Object currentProxy() throws IllegalStateException {
+		// 解决对象内部的自我调用，代理不生效
 		Object proxy = currentProxy.get();
 		if (proxy == null) {
 			throw new IllegalStateException(
@@ -75,6 +76,7 @@ public abstract class AopContext {
 	 * @see #currentProxy()
 	 */
 	static Object setCurrentProxy(Object proxy) {
+		// 暴露代理到线程中
 		Object old = currentProxy.get();
 		if (proxy != null) {
 			currentProxy.set(proxy);

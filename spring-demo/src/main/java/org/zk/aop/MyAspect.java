@@ -13,7 +13,7 @@ public class MyAspect {
 
     public static final Logger log = LoggerFactory.getLogger(MyAspect.class);
 
-    @Pointcut("execution(public * org.zk.aop.MyTargetImpl.say*())")
+    @Pointcut("execution(public * org.zk.aop.MyTargetImpl.sayW*())")
 //    @Pointcut("@annotation(org.zk.aop.DynamicDataSource)")
     public void pointCut1() {
 

@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.zk.tx.AService;
+import org.zk.tx.AServiceImpl;
 
 public class SpringTxTest {
 
@@ -18,8 +19,8 @@ public class SpringTxTest {
 	@Test
 	public void testTx() throws Exception {
 		ClassPathXmlApplicationContext ctx = new ClassPathXmlApplicationContext("spring-tx.xml");
-		AService userJdbcService = ctx.getBean(AService.class);
-		userJdbcService.save();
+		AServiceImpl aService = ctx.getBean(AServiceImpl.class);
+		aService.save();
 	}
 
 

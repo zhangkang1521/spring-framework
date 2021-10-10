@@ -85,6 +85,7 @@ public class ExposeInvocationInterceptor implements MethodInterceptor, Ordered, 
 	}
 
 	public Object invoke(MethodInvocation mi) throws Throwable {
+		// 用于暴露MethodInvocation到当前线程中
 		MethodInvocation oldInvocation = invocation.get();
 		invocation.set(mi);
 		try {

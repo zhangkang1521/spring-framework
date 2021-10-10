@@ -232,7 +232,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 				targetSource.releaseTarget(target);
 			}
 			if (setProxyContext) {
-				// Restore old proxy.
+				// Restore old proxy. 恢复当前线程原来的代理
 				AopContext.setCurrentProxy(oldProxy);
 			}
 		}

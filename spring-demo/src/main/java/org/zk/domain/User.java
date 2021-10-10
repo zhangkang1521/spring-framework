@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContextAware;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by Administrator on 5/20/2018.
@@ -27,6 +28,8 @@ public class User implements Serializable {
 
 //    @Autowired
     private Order order;
+
+    private Map<String, String> parameters;
 
 
     public User() {
@@ -57,4 +60,12 @@ public class User implements Serializable {
         this.username = username;
     }
 
+
+    public Map<String, String> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Map<String, String> parameters) {
+        this.parameters = parameters;
+    }
 }

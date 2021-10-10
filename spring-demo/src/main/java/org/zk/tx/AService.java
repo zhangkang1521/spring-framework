@@ -7,4 +7,6 @@ public interface AService {
 
 	void save() throws Exception;
 
+	void save2();
+
 }
