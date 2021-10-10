@@ -596,6 +596,7 @@ public class DataBinderTests extends TestCase {
 	}
 
 	public void testBindingWithAllowedAndDisallowedMapFields() throws Exception {
+		// 绑定到map
 		TestBean rod = new TestBean();
 		DataBinder binder = new DataBinder(rod);
 		binder.setAllowedFields("someMap[key1]", "someMap[key2]");
