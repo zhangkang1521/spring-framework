@@ -78,6 +78,9 @@
     </bean>-->
 
 
+    <bean class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="transactionManager"/>
+    </bean>
 
 </beans>
 
