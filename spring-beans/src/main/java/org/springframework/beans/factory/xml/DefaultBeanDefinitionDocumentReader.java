@@ -145,9 +145,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		BeanDefinitionParserDelegate parent = this.delegate;
 		this.delegate = createDelegate(this.readerContext, root, parent);
 
+		// 留给子类扩展，默认为空
 		preProcessXml(root);
 		// 解析xml到BeanDefinition
 		parseBeanDefinitions(root, this.delegate);
+		// 留给子类扩展，默认为空
 		postProcessXml(root);
 
 		this.delegate = parent;
