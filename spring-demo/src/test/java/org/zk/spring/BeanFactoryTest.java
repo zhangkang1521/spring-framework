@@ -14,8 +14,8 @@ public class BeanFactoryTest {
 		// BeanFactory = DefaultListableBeanFactory + XmlBeanDefinitionReader
 		Resource resource = new ClassPathResource("applicationContext.xml");
 		BeanFactory beanFactory = new XmlBeanFactory(resource);
-		User user = (User)beanFactory.getBean("user");
-		User user2 = (User)beanFactory.getBean("user");
-//		System.out.println(user);
+		User user = (User)beanFactory.getBean("user", "11");
+		// User user2 = (User)beanFactory.getBean("user");
+		System.out.println(user);
 	}
 }

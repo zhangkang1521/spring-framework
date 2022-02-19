@@ -36,6 +36,10 @@ public class User implements Serializable {
        // System.out.println("invoke user()");
     }
 
+    public User(String username) {
+        this.username = username;
+    }
+
     public Order getOrder() {
         return order;
     }

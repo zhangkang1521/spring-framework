@@ -16,7 +16,17 @@ import java.lang.reflect.Method;
 public class CglibTest {
 
     @Test
-    public void testInstance() {
+    public void testCreateBean() {
+        Enhancer enhancer = new Enhancer();
+        enhancer.setSuperclass(User.class);
+        enhancer.setCallback(NoOp.INSTANCE);
+
+        User user = (User)enhancer.create();
+        System.out.println(user);
+    }
+
+    @Test
+    public void testInstance2() {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(UserService.class);
         enhancer.setNamingPolicy(new MyNamePolicy());

@@ -245,6 +245,7 @@ class ConstructorResolver {
 				}
 			}
 
+			// 没有找到对应的构造函数
 			if (constructorToUse == null) {
 				throw new BeanCreationException(mbd.getResourceDescription(), beanName,
 						"Could not resolve matching constructor " +
@@ -276,6 +277,7 @@ class ConstructorResolver {
 				}, beanFactory.getAccessControlContext());
 			}
 			else {
+				// 创建bean
 				beanInstance = this.beanFactory.getInstantiationStrategy().instantiate(
 						mbd, beanName, this.beanFactory, constructorToUse, argsToUse);
 			}

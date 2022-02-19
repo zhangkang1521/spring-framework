@@ -1000,6 +1000,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 		}
 
+		// 确定使用哪个构造函数
 		// Need to determine the constructor...
 		Constructor<?>[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);
 		if (ctors != null ||
@@ -1008,6 +1009,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			return autowireConstructor(beanName, mbd, ctors, args);
 		}
 
+		// 不带参数的bean创建
 		// No special handling: simply use no-arg constructor.
 		return instantiateBean(beanName, mbd);
 	}

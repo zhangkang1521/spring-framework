@@ -1245,6 +1245,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 		// Check validity of the usage of the args parameter. This can
 		// only be used for prototypes constructed via a factory method.
+		// 根据参数创建bean，必须是prototype
 		if (args != null && !mbd.isPrototype()) {
 			throw new BeanDefinitionStoreException(mbd.getResourceDescription(), beanName,
 					"Can only specify arguments for the getBean method when referring to a prototype bean definition");

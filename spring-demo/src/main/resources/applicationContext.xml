@@ -8,7 +8,7 @@
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 单例bean,spring容器启动时即初始化 -->
-    <bean id="user" class="org.zk.domain.User">
+    <bean id="user" class="org.zk.domain.User" scope="prototype">
         <property name="id" value="100"/>
         <!--<property name="username" value="${jdbc.username}"/>-->
         <!--<property name="order">-->

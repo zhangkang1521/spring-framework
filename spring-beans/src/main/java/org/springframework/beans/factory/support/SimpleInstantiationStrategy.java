@@ -56,8 +56,10 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 
 
 	public Object instantiate(RootBeanDefinition beanDefinition, String beanName, BeanFactory owner) {
+		// 实例化策略
 		// Don't override the class with CGLIB if no overrides.
 		if (beanDefinition.getMethodOverrides().isEmpty()) {
+			// 使用反射实例化
 			Constructor<?> constructorToUse;
 			synchronized (beanDefinition.constructorArgumentLock) {
 				constructorToUse = (Constructor<?>) beanDefinition.resolvedConstructorOrFactoryMethod;
@@ -86,9 +88,11 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 					}
 				}
 			}
-			return BeanUtils.instantiateClass(constructorToUse); // 使用构造函数初始化
+			// 使用构造函数初始化
+			return BeanUtils.instantiateClass(constructorToUse);
 		}
 		else {
+			// 使用cglib实例化
 			// Must generate CGLIB subclass.
 			return instantiateWithMethodInjection(beanDefinition, beanName, owner);
 		}
@@ -109,7 +113,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 
 	public Object instantiate(RootBeanDefinition beanDefinition, String beanName, BeanFactory owner,
 			final Constructor<?> ctor, Object[] args) {
-
+		// 实例化策略
 		if (beanDefinition.getMethodOverrides().isEmpty()) {
 			if (System.getSecurityManager() != null) {
 				// use own privileged to change accessibility (when security is on)
@@ -120,9 +124,11 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 					}
 				});
 			}
+			// 使用反射实例化
 			return BeanUtils.instantiateClass(ctor, args);
 		}
 		else {
+			// 使用cglib
 			return instantiateWithMethodInjection(beanDefinition, beanName, owner, ctor, args);
 		}
 	}
