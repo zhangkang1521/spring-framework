@@ -64,7 +64,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * Bean加载核心类
+ * Bean加载核心类，实现了BeanDefinitionRegistry接口，存储BeanDefinition
  * Default implementation of the
  * {@link org.springframework.beans.factory.ListableBeanFactory} and
  * {@link BeanDefinitionRegistry} interfaces: a full-fledged bean factory

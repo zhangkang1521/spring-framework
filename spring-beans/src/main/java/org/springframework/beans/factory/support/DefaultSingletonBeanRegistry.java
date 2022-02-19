@@ -38,7 +38,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * 单例注册支持，DefaultListableBeanFactory会继承这个类
+ * 实现了SingletonBeanRegistry，对单例注册支持，DefaultListableBeanFactory会继承这个类
  * Generic registry for shared bean instances, implementing the
  * {@link org.springframework.beans.factory.config.SingletonBeanRegistry}.
  * Allows for registering singleton instances that should be shared
