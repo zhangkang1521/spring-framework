@@ -12,9 +12,9 @@ public class BeanFactoryTest {
 	@Test
 	public void testXmlBeanFactory() throws Exception {
 		// BeanFactory = DefaultListableBeanFactory + XmlBeanDefinitionReader
-		Resource resource = new ClassPathResource("applicationContext.xml");
+		Resource resource = new ClassPathResource("bean-factory-1.xml");
 		BeanFactory beanFactory = new XmlBeanFactory(resource);
-		User user = (User)beanFactory.getBean("user", "11");
+		User user = (User)beanFactory.getBean("user");
 		// User user2 = (User)beanFactory.getBean("user");
 		System.out.println(user);
 	}
