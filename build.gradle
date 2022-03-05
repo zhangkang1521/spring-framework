@@ -1,9 +1,15 @@
 buildscript {
 	repositories {
 //		maven { url "https://repo.spring.io/plugins-release" }
-		maven { url "https://repo.spring.io/plugins-release-local" }
-		maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
-		maven{ url 'https://repo.spring.io/xerces-wso2-public-cache'}
+		// 换成阿里云仓库全家桶
+		maven{ url 'https://maven.aliyun.com/repository/central'}
+		maven{ url 'https://maven.aliyun.com/repository/public' }
+		maven{ url 'https://maven.aliyun.com/repository/google'}
+		maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+		maven{ url 'https://maven.aliyun.com/repository/spring'}
+		maven{ url 'https://maven.aliyun.com/repository/spring-plugin'}
+		maven{ url 'https://maven.aliyun.com/mvn/guide'}
+		maven{ url 'https://maven.aliyun.com/repository/apache-snapshots'}
 
 	}
 	dependencies {
@@ -79,8 +85,15 @@ configure(allprojects) { project ->
 
 	repositories {
 //		maven { url "https://repo.spring.io/libs-release" }
-		maven { url "https://repo.spring.io/libs-milestone" }
-		maven { url "https://repo.spring.io/libs-snapshot" }
+		// 换成阿里云仓库全家桶
+		maven{ url 'https://maven.aliyun.com/repository/central'}
+		maven{ url 'https://maven.aliyun.com/repository/public' }
+		maven{ url 'https://maven.aliyun.com/repository/google'}
+		maven{ url 'https://maven.aliyun.com/repository/gradle-plugin'}
+		maven{ url 'https://maven.aliyun.com/repository/spring'}
+		maven{ url 'https://maven.aliyun.com/repository/spring-plugin'}
+		maven{ url 'https://maven.aliyun.com/mvn/guide'}
+		maven{ url 'https://maven.aliyun.com/repository/apache-snapshots'}
 	}
 
 	dependencies {
