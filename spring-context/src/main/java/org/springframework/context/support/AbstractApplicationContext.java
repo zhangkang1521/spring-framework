@@ -473,7 +473,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 				// Register bean processors that intercept bean creation.
 				// 3.重要 注册Bean后处理器
-				// 典型应用：AutowiredAnnotationBeanPostProcessor.postProcessPropertyValues
+				// 典型应用：代理
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -557,7 +557,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * @see #getBeanFactory()
 	 */
 	protected ConfigurableListableBeanFactory obtainFreshBeanFactory() {
-		// 创建容器，读取BeanDefination
+		// 1. xml: AbstractRefreshableApplicationContext
+		// 创建容器，读取BeanDefinition
+		// 2. 注解: GenericApplicationContext
+		// beanFactory在构造函数中已经创建好BeanFactory，BeanDefinition使用扫描机制
 		refreshBeanFactory();
 		ConfigurableListableBeanFactory beanFactory = getBeanFactory();
 		if (logger.isDebugEnabled()) {

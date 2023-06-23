@@ -19,35 +19,35 @@ import javax.sql.DataSource;
 import java.beans.PropertyEditor;
 
 
-//@Configuration
+@Configuration
 //@MapperScan("org.zk.dao")
-//@ComponentScan("org.zk.service")
+//@ComponentScan("org.zk.temp")
 public class AppConfig {
 
-	@Value("classpath:mappers/*.xml")
-	private Resource[] mapperResources;
+//	@Value("classpath:mappers/*.xml")
+//	private Resource[] mapperResources;
 
-	@Bean
-	public DataSource dataSource() {
-		DruidDataSource dataSource = new DruidDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/zk");
-		dataSource.setUsername("root");
-		dataSource.setPassword("123456");
-		return dataSource;
-	}
+//	@Bean
+//	public DataSource dataSource() {
+//		DruidDataSource dataSource = new DruidDataSource();
+//		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/zk");
+//		dataSource.setUsername("root");
+//		dataSource.setPassword("123456");
+//		return dataSource;
+//	}
 
-	@Bean
-	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setDataSource(dataSource);
-		// 配置文件string会自动转换到Resource[]
-//		PropertyEditor editor = new ResourceArrayPropertyEditor();
-//		editor.setAsText("classpath:mappers/*.xml");
-//		Resource[] resources = (Resource[]) editor.getValue();
-		sqlSessionFactoryBean.setMapperLocations(mapperResources);
-		return sqlSessionFactoryBean.getObject();
-	}
+//	@Bean
+//	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+//		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+//		sqlSessionFactoryBean.setDataSource(dataSource);
+//		// 配置文件string会自动转换到Resource[]
+////		PropertyEditor editor = new ResourceArrayPropertyEditor();
+////		editor.setAsText("classpath:mappers/*.xml");
+////		Resource[] resources = (Resource[]) editor.getValue();
+//		sqlSessionFactoryBean.setMapperLocations(mapperResources);
+//		return sqlSessionFactoryBean.getObject();
+//	}
 
 	// 不能这么配，因为这里是由ConfigurationClassPostProcessor注册的，不可能再回调这个bean的容器注册方法
 	// 使用ImportBeanDefinitionRegistrar进行注册
