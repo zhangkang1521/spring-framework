@@ -11,8 +11,13 @@
         <property name="brokerURL" value="tcp://localhost:61616"></property>
     </bean>
 
-    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
-        <property name="connectionFactory" ref="connectionFactory"></property>
+    <bean id="messageListener" class="org.zk.jms.MyMessageListener"></bean>
+
+    <!-- 实现InitializingBean接口，在afterPropertiesSet方法中创建线程池，循环拉取消息并消费 -->
+    <bean id="defaultMessageListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destinationName" value="my-queue"/>
+        <property name="messageListener" ref="messageListener" />
     </bean>
 
 </beans>

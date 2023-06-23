@@ -97,6 +97,7 @@ public abstract class JmsDestinationAccessor extends JmsAccessor {
 	 * @see #setDestinationResolver
 	 */
 	protected Destination resolveDestinationName(Session session, String destinationName) throws JMSException {
+		// DynamicDestinationResolver
 		return getDestinationResolver().resolveDestinationName(session, destinationName, isPubSubDomain());
 	}
 

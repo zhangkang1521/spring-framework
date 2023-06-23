@@ -306,6 +306,7 @@ public class SimpleMessageListenerContainer extends AbstractMessageListenerConta
 		if (this.taskExecutor != null) {
 			consumer.setMessageListener(new MessageListener() {
 				public void onMessage(final Message message) {
+					// 收到消息，放入线程池中执行
 					taskExecutor.execute(new Runnable() {
 						public void run() {
 							processMessage(message, session);
@@ -317,6 +318,7 @@ public class SimpleMessageListenerContainer extends AbstractMessageListenerConta
 		else {
 			consumer.setMessageListener(new MessageListener() {
 				public void onMessage(Message message) {
+					// ActiveMQ Session Task-1 线程执行
 					processMessage(message, session);
 				}
 			});

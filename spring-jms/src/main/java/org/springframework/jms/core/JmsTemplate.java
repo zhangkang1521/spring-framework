@@ -450,6 +450,7 @@ public class JmsTemplate extends JmsDestinationAccessor implements JmsOperations
 		Connection conToClose = null;
 		Session sessionToClose = null;
 		try {
+			// 获取session
 			Session sessionToUse = ConnectionFactoryUtils.doGetTransactionalSession(
 					getConnectionFactory(), this.transactionalResourceFactory, startConnection);
 			if (sessionToUse == null) {
@@ -463,12 +464,14 @@ public class JmsTemplate extends JmsDestinationAccessor implements JmsOperations
 			if (logger.isDebugEnabled()) {
 				logger.debug("Executing callback on JMS Session: " + sessionToUse);
 			}
+			// 回调
 			return action.doInJms(sessionToUse);
 		}
 		catch (JMSException ex) {
 			throw convertJmsAccessException(ex);
 		}
 		finally {
+			// 释放session, connection
 			JmsUtils.closeSession(sessionToClose);
 			ConnectionFactoryUtils.releaseConnection(conToClose, getConnectionFactory(), startConnection);
 		}
@@ -576,7 +579,7 @@ public class JmsTemplate extends JmsDestinationAccessor implements JmsOperations
 			}
 		}
 		finally {
-			// 回调后，关闭资源
+			// 回调后，关闭producer
 			JmsUtils.closeMessageProducer(producer);
 		}
 	}
@@ -623,6 +626,7 @@ public class JmsTemplate extends JmsDestinationAccessor implements JmsOperations
 		send(destinationName, new MessageCreator() {
 			// 被回调
 			public Message createMessage(Session session) throws JMSException {
+				// SimpleMessageConverter，String类型会转换为TextMessage
 				return getRequiredMessageConverter().toMessage(message, session);
 			}
 		});

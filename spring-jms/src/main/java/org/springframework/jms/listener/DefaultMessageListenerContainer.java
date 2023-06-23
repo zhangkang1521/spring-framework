@@ -496,6 +496,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 		// Prepare taskExecutor and maxMessagesPerTask.
 		synchronized (this.lifecycleMonitor) {
 			if (this.taskExecutor == null) {
+				// 创建线程池
 				this.taskExecutor = createDefaultTaskExecutor();
 			}
 			else if (this.taskExecutor instanceof SchedulingTaskExecutor &&
@@ -661,7 +662,8 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	private void scheduleNewInvoker() {
 		// 这个invoker实现了Runnable接口，死循环消费消息
 		AsyncMessageListenerInvoker invoker = new AsyncMessageListenerInvoker();
-		if (rescheduleTaskIfNecessary(invoker)) { // 将invoker放入Executor中执行
+		// 将invoker放入Executor中执行
+		if (rescheduleTaskIfNecessary(invoker)) {
 			// This should always be true, since we're only calling this when active.
 			this.scheduledInvokers.add(invoker);
 		}
@@ -1065,10 +1067,12 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 		private boolean executeOngoingLoop() throws JMSException {
 			boolean messageReceived = false;
 			boolean active = true;
+			// 循环调用
 			while (active) {
 				synchronized (lifecycleMonitor) {
 					boolean interrupted = false;
 					boolean wasWaiting = false;
+					// isRunning = true
 					while ((active = isActive()) && !isRunning()) {
 						if (interrupted) {
 							throw new IllegalStateException("Thread was interrupted while waiting for " +
@@ -1095,6 +1099,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 					}
 				}
 				// 调用Listener
+				logger.info("循环调用接收消息");
 				if (active) {
 					messageReceived = (invokeListener() || messageReceived);
 				}
