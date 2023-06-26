@@ -484,6 +484,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 			proxyFactory.setPreFiltered(true);
 		}
 
+		// 创建代理
 		return proxyFactory.getProxy(this.proxyClassLoader);
 	}
 

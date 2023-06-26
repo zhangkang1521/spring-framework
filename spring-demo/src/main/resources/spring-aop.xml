@@ -14,17 +14,6 @@
 
     <bean id="myAspect" class="org.zk.aop.MyAspect"></bean>
 
-    <!-- 引介增强，为类新增方法
-    <bean id="pmonitor" class="org.zk.aop.introduce.IntroductionMonitor" />
-
-    <bean id="targetProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-        <property name="interfaces" value="org.zk.aop.introduce.Monitorable"></property>
-        <property name="target" ref="myTarget"></property>
-        <property name="interceptorNames" value="pmonitor"></property>
-        <property name="proxyTargetClass" value="true"></property>
-    </bean> -->
-
-
 </beans>
 
 

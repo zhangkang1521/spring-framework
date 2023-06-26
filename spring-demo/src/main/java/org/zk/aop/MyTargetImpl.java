@@ -27,7 +27,7 @@ public class MyTargetImpl implements MyTarget {
 //
         log.info("sayHello invoke");
 //        this.sayWorld();
-        ((MyTarget)AopContext.currentProxy()).sayWorld();
+//        ((MyTarget)AopContext.currentProxy()).sayWorld();
 //        System.out.println(Thread.currentThread() + " hello");
 //        try {
 //            Thread.sleep(5000);

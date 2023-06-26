@@ -1,10 +1,12 @@
 package org.zk.tech;
 
+import groovy.util.logging.Slf4j;
 import org.junit.Test;
 import org.springframework.cglib.core.DefaultNamingPolicy;
 import org.springframework.cglib.core.NamingPolicy;
 import org.springframework.cglib.core.Predicate;
 import org.springframework.cglib.proxy.*;
+import org.zk.aop.MyTargetImpl;
 import org.zk.domain.User;
 import org.zk.service.UserService;
 
@@ -16,61 +18,29 @@ import java.lang.reflect.Method;
 public class CglibTest {
 
     @Test
-    public void testCreateBean() {
+    public void testCglib() {
         Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(User.class);
-        enhancer.setCallback(NoOp.INSTANCE);
-
-        User user = (User)enhancer.create();
-        System.out.println(user);
-    }
-
-    @Test
-    public void testInstance2() {
-        Enhancer enhancer = new Enhancer();
-        enhancer.setSuperclass(UserService.class);
-        enhancer.setNamingPolicy(new MyNamePolicy());
-        enhancer.setCallbackFilter(new CallbackFilter());
+        enhancer.setSuperclass(MyTargetImpl.class);
         enhancer.setCallbacks(new Callback[] {
-                new MyMethodInterceptor(),
-                new MyMethodInterceptor2()
+                new MyMethodInterceptor(new MyTargetImpl())
         });
 
-        UserService userService = (UserService)enhancer.create();
-        User user = userService.getNewUser();
-        System.out.println(user);
+        MyTargetImpl proxy = (MyTargetImpl)enhancer.create();
+        proxy.sayHello();
     }
 
     class MyMethodInterceptor implements MethodInterceptor {
 
-        @Override
-        public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-            System.out.println("hello cglib");
-            return new User();
-        }
-    }
+        private MyTargetImpl target;
 
-    class MyMethodInterceptor2 implements MethodInterceptor {
+        public MyMethodInterceptor(MyTargetImpl target) {
+            this.target = target;
+        }
 
         @Override
-        public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-            System.out.println("hello cglib 2");
-            return new User();
-        }
-    }
-
-    class CallbackFilter implements org.springframework.cglib.proxy.CallbackFilter {
-
-        @Override
-        public int accept(Method method) {
-            return 0;
-        }
-    }
-
-    class MyNamePolicy extends DefaultNamingPolicy {
-
-        public String getTag() {
-            return "byZk";
+        public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+            System.out.println("=== cglib before ===");
+            return method.invoke(target, args);
         }
     }
 
