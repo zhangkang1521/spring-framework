@@ -1,4 +1,4 @@
-package org.zk.service;
+package org.zk.cache;
 
 import org.zk.domain.User;
 
@@ -8,11 +8,7 @@ public interface CacheDemoService {
 
 	User findById(Integer id);
 
-	List<User> findByIdIn(List<Integer> userIds);
-
 	User updateById(User user);
 
 	void deleteById(Integer id);
-
-	void deleteAll();
 }

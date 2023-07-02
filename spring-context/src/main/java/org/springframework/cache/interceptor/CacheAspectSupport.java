@@ -195,24 +195,35 @@ public abstract class CacheAspectSupport implements InitializingBean {
 		if (!CollectionUtils.isEmpty(cacheOp)) {
 			Map<String, Collection<CacheOperationContext>> ops = createOperationContext(cacheOp, method, args, target, targetClass);
 			// start with evictions
+			// 可以配置先删除缓存，再执行方法
 			inspectBeforeCacheEvicts(ops.get(EVICT));
 			// follow up with cacheable
+			// 尝试从缓存中获取
 			CacheStatus status = inspectCacheables(ops.get(CACHEABLE));
 			Object retVal;
+			// 有@CacheUpdate注解则放入updates
 			Map<CacheOperationContext, Object> updates = inspectCacheUpdates(ops.get(UPDATE));
+
+			// @Cacheable 逻辑
 			if (status != null) {
-				if (status.updateRequired) { // 需执行真实方法
+				// 第一次执行 需执行真实方法
+				if (status.updateRequired) {
 					updates.putAll(status.cacheUpdates);
 				}
+				// 第二次执行 返回缓存中的数据，不再执行真实方法
 				// return cached object
-				else { // 返回缓存中的数据，不再执行真实方法
+				else {
 					return status.retVal;
 				}
 			}
+
 			// 执行真实的方法
 			retVal = invoker.invoke();
+
+			// 删除缓存
 			inspectAfterCacheEvicts(ops.get(EVICT), retVal);
-			// 更新缓存
+
+			// 更新缓存（@Cacheable @CacheUpdate 两种情况）
 			if (!updates.isEmpty()) {
 				update(updates, retVal);
 			}
@@ -243,6 +254,7 @@ public abstract class CacheAspectSupport implements InitializingBean {
 						for (Cache cache : context.getCaches()) {
 							// cache-wide flush
 							if (evictOp.isCacheWide()) {
+								// 删除所有缓存
 								cache.clear();
 								if (log) {
 									logger.trace("Invalidating entire cache for operation " + evictOp + " on method " + context.method);
@@ -256,6 +268,7 @@ public abstract class CacheAspectSupport implements InitializingBean {
 								if (log) {
 									logger.trace("Invalidating cache key " + key + " for operation " + evictOp + " on method " + context.method);
 								}
+								// 删除缓存
 								cache.evict(key);
 							}
 						}
@@ -294,6 +307,7 @@ public abstract class CacheAspectSupport implements InitializingBean {
 					// check whether the cache needs to be inspected or not (the method will be invoked anyway)
 					if (!cacheHit) {
 						for (Cache cache : context.getCaches()) {
+							// 从缓存中获取
 							Cache.ValueWrapper wrapper = cache.get(key);
 							if (wrapper != null) {
 								retVal = wrapper.get();
@@ -447,10 +461,12 @@ public abstract class CacheAspectSupport implements InitializingBean {
 		 * @return generated key (null if none can be generated)
 		 */
 		protected Object generateKey() {
+			// el表达式
 			if (StringUtils.hasText(this.operation.getKey())) {
 				EvaluationContext evaluationContext = createEvaluationContext(ExpressionEvaluator.NO_RESULT);
 				return evaluator.key(this.operation.getKey(), this.method, evaluationContext);
 			}
+			//
 			return keyGenerator.generate(this.target, this.method, this.args);
 		}
 

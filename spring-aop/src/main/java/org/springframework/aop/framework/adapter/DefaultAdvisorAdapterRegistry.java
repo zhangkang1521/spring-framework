@@ -78,6 +78,7 @@ public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Se
 		List<MethodInterceptor> interceptors = new ArrayList<MethodInterceptor>(3);
 		Advice advice = advisor.getAdvice();
 		// @After是AspectJAfterAdvice实现了MethodInterceptor，直接添加
+		// CacheInterceptor 实现了MethodInterceptor
 		if (advice instanceof MethodInterceptor) {
 			interceptors.add((MethodInterceptor) advice);
 		}

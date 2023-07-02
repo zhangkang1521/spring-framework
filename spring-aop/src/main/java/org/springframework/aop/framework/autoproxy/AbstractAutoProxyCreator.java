@@ -361,7 +361,9 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 		}
 
 		// Create proxy if we have advice.
-		// 获取增强的拦截器 InstantiationModelAwarePointcutAdvisorImpl 包含Advice属性（BeforeAdvice, AfterAdvice）
+		// 获取Advisor
+		// @Aspect切面：InstantiationModelAwarePointcutAdvisorImpl 包含Advice属性（BeforeAdvice, AfterAdvice）
+		// 缓存：BeanFactoryCacheOperationSourceAdvisor 包含：CacheOperationSource CacheInterceptor
 		// 事务：BeanFactoryTransactionAttributeSourceAdvisor 包含：AnnotationTransactionAttributeSource，TransactionInterceptor
 		// 均实现了Advisor接口
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);

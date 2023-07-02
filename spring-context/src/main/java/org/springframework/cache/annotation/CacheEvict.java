@@ -65,6 +65,7 @@ public @interface CacheEvict {
 	boolean allEntries() default false; // 是否清除所有缓存
 
 	/**
+	 * 默认先执行方法再删除缓存，配置为true则先删除缓存，再执行方法
 	 * Whether the eviction should occur after the method is successfully invoked (default)
 	 * or before. The latter causes the eviction to occur irrespective of the method outcome (whether
 	 * it threw an exception or not) while the former does not.
