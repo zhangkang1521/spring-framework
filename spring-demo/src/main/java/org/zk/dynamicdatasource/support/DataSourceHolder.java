@@ -1,6 +1,8 @@
-package org.zk.tx.dynamicdatasource;
+package org.zk.dynamicdatasource.support;
 
-
+/**
+ * 数据源线程绑定
+ */
 public class DataSourceHolder {
 
     private static final ThreadLocal<String> dataSources = new ThreadLocal<String>();

@@ -1,9 +1,11 @@
-package org.zk.tx.dynamicdatasource;
+package org.zk.dynamicdatasource.support;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +14,12 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Order(Integer.MAX_VALUE - 1) // 事务管理器默认优先级为Integer.MAX_VALUE
+@Component
 public class DataSourceAspect {
 
 	private Log log = LogFactory.getLog(DataSourceAspect.class);
 
-    @Pointcut("@annotation(ReadOnlyDataSource)")
+    @Pointcut("@annotation(org.zk.dynamicdatasource.support.ReadOnlyDataSource)")
     private void readOnly(){}
 
 

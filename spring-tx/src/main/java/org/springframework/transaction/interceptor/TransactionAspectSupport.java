@@ -117,6 +117,9 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 
 	private String transactionManagerBeanName;
 
+	/**
+	 * 事务管理器
+	 */
 	private PlatformTransactionManager transactionManager;
 
 	private TransactionAttributeSource transactionAttributeSource;
@@ -332,9 +335,11 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			return BeanFactoryAnnotationUtils.qualifiedBeanOfType(this.beanFactory, PlatformTransactionManager.class, qualifier);
 		}
 		else if (this.transactionManagerBeanName != null) {
+			// xml中可以配置
 			return this.beanFactory.getBean(this.transactionManagerBeanName, PlatformTransactionManager.class);
 		}
 		else {
+			// 未配置，按类型查找
 			return this.beanFactory.getBean(PlatformTransactionManager.class);
 		}
 	}
