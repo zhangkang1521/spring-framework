@@ -78,6 +78,7 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport
 	 * otherwise.
 	 */
 	public Object invoke(final MethodInvocation invocation) throws Throwable {
+		// 异步方法拦截器入库
 		Class<?> targetClass = (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
 		Method specificMethod = ClassUtils.getMostSpecificMethod(invocation.getMethod(), targetClass);
 		specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);

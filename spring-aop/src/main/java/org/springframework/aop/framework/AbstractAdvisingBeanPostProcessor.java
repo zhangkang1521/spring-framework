@@ -37,6 +37,9 @@ import org.springframework.util.ClassUtils;
 public abstract class AbstractAdvisingBeanPostProcessor extends ProxyConfig
 		implements BeanPostProcessor, BeanClassLoaderAware, Ordered {
 
+	/**
+	 * 增强器
+	 */
 	protected Advisor advisor;
 
 	protected boolean beforeExistingAdvisors = false;
