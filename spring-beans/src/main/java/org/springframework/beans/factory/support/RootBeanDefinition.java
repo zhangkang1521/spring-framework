@@ -28,7 +28,7 @@ import org.springframework.beans.factory.config.ConstructorArgumentValues;
 import org.springframework.util.Assert;
 
 /**
- * 注解配置的Bean
+ * spring自己注册的用这个 (xml注册的getBean时会转换到此类)
  * A root bean definition represents the merged bean definition that backs
  * a specific bean in a Spring BeanFactory at runtime. It might have been created
  * from multiple original bean definitions that inherit from each other,

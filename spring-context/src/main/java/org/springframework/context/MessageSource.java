@@ -19,6 +19,7 @@ package org.springframework.context;
 import java.util.Locale;
 
 /**
+ * 国际化支持
  * Strategy interface for resolving messages, with support for the parameterization
  * and internationalization of such messages.
  *

@@ -29,39 +29,39 @@ import java.util.Map;
 //@EnableAsync
 
 // 包扫描
-//@ComponentScan
+@ComponentScan("org.zk.service")
 //@EnableUser("test")
 @Configuration
-@PropertySource("classpath:jdbc.properties")
+//@PropertySource("classpath:jdbc.properties")
 public class DemoConfig {
 
 
 	// 命令参数(getProperties) > 环境变量(getEnv) > properties 文件
-	private String test;
-	private Map<String, String> map;
+//	private String test;
+//	private Map<String, String> map;
 
 //	@Value("${jdbc.username}")
 //	@Value("#{user.username}")
-	public void setTest(String test) {
-		this.test = test;
-	}
+//	public void setTest(String test) {
+//		this.test = test;
+//	}
 
-	public void setMap(Map<String, String> map) {
-		this.map = map;
-	}
+//	public void setMap(Map<String, String> map) {
+//		this.map = map;
+//	}
 
 	// 容器后处理器，处理占位符，PropertyPlaceholderConfigurer不行，这个类不会从environment中读取配置
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
-
-
 //	@Bean
-//	public User user() throws Exception {
-//		User user = new User();
-//		return user;
+//	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+//		return new PropertySourcesPlaceholderConfigurer();
 //	}
+
+
+	@Bean
+	public User user() throws Exception {
+		User user = new User();
+		return user;
+	}
 //
 //
 //	@Bean(name = "order2")

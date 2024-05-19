@@ -22,6 +22,7 @@ import org.springframework.core.type.StandardAnnotationMetadata;
 import org.springframework.util.Assert;
 
 /**
+ * 被@Configuration注解的类用这个，构造方法是Class
  * Extension of the {@link org.springframework.beans.factory.support.GenericBeanDefinition}
  * class, adding support for annotation metadata exposed through the
  * {@link AnnotatedBeanDefinition} interface.

@@ -16,6 +16,8 @@
         <!--</property>-->
     </bean>
 
+    <bean id="beanPostProcessor" class="org.zk.core.MyBeanPostProcessor"></bean>
+
 </beans>
 
 

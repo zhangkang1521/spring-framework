@@ -30,6 +30,7 @@ import org.springframework.core.convert.ConversionService;
 import org.springframework.util.StringValueResolver;
 
 /**
+ * 可配置化，例如可加入BeanPostProcessor
  * Configuration interface to be implemented by most bean factories. Provides
  * facilities to configure a bean factory, in addition to the bean factory
  * client methods in the {@link org.springframework.beans.factory.BeanFactory}
@@ -41,7 +42,7 @@ import org.springframework.util.StringValueResolver;
  * needs. This extended interface is just meant to allow for framework-internal
  * plug'n'play and for special access to bean factory configuration methods.
  *
- * 可配置化，例如可加入BeanPostProcessor
+ *
  *
  * @author Juergen Hoeller
  * @since 03.11.2003

@@ -24,7 +24,7 @@ import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.util.Assert;
 
 /**
- * 自动扫描的BeanDefinition
+ * 自动扫描的BeanDefinition，构造方法是注解信息
  * Extension of the {@link org.springframework.beans.factory.support.GenericBeanDefinition}
  * class, based on an ASM ClassReader, with support for annotation metadata exposed
  * through the {@link AnnotatedBeanDefinition} interface.

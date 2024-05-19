@@ -67,6 +67,14 @@ import org.springframework.util.ClassUtils;
 import static org.springframework.context.annotation.AnnotationConfigUtils.*;
 
 /**
+ * 注解配置重要类，是一个容器注册后处理器
+ * 解析@Configuration注解的类
+ * 注册@Bean方法为BeanDefinition
+ * 解析@ComponentScan进行包扫描
+ * 解析@Import引入配置
+ * 详细参考
+ *  @see ConfigurationClassParser#doProcessConfigurationClass(org.springframework.context.annotation.ConfigurationClass, org.springframework.core.type.AnnotationMetadata)
+ *
  * {@link BeanFactoryPostProcessor} used for bootstrapping processing of
  * {@link Configuration @Configuration} classes.
  *

@@ -17,6 +17,7 @@
 package org.springframework.context;
 
 /**
+ * 事件发布
  * Interface that encapsulates event publication functionality.
  * Serves as super-interface for ApplicationContext.
  *

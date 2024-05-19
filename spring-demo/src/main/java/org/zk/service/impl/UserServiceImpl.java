@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
 	private UserRepo userRepo;
 
 
-	@Autowired
+//	@Autowired
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}

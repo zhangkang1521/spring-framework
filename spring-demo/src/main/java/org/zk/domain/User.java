@@ -17,12 +17,12 @@ import java.util.Map;
 /**
  * Created by Administrator on 5/20/2018.
  */
-public class User implements Serializable {
+public class User extends Parent implements Serializable {
 
 
     private Integer id;
 
-    @NotBlank(message = "用户名不能为空")
+//    @NotBlank(message = "用户名不能为空")
 //    @Value("${M2_HOME}")
     private String username;
 

@@ -6,6 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.zk.config.AppConfig;
+import org.zk.config.DemoConfig;
 import org.zk.domain.User;
 
 import java.util.Locale;
@@ -35,7 +36,7 @@ public class SpringTest {
 
     @Test
     public void testAnnotation() {
-        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(DemoConfig.class);
         ctx.close();
     }
 
