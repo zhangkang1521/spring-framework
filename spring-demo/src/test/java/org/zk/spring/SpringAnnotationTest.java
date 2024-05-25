@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.zk.config.AppConfig;
 import org.zk.config.DemoConfig;
+import org.zk.config.FooConfig;
 import org.zk.domain.User;
 
 
@@ -11,13 +12,21 @@ public class SpringAnnotationTest {
 
 	@Test
 	public void testAnnotationCtx() {
-		// 注解启动Spring，使用 ConfigurationClassPostProcessor 后置处理器注册beanDefinition，
+		// 注解启动Spring，使用 ConfigurationClassPostProcessor 容器注册后处理器注册beanDefinition，
 		// 该类使用AnnotatedBeanDefinitionReader读取BeanDefinition
-		// ConfigurationClassBeanDefinitionReader.ConfigurationClassBeanDefinition 继承自 RootBeanDefinition
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(DemoConfig.class);
 		// Object userService = ctx.getBean("userService");
 //		User user2 = ctx.getBean(User.class);
 //		System.out.println(user.getUsername());
+		for (String beanName : ctx.getBeanDefinitionNames()) {
+			if (beanName.startsWith("org.springframework")) {
+				continue;
+			}
+			System.out.println(beanName + " => " + ctx.getBean(beanName));
+		}
+		FooConfig fooConfig = ctx.getBean(FooConfig.class);
+		System.out.println(fooConfig.user());
+		System.out.println(fooConfig.user());
 		ctx.close();
 	}
 

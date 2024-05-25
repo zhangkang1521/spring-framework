@@ -25,14 +25,12 @@ import java.util.Map;
 // 实现容器注册接口
 //@Import(MyImportBeanDefinitionRegistrar.class)
 
-// 对@Import进行包装，封装底层细节
-//@EnableAsync
+// Enable类注解是对@Import进行包装，封装底层细节
+//@EnableUser("test")
 
 // 包扫描
-@ComponentScan("org.zk.service")
-//@EnableUser("test")
+//@ComponentScan("org.zk.service")
 @Configuration
-//@PropertySource("classpath:jdbc.properties")
 public class DemoConfig {
 
 
@@ -57,11 +55,12 @@ public class DemoConfig {
 //	}
 
 
-	@Bean
-	public User user() throws Exception {
-		User user = new User();
-		return user;
-	}
+//	@Bean
+//	public User user() throws Exception {
+//		User user = new User();
+//		return user;
+//	}
+
 //
 //
 //	@Bean(name = "order2")

@@ -27,6 +27,14 @@ package org.springframework.context.annotation;
  * @see org.springframework.transaction.annotation.EnableTransactionManagement#mode()
  */
 public enum AdviceMode {
+
+	/**
+	 * spring的动态代理（jdk或cglib）
+	 */
 	PROXY,
+
+	/**
+	 * 静态代理，编译阶段生成代理类
+	 */
 	ASPECTJ
 }
