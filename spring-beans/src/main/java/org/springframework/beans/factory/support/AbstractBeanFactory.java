@@ -235,7 +235,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		final String beanName = transformedBeanName(name);
 		Object bean;
 
-		// 单例缓存中获取
+		// 从单例缓存中获取（第一次拿到为空）
 		// Eagerly check singleton cache for manually registered singletons.
 		Object sharedInstance = getSingleton(beanName);
 		if (sharedInstance != null && args == null) {
@@ -280,6 +280,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 			try {
 				// xml存储的是GenericBeanDefinition，这里转换成RootBeanDefinition
+				// @Bean 存储的是ConfigurationClassBeanDefinition(继承自RootBeanDefinition，无需转换)
+				// @ComponentScan 存储的是ScannedGenericBeanDefinition 转换成RootBeanDefinition
 				final RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
 				checkMergedBeanDefinition(mbd, beanName, args);
 
@@ -294,7 +296,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				}
 
 				// Create bean instance.
+				// 创建单例bean
 				if (mbd.isSingleton()) {
+					// 单例bean创建，getSingleton循环依赖解决
 					sharedInstance = getSingleton(beanName, new ObjectFactory<Object>() {
 						public Object getObject() throws BeansException {
 							try {
@@ -310,10 +314,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 							}
 						}
 					});
-					// sharedInstance可能是实例，也可能是FactoryBean，下面的方法会
+					// sharedInstance如果是普通对象会直接返回，如果是FactoryBean会调用getObject方法
 					bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
 				}
 
+				// 创建多例bean
 				else if (mbd.isPrototype()) {
 					// It's a prototype -> create a new instance.
 					Object prototypeInstance = null;
@@ -327,6 +332,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					bean = getObjectForBeanInstance(prototypeInstance, name, beanName, mbd);
 				}
 
+				// 其他scope，例如RequestScope，SessionScope
 				else {
 					String scopeName = mbd.getScope();
 					final Scope scope = this.scopes.get(scopeName);
@@ -924,6 +930,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			return ((ConfigurableBeanFactory) getParentBeanFactory()).isFactoryBean(name);
 		}
 
+		// @Bean new User() 方式创建的bean虽然有factoryMethod，但是不属于FactoryBean
 		return isFactoryBean(beanName, getMergedLocalBeanDefinition(beanName));
 	}
 
@@ -1487,7 +1494,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				mbd = getMergedLocalBeanDefinition(beanName);
 			}
 			boolean synthetic = (mbd != null && mbd.isSynthetic());
-			object = getObjectFromFactoryBean(factory, beanName, !synthetic); // 调用getObject返回实例
+			// 调用getObject返回实例
+			object = getObjectFromFactoryBean(factory, beanName, !synthetic);
 		}
 		return object;
 	}

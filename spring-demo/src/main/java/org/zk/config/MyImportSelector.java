@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.zk.config.FooConfig;
 
 /**
- * TransactionManagementConfigurationSelector 会根据注解配置选择spring动态代理或ASPECTJ静态大力
+ * TransactionManagementConfigurationSelector 会根据注解配置选择spring动态代理或ASPECTJ静态代理
  * spring-boot的AutoConfigurationImportSelector 扫描所有spring.factories查找自动配置类
  */
 public class MyImportSelector implements ImportSelector {

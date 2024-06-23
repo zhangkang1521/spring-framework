@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.Lifecycle;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.Map;
@@ -34,6 +36,11 @@ public class User extends Parent implements Serializable {
 
     public User() {
        // System.out.println("invoke user()");
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("PostConstruct");
     }
 
     public User(String username) {
@@ -72,4 +79,6 @@ public class User extends Parent implements Serializable {
     public void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
     }
+
+
 }

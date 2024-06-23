@@ -458,7 +458,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			prepareRefresh();
 
 			// Tell the subclass to refresh the internal bean factory.
-			// 1.重要 创建BeanFactory, loadBeanDefinition
+			// 1.重要 创建BeanFactory, loadBeanDefinition(xml)
 			// 返回的是DefaultListableBeanFactory
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
@@ -503,6 +503,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				finishBeanFactoryInitialization(beanFactory);
 
 				// Last step: publish corresponding event.
+				// 发布容器已刷新事件
 				finishRefresh();
 			}
 
@@ -540,10 +541,12 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		}
 
 		// Initialize any placeholder property sources in the context environment
+		// 初始化属性配置
 		initPropertySources();
 
 		// Validate that all properties marked as required are resolvable
 		// see ConfigurablePropertyResolver#setRequiredProperties
+		// 校验属性
 		getEnvironment().validateRequiredProperties();
 	}
 
@@ -586,12 +589,14 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// spel表达式支持
 		beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver());
 		// 这里先放入一个propertyEditorRegistrar，initBeanWrapper时会调用Registrar的注册方法
+		// PropertyEditor是java定义相关规范，spring3.0新增ConversionService进行对象转换
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
 		// Configure the bean factory with context callbacks.
 		// 添加后置处理器 6个Aware处理
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
 
+		// 自动依赖注入时不再需要注入这些类，因为ApplicationContextAwareProcessor已经处理了
 		beanFactory.ignoreDependencyInterface(EnvironmentAware.class);
 		beanFactory.ignoreDependencyInterface(EmbeddedValueResolverAware.class);
 		beanFactory.ignoreDependencyInterface(ResourceLoaderAware.class);
@@ -664,7 +669,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 					regularPostProcessors.add(postProcessor);
 				}
 			}
-			// 配置的容器注册后处理器
+
+			// 配置的容器注册后处理器(如 ConfigurationClassPostProcessor)
 			Map<String, BeanDefinitionRegistryPostProcessor> beanMap =
 					beanFactory.getBeansOfType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			List<BeanDefinitionRegistryPostProcessor> registryPostProcessorBeans =
@@ -685,9 +691,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			invokeBeanFactoryPostProcessors(getBeanFactoryPostProcessors(), beanFactory);
 		}
 
+		// 配置的容器后处理器(按PriorityOrdered，Ordered，none分别执行)
+
 		// Do not initialize FactoryBeans here: We need to leave all regular beans
 		// uninitialized to let the bean factory post-processors apply to them!
-		// 配置的容器后处理器
 		String[] postProcessorNames =
 				beanFactory.getBeanNamesForType(BeanFactoryPostProcessor.class, true, false);
 
@@ -750,6 +757,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 */
 	protected void registerBeanPostProcessors(ConfigurableListableBeanFactory beanFactory) {
 		// 这里找出所有后置处理器
+		// AnnotatedBeanDefinitionReader 会使用AnnotationConfigUtils注入
+		// ConfigurationClassPostProcessor,
 		String[] postProcessorNames = beanFactory.getBeanNamesForType(BeanPostProcessor.class, true, false);
 
 		// Register BeanPostProcessorChecker that logs an info message when
@@ -902,6 +911,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 			}
 		}
 		else {
+			// 使用默认的 DefaultLifecycleProcessor
 			DefaultLifecycleProcessor defaultProcessor = new DefaultLifecycleProcessor();
 			defaultProcessor.setBeanFactory(beanFactory);
 			this.lifecycleProcessor = defaultProcessor;

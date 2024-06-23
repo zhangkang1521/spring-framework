@@ -17,6 +17,7 @@
 package org.springframework.context;
 
 /**
+ * 容器刷新前被调用，通常向spring中注入配置，例如apollo
  * Callback interface for initializing a Spring {@link ConfigurableApplicationContext}
  * prior to being {@linkplain ConfigurableApplicationContext#refresh() refreshed}.
  *

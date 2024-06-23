@@ -37,6 +37,14 @@ public class SpringTest {
     @Test
     public void testAnnotation() {
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(DemoConfig.class);
+//        ctx.start();
+//        ctx.stop();
+        ctx.close();
+    }
+
+    @Test
+    public void circle() {
+        AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext("org.zk.circle");
         ctx.close();
     }
 

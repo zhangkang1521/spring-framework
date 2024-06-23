@@ -74,6 +74,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		this();
 		// 注册启动配置类
 		register(annotatedClasses);
+		// 容器刷新
 		refresh();
 	}
 

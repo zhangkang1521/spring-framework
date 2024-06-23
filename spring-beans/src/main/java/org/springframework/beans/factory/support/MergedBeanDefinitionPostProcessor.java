@@ -39,6 +39,7 @@ public interface MergedBeanDefinitionPostProcessor extends BeanPostProcessor {
 
 	/**
 	 * Autowird查找需要赋值的对象，后续根据这些标记赋值
+	 * @PreDestroy @PostConstruct @Resource 类似
 	 * Post-process the given merged bean definition for the specified bean.
 	 * @param beanDefinition the merged bean definition for the bean
 	 * @param beanType the actual type of the managed bean instance

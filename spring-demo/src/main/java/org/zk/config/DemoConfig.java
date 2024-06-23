@@ -1,16 +1,8 @@
 package org.zk.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.zk.annotation.EnableUser;
-import org.zk.core.UserFactoryBean;
-import org.zk.domain.Order;
 import org.zk.domain.User;
-
-import java.util.Map;
+import org.zk.service.MyLifeCycleDemo;
 
 // 引入properties配置文件，放入environment中
 //@PropertySource("classpath:jdbc.properties")
@@ -29,9 +21,60 @@ import java.util.Map;
 //@EnableUser("test")
 
 // 包扫描
-//@ComponentScan("org.zk.service")
+@ComponentScan("org.zk.service")
 @Configuration
 public class DemoConfig {
+
+    // 指定name+type，则按name+type去查找唯一匹配的bean，找不到，找到多个都报错
+    // @Resource(type = User.class, name = "user22")
+
+    // 按type去查找，找不到或找到多个，会报错
+    // @Resource(type = User.class)
+
+    // 按name去查询
+    // @Resource(name = "user1")
+
+    // 都不指定，按默认属性名查找，如果找不到，就按类型找（与Autowired区别）
+//    @Resource
+//    private User user3;
+
+//    @Bean
+//	public User user() throws Exception {
+//		User user = new User();
+//		user.setId(1);
+//		return user;
+//	}
+
+
+
+
+//	@Bean
+//	public FactoryBean<User> user2() {
+//    	return new FactoryBean<User>() {
+//
+//			@Override
+//			public User getObject() throws Exception {
+//				return new User();
+//			}
+//
+//			@Override
+//			public Class<?> getObjectType() {
+//				return User.class;
+//			}
+//
+//			@Override
+//			public boolean isSingleton() {
+//				return true;
+//			}
+//		};
+//	}
+
+//    @Bean
+//    public User user2() throws Exception {
+//        User user = new User();
+//        user.setId(2);
+//        return user;
+//    }
 
 
 	// 命令参数(getProperties) > 环境变量(getEnv) > properties 文件
@@ -55,11 +98,7 @@ public class DemoConfig {
 //	}
 
 
-//	@Bean
-//	public User user() throws Exception {
-//		User user = new User();
-//		return user;
-//	}
+
 
 //
 //

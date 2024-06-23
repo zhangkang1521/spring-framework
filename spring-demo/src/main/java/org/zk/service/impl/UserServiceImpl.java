@@ -15,7 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
-@Service
+//@Service
 //@Profile("dev")
 public class UserServiceImpl implements UserService {
 

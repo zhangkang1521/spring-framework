@@ -34,6 +34,7 @@ import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.util.ReflectionUtils;
 
 /**
+ * 依赖注入属性收集
  * Internal class for managing injection metadata.
  * Not intended for direct use in applications.
  *

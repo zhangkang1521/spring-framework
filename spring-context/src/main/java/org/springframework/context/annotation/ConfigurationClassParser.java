@@ -177,7 +177,7 @@ class ConfigurationClassParser {
 		processMemberClasses(metadata);
 
 		// Process any @PropertySource annotations
-		// 引入配置文件，将配置文件加载到 ResourcePropertySource
+		// 引入配置文件，将properties文件加载到 ResourcePropertySource environment中
 		AnnotationAttributes propertySource = MetadataUtils.attributesFor(metadata,
 				org.springframework.context.annotation.PropertySource.class);
 		if (propertySource != null) {
@@ -202,9 +202,9 @@ class ConfigurationClassParser {
 
 		// Process any @Import annotations
 		// @Import 3种方式
-		// 1：引入java配置
-		// 2：实现ImportSelector接口，返回java配置类名
-		// 3：实现ImportBeanDefinitionRegistrar接口，直接注入bean
+		// 1：引入java配置（被@Configuration标记的配置类）
+		// 2：实现ImportSelector接口，返回java配置类名（spring-boot自动配置原理）
+		// 3：实现ImportBeanDefinitionRegistrar接口，直接注入bean（应用场景：AspectJAutoProxyRegistrar）
 		Set<Object> imports = new LinkedHashSet<Object>();
 		Set<String> visited = new LinkedHashSet<String>();
 		collectImports(metadata, imports, visited);

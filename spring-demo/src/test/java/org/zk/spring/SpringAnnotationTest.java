@@ -2,6 +2,7 @@ package org.zk.spring;
 
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.context.support.GenericWebApplicationContext;
 import org.zk.config.AppConfig;
 import org.zk.config.DemoConfig;
 import org.zk.config.FooConfig;
@@ -24,11 +25,10 @@ public class SpringAnnotationTest {
 			}
 			System.out.println(beanName + " => " + ctx.getBean(beanName));
 		}
-		FooConfig fooConfig = ctx.getBean(FooConfig.class);
-		System.out.println(fooConfig.user());
-		System.out.println(fooConfig.user());
 		ctx.close();
 	}
+
+
 
 	@Test
 	public void testEnv() {

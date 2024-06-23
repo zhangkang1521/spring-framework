@@ -67,6 +67,10 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
+ * 处理JSR-250规范的注解
+ * @Resource
+ * @PreConstruct
+ * @PreDestroy
  * {@link org.springframework.beans.factory.config.BeanPostProcessor} implementation
  * that supports common Java annotations out of the box, in particular the JSR-250
  * annotations in the {@code javax.annotation} package. These common Java
@@ -282,7 +286,9 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
+		// 父类解析@PostConstruct @PreDestroy标注的方法
 		super.postProcessMergedBeanDefinition(beanDefinition, beanType, beanName);
+		// 解析@Resource方法
 		if (beanType != null) {
 			InjectionMetadata metadata = findResourceMetadata(beanName, beanType, null);
 			metadata.checkConfigMembers(beanDefinition);
@@ -440,9 +446,12 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 		Set<String> autowiredBeanNames;
 		String name = element.name;
 
+		//
 		// @Resource没有指定name && 容器中没有名称匹配的bean，则按类型查找
-		if (this.fallbackToDefaultTypeMatch && element.isDefaultName &&
-				factory instanceof AutowireCapableBeanFactory && !factory.containsBean(name)) {
+		if (this.fallbackToDefaultTypeMatch
+				&& element.isDefaultName &&
+				factory instanceof AutowireCapableBeanFactory
+				&& !factory.containsBean(name)) {
 			autowiredBeanNames = new LinkedHashSet<String>();
 			resource = ((AutowireCapableBeanFactory) factory).resolveDependency(
 					element.getDependencyDescriptor(), requestingBeanName, autowiredBeanNames, null);

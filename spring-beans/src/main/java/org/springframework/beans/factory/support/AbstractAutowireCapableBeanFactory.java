@@ -504,8 +504,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		final Object bean = (instanceWrapper != null ? instanceWrapper.getWrappedInstance() : null);
 		Class<?> beanType = (instanceWrapper != null ? instanceWrapper.getWrappedClass() : null);
 
+		// 属性赋值前注解信息收集
 		// Allow post-processors to modify the merged bean definition.
 		// 例如CommonAnnotationBeanPostProcessor查找@PostConstruct @PreDestroy的方法并记录，方便后面调用
+		// @Autowired类似
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {
 				applyMergedBeanDefinitionPostProcessors(mbd, beanType, beanName);
@@ -522,6 +524,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				logger.debug("Eagerly caching bean '" + beanName +
 						"' to allow for resolving potential circular references");
 			}
+			// 放入三级缓存
 			addSingletonFactory(beanName, new ObjectFactory<Object>() {
 				public Object getObject() throws BeansException {
 					return getEarlyBeanReference(beanName, mbd, bean);
@@ -1543,7 +1546,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			invokeAwareMethods(beanName, bean);
 		}
 
-		// 前置处理
+		// 前置处理（比如 @PostConstruct注解的方法）
 		Object wrappedBean = bean;
 		if (mbd == null || !mbd.isSynthetic()) {
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
@@ -1559,7 +1562,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 					beanName, "Invocation of init method failed", ex);
 		}
 
-		// 后置处理
+		// 后置处理（代理）
 		if (mbd == null || !mbd.isSynthetic()) {
 			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
 		}

@@ -72,8 +72,10 @@ import static org.springframework.context.annotation.AnnotationConfigUtils.*;
  * 注册@Bean方法为BeanDefinition
  * 解析@ComponentScan进行包扫描
  * 解析@Import引入配置
- * 详细参考
- *  @see ConfigurationClassParser#doProcessConfigurationClass(org.springframework.context.annotation.ConfigurationClass, org.springframework.core.type.AnnotationMetadata)
+ * 解析@PropertySouce，将properties文件解析到environment中
+ * 解析@ImportResource，引入xml配置文件
+ *
+ *  详细参考 @see ConfigurationClassParser#doProcessConfigurationClass(org.springframework.context.annotation.ConfigurationClass, org.springframework.core.type.AnnotationMetadata)
  *
  * {@link BeanFactoryPostProcessor} used for bootstrapping processing of
  * {@link Configuration @Configuration} classes.
