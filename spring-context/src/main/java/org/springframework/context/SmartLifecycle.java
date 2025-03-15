@@ -17,6 +17,8 @@
 package org.springframework.context;
 
 /**
+ * 实际应用场景spring-boot，内嵌tomcat优雅停机
+ * 参考spring-boot 2.3.0之后WebServerGracefulShutdownLifecycle
  * An extension of the {@link Lifecycle} interface for those objects that require to
  * be started upon ApplicationContext refresh and/or shutdown in a particular order.
  * The {@link #isAutoStartup()} return value indicates whether this object should

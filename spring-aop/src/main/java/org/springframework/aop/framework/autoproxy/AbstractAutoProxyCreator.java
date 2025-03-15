@@ -261,6 +261,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyConfig
 	}
 
 	public Object getEarlyBeanReference(Object bean, String beanName) throws BeansException {
+		// 循环依赖情况，提前暴露代理对象，替代原始对象
 		Object cacheKey = getCacheKey(bean.getClass(), beanName);
 		if (!this.earlyProxyReferences.containsKey(cacheKey)) {
 			this.earlyProxyReferences.put(cacheKey, Boolean.TRUE);

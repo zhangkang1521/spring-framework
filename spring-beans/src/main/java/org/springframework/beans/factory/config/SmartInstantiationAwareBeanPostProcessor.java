@@ -56,6 +56,7 @@ public interface SmartInstantiationAwareBeanPostProcessor extends InstantiationA
 	Constructor<?>[] determineCandidateConstructors(Class<?> beanClass, String beanName) throws BeansException;
 
 	/**
+	 * 解决循环依赖，代理对象问题
 	 * Obtain a reference for early access to the specified bean,
 	 * typically for the purpose of resolving a circular reference.
 	 * <p>This callback gives post-processors a chance to expose a wrapper

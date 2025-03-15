@@ -24,9 +24,7 @@ public class MySmartLifeCycleDemo implements SmartLifecycle {
 
     @Override
     public void stop() {
-        // 不会被框架调用，自己调用的
-        System.out.println("stop");
-        running = false;
+
     }
 
     @Override
@@ -47,7 +45,7 @@ public class MySmartLifeCycleDemo implements SmartLifecycle {
 
     @Override
     public void stop(Runnable callback) {
-        stop();
+        this.running = false;
         callback.run();
     }
 }

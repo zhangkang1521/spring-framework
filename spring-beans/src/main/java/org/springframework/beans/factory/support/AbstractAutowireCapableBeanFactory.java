@@ -794,6 +794,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof SmartInstantiationAwareBeanPostProcessor) {
 					SmartInstantiationAwareBeanPostProcessor ibp = (SmartInstantiationAwareBeanPostProcessor) bp;
+					// 提前暴露代理对象
 					exposedObject = ibp.getEarlyBeanReference(exposedObject, beanName);
 					if (exposedObject == null) {
 						return null;
